@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Bootstrap Template</title>
-
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS goes here -->
     <link href="css/main.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/MyBuild.css">
 </head>
 
 <body>
@@ -20,31 +20,31 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation
+                    <span class="sr-only">Toggle navigation
             </span>
-            <span class="icon-bar">
+                    <span class="icon-bar">
             </span>
-            <span class="icon-bar">
+                    <span class="icon-bar">
             </span>
-            <span class="icon-bar">
+                    <span class="icon-bar">
             </span>
-          </button>
+                </button>
             </div>
             <div class="btn-toolbar navbar-left" role="toolbar">
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-default navbar-btn navbar-btn-left">
-                Bike Part Picker
-              </button>
+                        Bike Part Picker
+                    </button>
                 </div>
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-default navbar-btn navbar-btn-left">
-                New Build
-              </button>
+                        New Build
+                    </button>
                 </div>
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-default navbar-btn navbar-btn-left">
-                Other Builds
-              </button>
+                        Other Builds
+                    </button>
                 </div>
                 <p class="navbar-text">
                     Home
@@ -65,20 +65,65 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-8">
-            <div class="panel panel-default">
-                <div class="panel-left">
-                    Here are some words
-                </div>
-                <div class="panel-right">
-                    Here are some more words
+    <div class="container mainBuildTable">
+        <div class="jumbotron">
+            <table class="table table-striped">
+                <caption>My Current Build</caption>
+                <thead>
+                    <tr>
+                        <th>Part Type</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Rear Derailleur</th>
+                        <td>Shimano</td>
+                        <td>XTR-RD-M9000 11 Speed SGS</td>
+                        <td><a href="http://www.jensonusa.com/Shimano-XTR-RD-M9000-11S-Rear-Derailleur">$159.99 - JensonUSA</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Cassette</th>
+                        <td>SRAM</td>
+                        <td>XG-1180 X1 11 Speed Cassette</td>
+                        <td><a href="http://www.jensonusa.com/SRAM-XG-1180-X1-11-Speed-Cassette">$254.99 - JensonUSA</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Brakes</th>
+                        <td>Shimano</td>
+                        <td>XT-M8000 Hydraulic Disc Brake</td>
+                        <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Fork</th>
+                        <td>FOX</td>
+                        <td>32 FLOAT 100 CTD EVO 26" FORK 2015</td>
+                        <td><a href="http://www.jensonusa.com/Fox-32-Float-100-CTD-Evo-26-Fork-2015">$299.99 - JensonUSA</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><a href="javascript:void();">Add another part</a></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-left">
+                        Here are some words
+                    </div>
+                    <div class="panel-right">
+                        Here are some more words
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-2">
+            <div class="col-md-2">
+            </div> -->
         </div>
     </div>
     <footer class="footer">
