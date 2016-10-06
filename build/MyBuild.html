@@ -17,10 +17,10 @@
 <body>
     <!-- Custom HTML goes here -->
     <nav class="navbar navbar-fixed-top navbar-default">
-       <div class="container">
-           <!--boilerplate for mobile compat -->
-           <div class="navbar-header">
-               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <div class="container navbar-inner">
+            <!--boilerplate for mobile compat -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                    <span class="sr-only">Toggle navigation
                    </span>
                    <span class="icon-bar">
@@ -30,44 +30,45 @@
                    <span class="icon-bar">
                    </span>
                </button>
-           </div>
-           <div class="btn-toolbar navbar-left" role="toolbar">
-               <row>
-                   <div class="col-xs-11 btn-toolbar">
-                       <div class="btn-group" role="group">
-                           <button type="button" class="btn btn-info navbar-btn navbar-btn-left">
+            </div>
+            <div class="btn-toolbar navbar-left" role="toolbar">
+                <div class="btn-toolbar">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-info navbar-btn navbar-btn-left">
                                Bike Part Picker
                            </button>
-                           <button type="button" class="btn btn-danger navbar-btn navbar-btn-left">
+                        <button type="button" class="btn btn-danger navbar-btn navbar-btn-left">
                                New Build
                            </button>
-                           <button type="button" class="btn btn-warning navbar-btn navbar-btn-left">
+                        <button type="button" class="btn btn-warning navbar-btn navbar-btn-left">
                                Other Builds
                            </button>
-                       </div>
-                   </div>
-                   <div class="col-xs-1 btn-group" role="group">
-                       <button type="button" class="btn btn-success navbar-btn navbar-btn-left" disabled>
-                           MyBuild
-                       </button>
-                   </div>
-               </row>
-           </div>
-           <div class="navbar-right" role="toolbar">
-               <ul class="nav navbar-nav navbar-right pull-right" style="color:black;">
-                   <li class="dropdown pull-right">
-                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-                       <ul class="dropdown-menu">
-                           <li><a href="#">My Account</a></li>
-                           <li><a href="#">My Builds</a></li>
-                           <li role="separator" class="divider"></li>
-                           <li><a href="#">Logout</a></li>
-                       </ul>
-                   </li>
-               </ul>
-           </div>
-       </div>
-   </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="nav nav-center" role="group">
+                <button type="button" class="btn btn-success navbar-btn" disabled>
+                 Current Page: Home
+               </button>
+            </div>
+            <div class="navbar-right" role="toolbar">
+                <ul class="nav navbar-nav navbar-right account-name pull-left">
+                    <a href="#" class="account-name-toggle">Account Name</a>
+                </ul>
+                <ul class="nav navbar-nav navbar-right pull-right" style="color:black;">
+                    <li class="dropdown pull-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">My Builds</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container mainBuildTable">
         <div class="jumbotron">
             <table class="table table-striped">
@@ -131,7 +132,17 @@
     </div>
     <footer class="footer">
         <div class="container">
-            <p class="text-muted">&copy; Bike Part Picker 2016 </p>
+            <div class="container">
+                <p class="text-muted pull-right">
+                    &copy; 2016 Bike Part Picker
+                </p>
+                <p class="text-muted pull-left">
+                    Designed by Group Apple
+                </p>
+                <p class="text-muted" style="text-align: center;">
+                    Note: Bike assembly not included
+                </p>
+            </div>
         </div>
     </footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
