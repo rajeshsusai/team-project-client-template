@@ -1,4 +1,5 @@
 .footer {
+<<<<<<< HEAD
    position: absolute;
    bottom: 0;
    width: 100%;
@@ -15,4 +16,32 @@ body {
   background-image: url("../img/bike.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
+=======
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 20px;
+    background-color: #f5f5f5;
+>>>>>>> e4faf965e29fcf14e25b58c391f7491fc9eb04bc
+}
+
+body > .container {
+	padding-top: 60px;
+}
+
+html,body{
+    height: 100%
+}
+
+.navbar-inner{
+    text-align:center;
+}
+
+.nav.nav-center {
+    display: inline-block;
+    left: 0;
+    right: 0;
+    margin:0;
+    margin-left: -250px;
+    float:none;
 }

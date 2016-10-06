@@ -1,0 +1,14 @@
+body{
+	background-image: url("../img/discBrake.jpg");
+	/*background-position: center;*/
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.mainBuildTable{
+	margin-top: 120px;
+}
+.jumbotron{
+	background-color: #fff;
+	opacity: .9;
+	box-shadow: 0px 5px 15px #000000;
+}
