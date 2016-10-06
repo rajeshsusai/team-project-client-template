@@ -1,24 +1,10 @@
 .footer {
-   position: absolute;
-   bottom: 0;
-   width: 100%;
-   height: 60px;
-   background-color: #43857C;
-   padding: 30px;
-   padding-top: 35px;
-   padding-bottom: 10px;
-   padding-right: 50px;
-}
-
-body {
-  background-image: url("../img/bike.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
     position: fixed;
     bottom: 0;
     width: 100%;
     height: 20px;
     background-color: #43857C;
+    padding-right: 50px;
 }
 
 footer p {
@@ -34,7 +20,14 @@ footer p {
 }
 
 body {
-	background-color: #2D4671;
+  background-image: url("../img/bike.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  background-color: #2D4671;
 }
 
 body > .container {
