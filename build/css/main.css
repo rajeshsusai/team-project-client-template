@@ -51,7 +51,17 @@ nav div.nav-center > button {
     display: inline-block;
     left: 0;
     right: 0;
-    margin:0;
-    margin-left: -250px;
+    margin: 0;
+    margin-left: -50px;
     float:none;
+}
+
+.account-name {
+  margin: 0px;
+  margin-right: 130px;
+  padding: 15px;
+}
+
+.account-name-toggle {
+  color: #9AD58E !important;
 }
