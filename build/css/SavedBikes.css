@@ -17,11 +17,36 @@ body{
 
 .savedBuildTable{
 	margin-top: 120px;
+	margin-right: 50px;
 	overflow-y: auto;
 	max-height: 600px;
+	float: right;
+	width: 63%;
 }
 
 .jumbotron{
 	opacity: .9;
 	box-shadow: 0px 5px 15px #000000;
+}
+
+.carousel-inner > .item > img,
+ .carousel-inner > .item > a > img {
+      width: 70%;
+      margin: auto;
+  }
+ #popularBikes{
+	margin-top: 120px;
+	max-height: 600px;
+	width: 30%;
+	float: right;
+}
+
+.title{
+	color: #ffffff; 
+	font-family: 'Raleway',sans-serif;
+	font-size: 30px; 
+	font-weight: 800; 
+	line-height: 55px; 
+	margin: 0 0 24px; 
+	text-align: center;
 }
