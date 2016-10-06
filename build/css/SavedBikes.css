@@ -1,0 +1,23 @@
+body{
+	background-image: url("../img/SavedBuildPic.jpg");
+    background-size: cover;
+	background-repeat: no-repeat;
+	overflow-x: hidden;
+	margin: 0 auto -60px;
+}
+
+.savedBuildTable{
+	margin-top: 120px;
+	overflow-y: auto;
+	max-height: 600px;
+}
+
+.jumbotron{
+	opacity: .9;
+	box-shadow: 0px 5px 15px #000000;
+}
+
+.table-scroll{
+	margin: 0;
+	padding: 0;
+}

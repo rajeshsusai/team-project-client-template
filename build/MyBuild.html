@@ -17,54 +17,57 @@
 <body>
     <!-- Custom HTML goes here -->
     <nav class="navbar navbar-fixed-top navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation
-            </span>
-                    <span class="icon-bar">
-            </span>
-                    <span class="icon-bar">
-            </span>
-                    <span class="icon-bar">
-            </span>
-                </button>
-            </div>
-            <div class="btn-toolbar navbar-left" role="toolbar">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default navbar-btn navbar-btn-left">
-                        Bike Part Picker
-                    </button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default navbar-btn navbar-btn-left">
-                        New Build
-                    </button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default navbar-btn navbar-btn-left">
-                        Other Builds
-                    </button>
-                </div>
-                <p class="navbar-text">
-                    Home
-                </p>
-            </div>
-            <div class="navbar-right" role="toolbar">
-                <ul class="nav navbar-nav navbar-right pull-right">
-                    <li class="dropdown pull-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">My Builds</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+       <div class="container">
+           <!--boilerplate for mobile compat -->
+           <div class="navbar-header">
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                   <span class="sr-only">Toggle navigation
+                   </span>
+                   <span class="icon-bar">
+                   </span>
+                   <span class="icon-bar">
+                   </span>
+                   <span class="icon-bar">
+                   </span>
+               </button>
+           </div>
+           <div class="btn-toolbar navbar-left" role="toolbar">
+               <row>
+                   <div class="col-xs-11 btn-toolbar">
+                       <div class="btn-group" role="group">
+                           <button type="button" class="btn btn-info navbar-btn navbar-btn-left">
+                               Bike Part Picker
+                           </button>
+                           <button type="button" class="btn btn-danger navbar-btn navbar-btn-left">
+                               New Build
+                           </button>
+                           <button type="button" class="btn btn-warning navbar-btn navbar-btn-left">
+                               Other Builds
+                           </button>
+                       </div>
+                   </div>
+                   <div class="col-xs-1 btn-group" role="group">
+                       <button type="button" class="btn btn-success navbar-btn navbar-btn-left" disabled>
+                           MyBuild
+                       </button>
+                   </div>
+               </row>
+           </div>
+           <div class="navbar-right" role="toolbar">
+               <ul class="nav navbar-nav navbar-right pull-right" style="color:black;">
+                   <li class="dropdown pull-right">
+                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+                       <ul class="dropdown-menu">
+                           <li><a href="#">My Account</a></li>
+                           <li><a href="#">My Builds</a></li>
+                           <li role="separator" class="divider"></li>
+                           <li><a href="#">Logout</a></li>
+                       </ul>
+                   </li>
+               </ul>
+           </div>
+       </div>
+   </nav>
     <div class="container mainBuildTable">
         <div class="jumbotron">
             <table class="table table-striped">
