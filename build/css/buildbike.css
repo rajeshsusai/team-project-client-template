@@ -9,7 +9,7 @@
     border: black;
     width:  200px;
     height:  200px;
-    outline: 1px solid blue;
+    outline: 2px solid #408E2F;
     padding:  0px 0px;
 
 }
@@ -40,7 +40,9 @@
 	width: 200px;
 	display: inline-block;
 	height:  200px;
-	color: red;
+	color: #9AD58E;
+    font-weight: bold;
+    posi
 }
 
 /* Styles for button images end */
