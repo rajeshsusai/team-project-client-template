@@ -34,6 +34,11 @@ html,body{
     text-align:center;
 }
 
+nav div.nav-center > button {
+	color: white !important;
+	background-color: #051838;
+}
+
 .nav.nav-center {
     display: inline-block;
     left: 0;
