@@ -18,3 +18,11 @@
 	right: 360px;
 
 }
+
+body{
+	background-image: url("../img/SavedBuildPic.jpg");
+    background-size: cover;
+	background-repeat: no-repeat;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
