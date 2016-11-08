@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
 /*
 The component for the footer.
 */
@@ -22,7 +21,3 @@ export default class Footer extends React.Component{
     );
   }
 }
-  ReactDOM.render(
-    <Footer />,
-    document.getElementId("Footer")
-  );

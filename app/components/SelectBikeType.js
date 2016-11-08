@@ -1,8 +1,7 @@
 import React from 'react';
 import { BikeType } from '../util.js';
-
-//import NavBar from './navbar'
-//import Footer from './footer'
+// import NavBar from './navbar'
+// import Footer from './footer'
 /*
 The component representing bike type selection
 */
