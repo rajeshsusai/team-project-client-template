@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './components/Home';
+
 import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 
 class HomePage extends React.Component {
