@@ -21,11 +21,9 @@
 
     var mountain_suffix_print = BikeEnum.MOUNTAIN.isp;
 */
-export function getBikeTypeEnum() {
-  return Object.freeze ({
+export const BikeType = Object.freeze({
     MOUNTAIN: { pp: "MOUNTAIN BIKE", isp: "mtn" },
     TRAIL: { pp: "TRAIL BIKE", isp: "trail" },
     WINTER: { pp: "WINTER BIKE", isp: "winter" },
     CITY: { pp: "CITY BIKE", isp: "city" }
-  });
-}
+});

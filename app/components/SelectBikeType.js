@@ -1,7 +1,5 @@
 import React from 'react';
-import { getBikeTypeEnum } from '../util.js'
-
-var BikeType = getBikeTypeEnum();
+import { BikeType } from '../util.js';
 
 //import NavBar from './navbar'
 //import Footer from './footer'
