@@ -1,5 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Home from './components/Home';
+
+class HomePage extends React.Component {
+  render() {
+    return (
+      <Home />
+    );
+  }
+}
 
 class NavBar extends React.Component {
   render() {
@@ -7,5 +16,5 @@ class NavBar extends React.Component {
   }
 }
 
-ReactDOM.render(<NavBar />
-),document.getElementById('bikePage');
+ReactDOM.render(<HomePage />
+),document.getElementById('root');

@@ -20,9 +20,12 @@ footer p {
 }
 
 body {
-  background-image: url("../img/bike.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-color: black;
+    background: url("../img/bike.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -30,7 +33,7 @@ body {
   background-color: #2D4671;
 }
 
-body > .container {
+body .container {
 	padding-top: 60px;
 }
 
