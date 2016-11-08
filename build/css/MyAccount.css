@@ -1,0 +1,28 @@
+.accountcontrol{
+	margin-top: 80px;
+	width:95rem;
+}
+
+.left{
+	text-align: left;
+}
+
+.submit{
+	position: fixed;
+	bottom: 250px;
+	left: 360px;
+}
+.cancel{
+	position:absolute;
+	bottom: 250px;
+	right: 360px;
+
+}
+
+body{
+	background-image: url("../img/SavedBuildPic.jpg");
+    background-size: cover;
+	background-repeat: no-repeat;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}

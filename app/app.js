@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import NavBar from './components/navbar';
+import Home from './components/Home';
 
-class Navbar extends React.Component {
-  render(){
+class HomePage extends React.Component {
+  render() {
     return (
-      <NavBar />
+      <Home />
     );
   }
 }
 
-ReactDOM.render(document.getElementById('bikePage'));
+ReactDOM.render(<HomePage />
+),document.getElementById('root');
