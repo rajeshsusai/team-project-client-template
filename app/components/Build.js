@@ -1,4 +1,6 @@
 import React from 'react';
+import SelectBikeType from './SelectBikeType';
+import SelectBikeParts from './SelectBikeParts'
 //import NavBar from './navbar'
 //import Footer from './footer'
 /*

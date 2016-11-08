@@ -1,5 +1,5 @@
 import React from 'react';
-export default class MyBuild extends React.Component {
+export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +20,7 @@ export default class MyBuild extends React.Component {
   render() {
     return (
       <div>
-        MYBUILD STUB
+        SELECTBIKEPARTS STUB
       </div>
       );
   }
