@@ -21,7 +21,7 @@ export default class NavBar extends React.Component {
           <div className="btn-toolbar navbar-left" role="toolbar">
               <div className="btn-toolbar">
                   <div className="btn-group" role="group">
-                      <button type="button" className="btn btn-info navbar-btn navbar-btn-left">
+                      <button type="button" className="btn btn-info navbar-btn navbar-btn-left" >
                              Bike Part Picker
                          </button>
                       <button type="button" className="btn btn-danger navbar-btn navbar-btn-left">

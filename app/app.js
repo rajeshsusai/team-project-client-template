@@ -1,43 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './components/Home';
+import MyBuild from './components/MyBuild';
+import SavedBuilds from './components/SavedBuilds';
+import Account from './components/Account';
 import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 
-class HomePage extends React.Component {
-  render() {
-    return <Home />;
-  }
-}
-
-/*class NavBar extends React.Component {
-  render() {
-    return <NavBar />;
-  }
-}*/
-class MyBuild extends React.Component {
-  render() {
-    return <MyBuild />;
-  }
-}
-class SavedBuilds extends React.Component {
-  render() {
-    return (
-      <SavedBuilds />
-      );
-  }
-}
-class Account extends React.Component {
-  render() {
-    return (
-      <Account />
-      );
-  }
-}
 class App extends React.Component {
   render() {
     return (<div>
+
               { this.props.children }
-            </div>)
+            </div>);
   }
 }
 
@@ -47,7 +21,7 @@ ReactDOM.render((
            path="/"
            component={ App }>
       { /* Show the Feed at / */ }
-      <IndexRoute component={ HomePage } />
+      <IndexRoute component={ Home } />
       <Route
              path="account/:id"
              component={ Account } />
