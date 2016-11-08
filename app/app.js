@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './components/Home';
-import MyBuild from './components/MyBuild';
+import Build from './components/MyBuild';
 import Account from './components/Account';
 import SavedBuilds from './components/SavedBuilds'
 import NavBar from './components/navbar'
@@ -27,8 +27,8 @@ ReactDOM.render((
              path="account/:id"
              component={ Account } />
       <Route
-             path="MyBuild/:id"
-             component={ MyBuild } />
+             path="Build/:id"
+             component={ Build } />
       <Route
              path="SavedBuilds/:id"
              component={ SavedBuilds } />
