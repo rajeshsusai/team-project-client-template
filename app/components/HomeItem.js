@@ -26,9 +26,13 @@ export default class HomeItem extends React.Component {
           </div>
           <div className="col-md-8 text-center">
             <div className="panel panel-default">
+<<<<<<< HEAD
               <img
                    src="img/logo.png"
                    className="img-fluid" />
+=======
+              <img src="img/logo.png" className="img-fluid" />
+>>>>>>> b0cc88a7aa6986c2b818ebe79dd141a526b03993
             </div>
           </div>
           <div className="col-md-2">
