@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import NavBar from './components/navbar';
 
-class NavBar extends React.Component {
-  render() {
-    return <NavBar />
+class Navbar extends React.Component {
+  render(){
+    return (
+      <NavBar />
+    );
   }
 }
 
-ReactDOM.render(<NavBar />
-),document.getElementById('bikePage');
+ReactDOM.render(document.getElementById('bikePage'));
