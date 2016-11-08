@@ -30,9 +30,9 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-      <NavBar />
-      <HomeItem />
-      <Footer />
+        <NavBar />
+        <HomeItem />
+        <Footer />
       </div>
     );
   }
