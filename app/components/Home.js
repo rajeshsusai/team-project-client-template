@@ -1,7 +1,5 @@
 import React from 'react';
 import HomeItem from './HomeItem'
-import NavBar from './navbar'
-import Footer from './footer'
 
 /*
 The component for the Home page, which will contain HomeBody components as
@@ -28,9 +26,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-        <NavBar />
         <HomeItem />
-        <Footer />
       </div>
       );
   }

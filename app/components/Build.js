@@ -11,7 +11,7 @@ export default class Build extends React.Component {
     super(props);
     this.state = {
       contents: [],
-      current_state: props.current_state
+      current_state: 0
     /* 0 : SelectBikeType
       1 : SelectBikeParts
       2 : ReviewBuild(SelectBikeParts extended)

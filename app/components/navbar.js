@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router'
+import { Link } from 'react-router';
+import { browserHistory } from 'react-router'
 export default class NavBar extends React.Component {
   render() {
     return (
@@ -26,9 +27,6 @@ export default class NavBar extends React.Component {
                 <div
                      className="btn-group"
                      role="group">
-                  <Link to={ "/Build/" + "1" }>
-                  HAVE A GIANT LINK TEXT
-                  </Link>
                   <button
                           onClick={ (e) => {
                                       e.preventDefault();
@@ -38,24 +36,20 @@ export default class NavBar extends React.Component {
                           className="btn btn-info navbar-btn navbar-btn-left">
                     Bike Part Picker
                   </button>
+                  <Link to={ "/Build/" + "1" }>
                   <button
-                          onClick={ (e) => {
-                                      e.preventDefault();
-                                      window.location.href = '/Build/1'
-                                    } }
                           type="button"
                           className="btn btn-danger navbar-btn navbar-btn-left">
                     New Build
                   </button>
+                  </Link>
+                  <Link to={ "/SavedBuilds/" + "1" }>
                   <button
-                          onClick={ (e) => {
-                                      e.preventDefault();
-                                      window.location.href = '/SavedBuilds'
-                                    } }
                           type="button"
                           className="btn btn-warning navbar-btn navbar-btn-left">
                     Other Builds
                   </button>
+                  </Link>
                 </div>
               </div>
             </div>
