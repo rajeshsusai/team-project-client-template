@@ -10,11 +10,11 @@ class HomePage extends React.Component {
   }
 }
 
-class NavBar extends React.Component {
+/*class NavBar extends React.Component {
   render() {
     return <NavBar />;
   }
-}
+}*/
 class MyBuild extends React.Component {
   render() {
     return <MyBuild />;
