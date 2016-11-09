@@ -53,7 +53,7 @@ export default class SelectBikeType extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="body-container">
         <div className="col-md-2">
         </div>
         <div className="col-md-8 text-center">

@@ -21,7 +21,7 @@ export default class HomeItem extends React.Component {
   render() {
     return (
       <div>
-        <div className="container">
+        <div className="body-container">
           <div className="col-md-2">
           </div>
           <div className="col-md-8 text-center">
