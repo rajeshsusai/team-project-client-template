@@ -19,17 +19,17 @@ export default class Account extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="col-md-2">
+      <div className="body-container">
+            <div className="col-md-2">
+            </div>
+            <div className="col-md-8 text-center">
+                <div className="panel panel-default">
+                  HI MY NAME IS EARL AND I FACEPLANTED IN THE ICE
+                </div>
+            </div>
+            <div className="col-md-2">
+            </div>
         </div>
-        <div className="col-md-8 text-center">
-          <div className="panel panel-default">
-          HI MY NAME IS EARL
-          </div>
-        </div>
-        <div className="col-md-2">
-        </div>
-      </div>
       );
   }
 }
