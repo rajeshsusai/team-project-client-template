@@ -7,7 +7,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
 function emulateServerReturn(data, cb) {
   setTimeout(() => {
     cb(data);
-  }, 4);
+  }, 1);
 }
 
   function getBuildItemSync(userId) {
@@ -18,13 +18,13 @@ function emulateServerReturn(data, cb) {
     return buildsList;
   }
 
-  function getUserName(user, cb) {
+  export function getUserName(user, cb) {
   var userName = readDocument('users', user);
   var userData = readDocument('users', userName.first_name);
   emulateServerReturn(userData, cb);
 }
 
- function getBuildsData(user, cb) {
+ export function getBuildsData(user, cb) {
   var userData = readDocument('users', user);
   var buildsData = readDocument('builds', userData.builds);
   // Map the Feed's FeedItem references to actual FeedItem objects.
@@ -36,7 +36,7 @@ function emulateServerReturn(data, cb) {
   emulateServerReturn(buildsData, cb);
 }
 
- function selectBikeType(user, bikeType, cb) {
+ export function selectBikeType(user, bikeType, cb) {
   // If we were implementing this for real on an actual server,
   // we would check that the user ID is correct & matches the
   // authenticated user. But since we're mocking it, we can
@@ -155,84 +155,84 @@ function emulateServerReturn(data, cb) {
   emulateServerReturn(newBuild, cb);
 }
 
-function addWheel(build, part, cb) {
+export function addWheel(build, part, cb) {
   var buildData = readDocument('builds', build.contents);
   buildData.parts.wheels = part;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-function addHandleBars(build, part, cb) {
+export function addHandleBars(build, part, cb) {
   var buildData = readDocument('builds', build.contents);
   buildData.parts.handlebars = part;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-function addSeatPost(build, part, cb) {
+export function addSeatPost(build, part, cb) {
   var buildData = readDocument('builds', build.contents);
   buildData.parts.seatpost = part;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-function addSaddle(build, part, cb) {
+export function addSaddle(build, part, cb) {
   var buildData = readDocument('builds', build.contents);
   buildData.parts.saddle = part;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-function addFrame(build, part, cb) {
+export function addFrame(build, part, cb) {
   var buildData = readDocument('builds', build.contents);
   buildData.parts.frame = part;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-function addRearDerailleur(build, part, cb) {
+export function addRearDerailleur(build, part, cb) {
   var buildData = readDocument('builds', build.contents);
   buildData.parts.rearDerailleur = part;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-function addFrontDerailleur(build, part, cb) {
+export function addFrontDerailleur(build, part, cb) {
   var buildData = readDocument('builds', build.contents);
   buildData.parts.frontDerailleur = part;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-function addChain(build, part, cb) {
+export function addChain(build, part, cb) {
   var buildData = readDocument('builds', build.contents);
   buildData.parts.chain = part;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-function addBrake(build, part, cb) {
+export function addBrake(build, part, cb) {
   var buildData = readDocument('builds', build.contents);
   buildData.parts.brake = part;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-function addFork(build, part, cb) {
+export function addFork(build, part, cb) {
   var buildData = readDocument('builds', build.contents);
   buildData.parts.fork = part;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-function addShifter(build, part, cb) {
+export function addShifter(build, part, cb) {
   var buildData = readDocument('builds', build.contents);
   buildData.parts.shifter = part;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-function addTire(build, part, cb) {
+export function addTire(build, part, cb) {
   var buildData = readDocument('builds', build.contents);
   buildData.parts.tire = part;
   writeDocument('builds', buildData);

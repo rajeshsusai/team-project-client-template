@@ -196,5 +196,5 @@ class ResetDatabase extends React.Component {
 
 ReactDOM.render(
     <ResetDatabase />,
-    document.getElementById('fb-db-reset')
+    document.getElementById('bb-db-reset')
 );
