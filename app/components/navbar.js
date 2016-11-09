@@ -67,9 +67,9 @@ export default class NavBar extends React.Component {
                  className="navbar-right"
                  role="toolbar">
               <ul className="nav navbar-nav navbar-right account-name pull-left">
+                <Link to={"/account/"+"1"}>
                 <a
-                   href="#"
-                   className="account-name-toggle">Account Name</a>
+                   className="account-name-toggle">Account Name</a></Link>
               </ul>
               <ul
                   className="nav navbar-nav navbar-right pull-right"
@@ -84,10 +84,14 @@ export default class NavBar extends React.Component {
                      aria-expanded="false">Account <span className="caret"></span></a>
                   <ul className="dropdown-menu">
                     <li>
-                      <a href="#">My Account</a>
+                      <Link to={"/account/"+"1"}>
+                      <a>My Account</a> {/*TODO: replace with dynamic IDs*/}
+                      </Link>
                     </li>
                     <li>
-                      <a href="#">My Builds</a>
+                    <Link to={ "/SavedBuilds/" + "1" }>{/*TODO: replace with dynamic IDs*/}
+                      <a>My Builds</a>
+                      </Link>
                     </li>
                     <li
                         role="separator"

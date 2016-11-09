@@ -19,8 +19,16 @@ export default class Account extends React.Component {
 
   render() {
     return (
-      <div>
-        ACCOUNT STUB
+      <div className="container">
+        <div className="col-md-2">
+        </div>
+        <div className="col-md-8 text-center">
+          <div className="panel panel-default">
+          HI MY NAME IS EARL
+          </div>
+        </div>
+        <div className="col-md-2">
+        </div>
       </div>
       );
   }
