@@ -1,11 +1,5 @@
 import React from 'react';
-import HomeItem from './HomeItem'
-
-/*
-The component for the Home page, which will contain HomeBody components as
-children.
-*/
-export default class Home extends React.Component {
+export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +20,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-        <HomeItem />
+        SELECTBIKEPARTS STUB
       </div>
       );
   }

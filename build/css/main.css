@@ -8,7 +8,7 @@
 }
 
 .panel-default {
-	background-color: rgba(245, 245, 245, 0) !important;
+	background-color: rgba(245, 245, 245, .9) !important;
 }
 
 footer p {
@@ -37,7 +37,7 @@ body {
   background-color: #2D4671;
 }
 
-body .container {
+.body-container {
   padding-top: 60px;
 }
 

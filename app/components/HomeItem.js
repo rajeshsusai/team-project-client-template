@@ -12,9 +12,7 @@ export default class HomeItem extends React.Component {
   Refresh should be called after a client event is handled by the server if
   any persistent state needs to be synced
   */
-  refresh() {
-
-  }
+  refresh() {}
 
   componentDidMount() {
     this.refresh();
@@ -23,18 +21,20 @@ export default class HomeItem extends React.Component {
   render() {
     return (
       <div>
-        <div className="container">
+        <div className="body-container">
           <div className="col-md-2">
           </div>
           <div className="col-md-8 text-center">
             <div className="panel panel-default">
-              <img src="img/logo.png" className="img-fluid" />
+              <img
+                   src="img/logo.png"
+                   className="img-fluid" />
             </div>
           </div>
           <div className="col-md-2">
           </div>
         </div>
       </div>
-    );
+      );
   }
 }
