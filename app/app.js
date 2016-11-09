@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './components/Home';
-import MyBuild from './components/MyBuild';
-import SavedBuilds from './components/SavedBuilds';
+//import MyBuild from './components/MyBuild';
+//import SavedBuilds from './components/SavedBuilds';
 import Account from './components/Account';
 import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 

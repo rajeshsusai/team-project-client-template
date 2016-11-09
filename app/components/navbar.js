@@ -42,7 +42,7 @@ export default class NavBar extends React.Component {
               <ul className="nav navbar-nav navbar-right account-name pull-left">
                   <a href="#" className="account-name-toggle">Account Name</a>
               </ul>
-              <ul className="nav navbar-nav navbar-right pull-right" style={{color:"black;"}}>
+              <ul className="nav navbar-nav navbar-right pull-right" style={{color:"black"}}>
                   <li className="dropdown pull-right">
                       <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span className="caret"></span></a>
                       <ul className="dropdown-menu">
@@ -55,8 +55,8 @@ export default class NavBar extends React.Component {
               </ul>
           </div>
       </div>
-      </nav>
-      </div>
+    </nav>
+  </div>
     );
   }
 }
