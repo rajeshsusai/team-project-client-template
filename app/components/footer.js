@@ -5,7 +5,7 @@ The component for the footer.
 export default class Footer extends React.Component{
   render(){
     return(
-      <div>
+      <footer className="footer">
         <div className="container">
           <p className="text-muted pull-right">
               &copy; 2016 Bike Part Picker
@@ -13,11 +13,11 @@ export default class Footer extends React.Component{
           <p className="text-muted pull-left">
               Designed by Group Apple
           </p>
-          <p className="text-muted" style="text-align: center;">
+          <p className="text-muted" style={{textAlign: 'center'}}>
               Note: Bike assembly not included
           </p>
       </div>
-    </div>
+    </footer>
     );
   }
 }
