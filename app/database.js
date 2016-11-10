@@ -173,7 +173,7 @@ var initialData = {
  * deserializes it.
  */
 
- var data = JSON.parse(localStorage.getItem('facebook_data'));
+ var data = JSON.parse(localStorage.getItem('bikedata'));
 if (data === null) {
   data = JSONClone(initialData);
 }
@@ -201,7 +201,7 @@ export function writeDocument(collection, changedDocument) {
   // Store a copy of the object into the database. Models a database's behavior.
   data[collection][id] = JSONClone(changedDocument);
   // Update our 'database'.
-  localStorage.setItem('facebook_data', JSON.stringify(data));
+  localStorage.setItem('bikedata', JSON.stringify(data));
 }
 
 /**
