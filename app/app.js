@@ -19,7 +19,7 @@ class App extends React.Component {
 
   render() {
     return (<div>
-              <NavBar />
+              <NavBar user={1} page = {this.props.location.pathname}/>
               { this.props.children }
               <Footer />
             </div>)
