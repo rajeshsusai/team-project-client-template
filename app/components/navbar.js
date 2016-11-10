@@ -2,7 +2,12 @@ import React from 'react';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 export default class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = props.data;
+  }
   render() {
+    var data = this.props.data;
     return (
       <div>
         <nav className="navbar navbar-fixed-top navbar-default">

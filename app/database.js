@@ -2,27 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 var initialData = {
-
-
   "users": {
-        "1": {
-            "_id": 1,
-            "first_name": "Mike",
-            "last_name": "Sinyard",
-            "email": "specialized@example.com",
-            "password": "*********",
-            "builds": [29]
-        },
-        "2": {
-            "_id": 2,
-            "first_name": "Richard",
-            "last_name": "Burke",
-            "email": "trek@example.com",
-            "password": "*********",
-            "builds": []
-        }
-
-    },
+    "1": {
+      "_id": 1,
+      "first_name": "Mike",
+      "last_name": "Sinyard",
+      "email": "specialized@example.com",
+      "password": "*********",
+      "builds": [29]
+    }
+  },
     "builds": {
         "29":{
             "_id": 29,
@@ -51,19 +40,77 @@ var initialData = {
     "bike_types": {
         "1": {
             "name": "Mountain",
-            "_id": 1
+            "_id": 1,
+            "parts":{
+              "wheels": [],
+              "handlebars": [],
+              "seatpost": [],
+              "saddle": [],
+              "frame": [],
+              "shock": [],
+              "frontDerailleur": [],
+              "backDerailleur": [],
+              "chain": [],
+              "break": [],
+              "fork": [],
+              "shifter": [],
+              "tire": []
+            }
         },
         "2": {
             "name": "Road",
-            "_id": 2
+            "_id": 2,
+            "parts":{
+              "wheels": [],
+              "handlebars": [],
+              "seatpost": [],
+              "saddle": [],
+              "frame": [],
+              "frontDerailleur": [],
+              "backDerailleur": [],
+              "chain": [],
+              "break": [],
+              "shifter": [],
+              "tire": []
+            }
         },
         "3": {
             "name": "Trail",
-            "_id": 3
+            "_id": 3,
+            "parts":{
+              "wheels": [],
+              "handlebars": [],
+              "seatpost": [],
+              "saddle": [],
+              "frame": [],
+              "shock": [],
+              "frontDerailleur": [],
+              "backDerailleur": [],
+              "chain": [],
+              "break": [],
+              "fork": [],
+              "shifter": [],
+              "tire": []
+            }
         },
         "4": {
             "name": "Winter",
-            "_id": 4
+            "_id": 4,
+            "parts":{
+              "wheels": [],
+              "handlebars": [],
+              "seatpost": [],
+              "saddle": [],
+              "frame": [],
+              "shock": [],
+              "frontDerailleur": [],
+              "backDerailleur": [],
+              "chain": [],
+              "break": [],
+              "fork": [],
+              "shifter": [],
+              "tire": []
+            }
         }
     },
     "parts":{

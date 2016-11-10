@@ -18,12 +18,6 @@ function emulateServerReturn(data, cb) {
     return buildsList;
   }
 
-  export function getUserName(user, cb) {
-  var userName = readDocument('users', user);
-  var userData = readDocument('users', userName.first_name);
-  emulateServerReturn(userData, cb);
-}
-
  export function getBuildsData(user, cb) {
   var userData = readDocument('users', user);
   var buildsData = readDocument('builds', userData.builds);
