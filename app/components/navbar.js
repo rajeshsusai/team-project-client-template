@@ -5,6 +5,7 @@ export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = props.data;
+    this.sender = props.sender;
   }
   render() {
     var data = this.props.data;
@@ -65,6 +66,7 @@ export default class NavBar extends React.Component {
                       type="button"
                       className="btn btn-success navbar-btn"
                       disabled>
+                      { alert(this.location) }
                 Current Page: Home
               </button>
             </div>
