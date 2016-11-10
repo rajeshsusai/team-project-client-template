@@ -7,9 +7,14 @@ import {readDocument, writeDocument, addDocument} from './database.js';
 function emulateServerReturn(data, cb) {
   setTimeout(() => {
     cb(data);
-  }, 1);
+  }, 4);
 }
 
+  export function getUserData(user, cb) {
+    var userData = readDocument('users', user);
+    emulateServerReturn(userData, cb);
+  }
+  
   function getBuildItemSync(userId) {
     var buildsList = readDocument('buildItems', userId);
     buildsList.build.forEach((build) => {

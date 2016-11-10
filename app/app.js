@@ -19,7 +19,7 @@ class App extends React.Component {
 
   render() {
     return (<div>
-              <NavBar />
+              <NavBar user={1} />
               { this.props.children }
               <Footer />
             </div>)

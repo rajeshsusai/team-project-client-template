@@ -1,13 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
+import { getUserData } from '../server';
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = props.data;
+    this.state = {
+      contents: []
+    };
   }
+
+  refresh() {
+    getUserData(this.props.user, (userData) => {
+      this.setState(userData);
+    });
+  }
+  componentDidMount() {
+    this.refresh();
+  }
+
   render() {
-    var data = this.props.data;
+    var data = this.state.first_name;
     return (
       <div>
         <nav className="navbar navbar-fixed-top navbar-default">
@@ -74,7 +87,7 @@ export default class NavBar extends React.Component {
               <ul className="nav navbar-nav navbar-right account-name pull-left">
                 <Link to={"/account/"+"1"}>
                 <a
-                   className="account-name-toggle">Account Name</a></Link>
+                   className="account-name-toggle">{data}</a></Link>
               </ul>
               <ul
                   className="nav navbar-nav navbar-right pull-right"
