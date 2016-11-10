@@ -17,6 +17,7 @@ class App extends React.Component {
       contents: []
     };
   }
+}
 
 /*class NavBar extends React.Component {
   render() {
@@ -28,29 +29,29 @@ class MyBuild extends React.Component {
     return <MyBuild />;
   }
 }
-class SavedBuilds extends React.Component {
-  render() {
-    return (
-      <SavedBuilds />
-      );
-  }
-}
-class Account extends React.Component {
-  render() {
-    return (
-      <Account />
-      );
-  }
-}
-class App extends React.Component {
-  render() {
-    return (<div>
-              <NavBar />
-              { this.props.children }
-              <Footer />
-            </div>)
-  }
-}
+// class SavedBuilds extends React.Component {
+//   render() {
+//     return (
+//       <SavedBuilds />
+//       );
+//   }
+// }
+// class Account extends React.Component {
+//   render() {
+//     return (
+//       <Account />
+//       );
+//   }
+// }
+// class App extends React.Component {
+//   render() {
+//     return (<div>
+//               <NavBar />
+//               { this.props.children }
+//               <Footer />
+//             </div>)
+//   }
+// }
 
 ReactDOM.render((
   <Router history={ browserHistory }>
