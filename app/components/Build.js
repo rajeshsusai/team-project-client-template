@@ -21,6 +21,7 @@ export default class Build extends React.Component {
   handleBikeBtnClickEvent(clickEvent, bikeType) {
     clickEvent.preventDefault();
     if (clickEvent.button === 0) {
+      
     }
 
   }
