@@ -5,23 +5,15 @@ import Build from './components/Build';
 import Account from './components/Account';
 import SavedBuilds from './components/SavedBuilds'
 import NavBar from './components/navbar'
-import Footer from './components/footer'
-
 import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      contents: []
-    };
-  }
+
 
   render() {
     return (<div>
               <NavBar user={1} />
               { this.props.children }
-              <Footer />
             </div>)
   }
 }
@@ -37,10 +29,10 @@ ReactDOM.render((
              path="account/:id"
              component={ Account } />
       <Route
-             path="Build/:id"
+             path="build/:id"
              component={ Build } />
       <Route
-             path="SavedBuilds/:id"
+             path="savedbuilds/:id"
              component={ SavedBuilds } />
     </Route>
   </Router>
