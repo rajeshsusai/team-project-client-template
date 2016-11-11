@@ -18,6 +18,13 @@ export default class Build extends React.Component {
     */
     };
   }
+  handleBikeBtnClickEvent(clickEvent, bikeType) {
+    clickEvent.preventDefault();
+    if (clickEvent.button === 0) {
+    }
+
+  }
+
 
   /*
     Refresh should be called after a client event is handled by the server if
@@ -32,7 +39,7 @@ export default class Build extends React.Component {
   render() {
     switch (this.state.current_state) {
       case 0:
-        return (<SelectBikeType />);
+        return (<SelectBikeType onClick={(e, t)=> this.handleBikeBtnClickEvent(e, t)}/>);
       case 1:
         return (<SelectBikeParts />);
       case 2:
@@ -42,7 +49,8 @@ export default class Build extends React.Component {
             <ReviewBuild />
           </div>
           );
-      default: return "404";
+      default:
+        return "404";
     }
   }
 }
