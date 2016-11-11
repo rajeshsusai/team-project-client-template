@@ -5,6 +5,7 @@ import Build from './components/Build';
 import Account from './components/Account';
 import SavedBuilds from './components/SavedBuilds'
 import NavBar from './components/navbar'
+import Footer from './components/footer'
 import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 
 class App extends React.Component {
