@@ -1,5 +1,8 @@
 import React from 'react';
 import { BikeType } from '../util.js';
+
+import stylesheet from "../scss/SelectBikeType.scss";
+
 // import NavBar from './navbar'
 // import Footer from './footer'
 /*
@@ -53,25 +56,26 @@ export default class SelectBikeType extends React.Component {
 
   render() {
     return (
-      <div className="body-container">
+
+      <div id="SelectBikeType" className="body-container">
         <div className="col-md-2">
         </div>
-        <div className="col-md-8 text-center">
+
+        <row>
+          <div className="col-md-12 text-center">
             <div className="panel panel-default">
-            <row>
-                <div className="btn-group" style={{paddingTop: '4px'}} role="group" aria-label="...">
-                  <button type="button" onClick={(e) => this.handleBikeBtnClickEvent(e, BikeType.WINTER)} className="btn btn-primary build-bike-button"><span className="img-button icon-winter-bike"><br /><br /><br /><br /><br /><br />WINTER</span></button>
-                  <button type="button" onClick={(e) => this.handleBikeBtnClickEvent(e, BikeType.TRAIL)} className="btn btn-primary build-bike-button"><span className="img-button icon-trail-bike"><br /><br /><br /><br /><br /><br />TRAIL</span></button>
-                </div>
-            </row>
-            <row>
-                <div className="btn-group" style={{paddingBottom:"4px"}} role="group" aria-label="...">
-                  <button type="button" onClick={(e) => this.handleBikeBtnClickEvent(e, BikeType.CITY)} className="btn btn-primary build-bike-button"><span className="img-button icon-city-bike"><br /><br /><br /><br /><br /><br />CITY</span></button>
-                  <button type="button" onClick={(e) => this.handleBikeBtnClickEvent(e, BikeType.MOUNTAIN)} className="btn btn-primary build-bike-button"><span className="img-button icon-mtn-bike"><br /><br /><br /><br /><br /><br />MOUNTAIN</span></button>
-                </div>
-            </row>
+              <div className="btn-group" role="group" aria-label="...">
+                <button type="button" onClick={(e) => this.handleBikeBtnClickEvent(e, BikeType.WINTER)} className="btn btn-primary build-bike-button"><span className="img-button icon-winter-bike"><br /><br /><br /><br /><br /><br />WINTER</span></button>
+                <button type="button" onClick={(e) => this.handleBikeBtnClickEvent(e, BikeType.TRAIL)} className="btn btn-primary build-bike-button"><span className="img-button icon-trail-bike"><br /><br /><br /><br /><br /><br />TRAIL</span></button>
+              </div>
+              <div className="btn-group" role="group" aria-label="...">
+                <button type="button" onClick={(e) => this.handleBikeBtnClickEvent(e, BikeType.CITY)} className="btn btn-primary build-bike-button"><span className="img-button icon-city-bike"><br /><br /><br /><br /><br /><br />CITY</span></button>
+                <button type="button" onClick={(e) => this.handleBikeBtnClickEvent(e, BikeType.MOUNTAIN)} className="btn btn-primary build-bike-button"><span className="img-button icon-mtn-bike"><br /><br /><br /><br /><br /><br />MOUNTAIN</span></button>
+              </div>
             </div>
-        </div>
+          </div>
+        </row>
+
         <div className="col-md-2">
         </div>
         </div>
