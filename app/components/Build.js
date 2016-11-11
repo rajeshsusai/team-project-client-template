@@ -21,7 +21,12 @@ export default class Build extends React.Component {
   handleBikeBtnClickEvent(clickEvent, bikeType) {
     clickEvent.preventDefault();
     if (clickEvent.button === 0) {
-      
+      var callbackFunction=(updateBuildState) =>{
+        this.setState({
+          current_state: 1
+        });
+      }
+      SelectBikeType(1, bikeType, callbackFunction)
     }
 
   }
