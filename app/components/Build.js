@@ -1,6 +1,8 @@
 import React from 'react';
 import SelectBikeType from './SelectBikeType';
 import SelectBikeParts from './SelectBikeParts'
+import { selectBikeType } from '../server'
+import { getBuildData } from '../server'
 //import NavBar from './navbar'
 //import Footer from './footer'
 /*
@@ -11,7 +13,8 @@ export default class Build extends React.Component {
     super(props);
     this.state = {
       contents: [],
-      current_state: 0
+      current_state: 0,
+      buildId: 0
     /* 0 : SelectBikeType
       1 : SelectBikeParts
       2 : ReviewBuild(SelectBikeParts extended)
@@ -21,14 +24,25 @@ export default class Build extends React.Component {
   handleBikeBtnClickEvent(clickEvent, bikeType) {
     clickEvent.preventDefault();
     if (clickEvent.button === 0) {
-      var callbackFunction=(updateBuildState) =>{
+      var callbackFunction = (updateBuildState) => {
         this.setState({
-          current_state: 1
+          current_state: 1,
+          /*dynamic buildId*/
         });
       }
-      SelectBikeType(1, bikeType, callbackFunction)
+      selectBikeType(1, bikeType, callbackFunction)
+      this.refresh();
     }
 
+  }
+  reviewClick(e, buildList) {
+    e.preventDefault();
+    if (e.button === 0) {
+      var callbackFunction=(revState)=>{this.setState({buildList: buildList})}
+    }
+    /*need to set var to progress to state 2, communicate to reviewBuild*/
+    this.refresh();
+    
   }
 
 
@@ -36,7 +50,11 @@ export default class Build extends React.Component {
     Refresh should be called after a client event is handled by the server if
     any persistent state needs to be synced
   */
-  refresh() {}
+  refresh() {
+    getBuildData(this.props.user, (buildData) => {
+      this.setState(buildData)
+    });
+  }
 
   componentDidMount() {
     this.refresh();
@@ -45,9 +63,11 @@ export default class Build extends React.Component {
   render() {
     switch (this.state.current_state) {
       case 0:
-        return (<SelectBikeType onClick={(e, t)=> this.handleBikeBtnClickEvent(e, t)}/>);
+        return (<SelectBikeType onClick={ (e, t) => this.handleBikeBtnClickEvent(e, t) } />);
       case 1:
-        return (<SelectBikeParts />);
+        return (<SelectBikeParts 
+          key={this.state.buildId}
+          onClick={ (e, state) => this.reviewClick(e, state) } />);
       case 2:
         return (
           <div>
