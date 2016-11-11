@@ -4,6 +4,10 @@
   "description": "Build support for the client-side of CS326 projects.",
   "author": "John Vilk <jvilk@cs.umass.edu>",
   "license": "MIT",
+  "peerDependencies": {
+    "node-sass": "^3.11.2",
+    "webpack": "^1.13.3"
+  },
   "scripts": {
     "build": "./node_modules/.bin/webpack",
     "serve": "./node_modules/.bin/webpack-dev-server --content-base build"
@@ -17,14 +21,19 @@
     "eslint": "^1.10.3",
     "eslint-plugin-react": "^3.14.0",
     "history": "^1.17.0",
+    "node-sass": "^3.11.2",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-router": "^1.0.3",
-    "webpack": "^1.12.12",
+    "sass-loader": "^4.0.2",
+    "webpack": "^1.13.3",
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
     "history": "^1.17.0",
-    "react-router": "^1.0.3"
+    "react-router": "^1.0.3",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "css-loader": "^0.25.0"
   }
 }

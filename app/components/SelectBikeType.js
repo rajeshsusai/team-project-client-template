@@ -1,5 +1,8 @@
 import React from 'react';
 import { BikeType } from '../util.js';
+
+import stylesheet from "../scss/SelectBikeType.scss";
+
 // import NavBar from './navbar'
 // import Footer from './footer'
 /*
@@ -33,10 +36,13 @@ export default class SelectBikeType extends React.Component {
 
   render() {
     return (
-      <div className="body-container">
+
+      <div id="SelectBikeType" className="body-container">
         <div className="col-md-2">
         </div>
-        <div className="col-md-8 text-center">
+
+        <row>
+          <div className="col-md-12 text-center">
             <div className="panel panel-default">
             <row>
                 <div className="btn-group" style={{paddingTop: '4px'}} role="group" aria-label="...">
@@ -51,7 +57,9 @@ export default class SelectBikeType extends React.Component {
                 </div>
             </row>
             </div>
-        </div>
+          </div>
+        </row>
+
         <div className="col-md-2">
         </div>
         </div>
