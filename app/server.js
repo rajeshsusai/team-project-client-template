@@ -14,42 +14,17 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(userData, cb);
   }
 
-  export function getUserBuilds(user, cb){
-    var userData = readDocument("users", user);
-    var builds = [];
-    userData.builds.forEach((build) =>{
-      builds.push(readDocument("builds", build));
-    });
-    emulateServerReturn(builds, cb);
-  }
-
-  function getBuildPartsSync(buildId) {
-    var build = readDocument('build_parts', buildId);
-    build.contents.parts.forEach((part) => {
-      part.part_type = readDocument('builds', part.part_type);
-    });
-    return build;
-  }
-
   export function getBuildData(user, cb) {
     var userData = readDocument('users', user);
     var buildData = readDocument('builds', userData.builds);
-    buildData.contents = buildData.contents.map(getBuildsItemSync);
+    buildData.contents = buildData.contents.map(getBuildSync);
     emulateServerReturn(buildData, cb);
   }
 
-  function getBuildsItemSync(buildId) {
-    var builds = readDocument('builds', buildId);
-    builds.contents.forEach((build) => {
-      build.contents = readDocument('builds', build.contents);
-    });
-  }
-
-  export function getBuildParts(user, cb) {
-    var userData = readDocument('users', user);
-    var buildsData = readDocument('builds', userData.builds);
-    buildsData.contents.parts = buildsData.contents.parts.map(getBuildsItemSync);
-    emulateServerReturn(buildsData, cb);
+  function getBuildSync(buildId) {
+    var build = readDocument('builds', buildId);
+    build.contents.bike_type = build.contents.bike_type.map((id) => readDocument('bike_type', id));
+    build.contents.parts = build.contents.parts.map((id) => readDocument('parts', id));
   }
 
   export function selectBikeType(user, bikeType, cb) {

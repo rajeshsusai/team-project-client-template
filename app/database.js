@@ -8,7 +8,7 @@ var initialData = {
   "users": {
     "1": {
       "_id": 1,
-      "contents": {
+      "contents":{
         "first_name": "Mike",
         "last_name": "Sinyard",
         "email": "specialized@example.com",
@@ -17,170 +17,96 @@ var initialData = {
       }
     }
   },
-    "builds": {
-        "29":{
-            "_id": 29,
-            "bike_type": "Winter",
-            "contents":{
-              "status": 0,
-              "total_price": "2499",
-              "build_name": "My Build",
-              "part":{
-                "part_type":{
-                  "wheels": [1],
-                  "handlebars": [],
-                  "seatpost": [],
-                  "saddle": [],
-                  "frame": [],
-                  "shock": [],
-                  "frontDerailleur": [],
-                  "backDerailleur": [],
-                  "chain": [],
-                  "break": [],
-                  "fork": [],
-                  "shifter": [],
-                  "tire": []
-                }
-              }
-            }
-        }
-    },
-    "bike_type": {
-        "1": {
-            "type": "Mountain",
-            "_id": 1,
-            "part":{
-              "part_type":{
-                "wheels": [],
-                "handlebars": [],
-                "seatpost": [],
-                "saddle": [],
-                "frame": [],
-                "shock": [],
-                "frontDerailleur": [],
-                "backDerailleur": [],
-                "chain": [],
-                "break": [],
-                "fork": [],
-                "shifter": [],
-                "tire": []
-              }
-            }
-        },
-        "2": {
-            "type": "Road",
-            "_id": 2,
-            "part":{
-              "part_type": {
-                "wheels": [],
-                "handlebars": [],
-                "seatpost": [],
-                "saddle": [],
-                "frame": [],
-                "frontDerailleur": [],
-                "backDerailleur": [],
-                "chain": [],
-                "break": [],
-                "shifter": [],
-                "tire": []
-              }
-            }
-        },
-        "3": {
-            "type": "Trail",
-            "_id": 3,
-            "part":{
-              "part_type":{
-                "wheels": [],
-                "handlebars": [],
-                "seatpost": [],
-                "saddle": [],
-                "frame": [],
-                "shock": [],
-                "frontDerailleur": [],
-                "backDerailleur": [],
-                "chain": [],
-                "break": [],
-                "fork": [],
-                "shifter": [],
-                "tire": []
-              }
-            }
-        },
-        "4": {
-            "type": "Winter",
-            "_id": 4,
-            "part":{
-              "part_type":{
-                "wheels": [],
-                "handlebars": [],
-                "seatpost": [],
-                "saddle": [],
-                "frame": [],
-                "shock": [],
-                "frontDerailleur": [],
-                "backDerailleur": [],
-                "chain": [],
-                "break": [],
-                "fork": [],
-                "shifter": [],
-                "tire": []
-              }
-            }
-        }
-    },
-    "parts":{
-        "1":{
-            "bike_type": 4,
-            "part_type": 82,
-            "url": "jensonusa.com",
-            "_id": 1,
-            "name": "29ner Wheel 1",
-            "build": [29]
-        }
-    },
-      "part_type": {
-        "82":{
-            "name": "29 wheel FRONT",
-            "_id": 82
-        },
-        "83":{
-            "name": "29 wheel REAR",
-            "_id": 83
-        },
-        "84":{
-            "name": "Fork MTN",
-            "_id": 84
-        },
-        "85":{
-            "name": "Shock MTN",
-            "_id": 85
-        },
-        "86":{
-            "name": "Handlebar",
-            "_id": 86
-        },
-        "87":{
-            "name": "Saddle",
-            "_id": 87
-        },
-        "88":{
-            "name": "Seatpost",
-            "_id": 88
-        },
-        "89":{
-            "name": "Frame MTN",
-            "_id": 89
-        },
-        "90":{
-            "name": "Brakes",
-            "_id": 90
-        },
-        "91":{
-            "name": "29 wheel FRONT",
-            "_id": 91
+
+  "builds": {
+      "29":{
+        "_id": 29,
+        "contents":{
+          "bike_type": "Winter",
+          "status": 0,
+          "total_price": "2499",
+          "build_name": "My Build",
+          "part": [1]
         }
       }
+  },
+
+  "bike_type": {
+      "1": {
+        "type": "Mountain",
+        "_id": 1,
+      },
+
+      "2": {
+        "type": "Road",
+        "_id": 2,
+
+      },
+
+      "3": {
+        "type": "Trail",
+        "_id": 3,
+      },
+
+      "4": {
+        "type": "Winter",
+        "_id": 4,
+      }
+  },
+
+  "parts":{
+      "1":{
+          "bike_type": [1,2,3,4],
+          "part_type": 82,
+          "url": "jensonusa.com",
+          "_id": 1,
+          "name": "29ner Wheel 1",
+          "build": [29]
+      }
+  },
+
+  "part_type": {
+    "82":{
+          "name": "29 wheel FRONT",
+          "_id": 82
+      },
+      "83":{
+          "name": "29 wheel REAR",
+          "_id": 83
+      },
+      "84":{
+          "name": "Fork MTN",
+          "_id": 84
+      },
+      "85":{
+          "name": "Shock MTN",
+          "_id": 85
+      },
+      "86":{
+          "name": "Handlebar",
+          "_id": 86
+      },
+      "87":{
+          "name": "Saddle",
+          "_id": 87
+      },
+      "88":{
+          "name": "Seatpost",
+          "_id": 88
+      },
+      "89":{
+          "name": "Frame MTN",
+          "_id": 89
+      },
+      "90":{
+          "name": "Brakes",
+          "_id": 90
+      },
+      "91":{
+          "name": "29 wheel FRONT",
+          "_id": 91
+      }
+  }
 };
   /**
  * A dumb cloning routing. Serializes a JSON object as a string, then

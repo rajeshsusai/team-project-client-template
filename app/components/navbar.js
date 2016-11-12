@@ -36,7 +36,7 @@ export default class NavBar extends React.Component {
 
 
   render() {
-    var userName = this.state.contents.first_name;
+    var userName = this.state.first_name;
     var userId = this.state._id;
     return (
       <div>
