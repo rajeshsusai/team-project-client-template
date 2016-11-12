@@ -14,9 +14,9 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(userData, cb);
   }
 
-  function getBuildItemSync(buildId) {
+  function getBuildPartsSync(buildId) {
     var build = readDocument('build_parts', buildId);
-    build.forEach((part) => {
+    build.contents.parts.forEach((part) => {
       part.part_type = readDocument('builds', part.part_type);
     });
     return build;
@@ -25,7 +25,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
   export function getBuildData(user, cb) {
     var userData = readDocument('users', user);
     var buildData = readDocument('builds', userData.builds);
-    buildData.contents = buildData.contents.map(getBuildItemSync);
+    buildData.contents = buildData.contents.map(getBuildsItemSync);
     emulateServerReturn(buildData, cb);
   }
 
@@ -36,10 +36,10 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     });
   }
 
-  export function getBuildsData(user, cb) {
+  export function getBuildParts(user, cb) {
     var userData = readDocument('users', user);
     var buildsData = readDocument('builds', userData.builds);
-    buildsData.contents = buildsData.contents.map(getBuildsItemSync);
+    buildsData.contents.parts = buildsData.contents.parts.map(getBuildsItemSync);
     emulateServerReturn(buildsData, cb);
   }
 
