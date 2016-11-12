@@ -17,6 +17,31 @@ var initialData = {
             "_id": 29,
             "type": "winter",
             "contents":{
+              "build_name": "My first Build",
+              "status": "Incomplete",
+              "total_price": 24.99,
+              "parts":{
+                "wheels": [1],
+                "handlebars": [],
+                "seatpost": [],
+                "saddle": [],
+                "frame": [],
+                "shock": [],
+                "frontDerailleur": [],
+                "backDerailleur": [],
+                "chain": [],
+                "break": [],
+                "fork": [],
+                "shifter": [],
+                "tire": []
+              }
+            }
+        },
+        "13":{
+            "_id": 13,
+            "type": "winter",
+            "contents":{
+              "build_name": "My first Build",
               "status": 0,
               "total_price": "2499",
               "parts":{

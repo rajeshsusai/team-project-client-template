@@ -1,10 +1,13 @@
 import React from 'react';
 import Router from 'react-router';
+import {readDocument} from '../database';
 import {getUserData} from '../server';
 export default class SavedBuilds extends React.Component {
+
   constructor(props, context) {
     super(props, context);
     this.handleClick = this.handleClick.bind(this);
+    var builds;
     this.state = {
       contents: []
       // current_state: 0
@@ -15,6 +18,7 @@ export default class SavedBuilds extends React.Component {
     getUserData(this.props.user, (userData) => {
       this.setState(userData);
     });
+
   }
 
   componentDidMount() {
@@ -23,14 +27,15 @@ export default class SavedBuilds extends React.Component {
 
   populateTable(){
     var rows = [];
-    this.state.builds.forEach(function(build){
+    var builds = readDocument("builds", this.props.builds);
+  //  for(var i = 0; i < builds.length; i++){
       rows.push(<tr onClick = {this.handleClick}>
-          <td>{build.contents.build_name}</td>
-          <td>{build.contents.total_price}</td>
-          <td>{build.type}</td>
-          <td>{build.contents.status}</td>
+          <td>{builds.contents.build_name}</td>
+          <td>{builds.contents.total_price}</td>
+          <td>{builds.type}</td>
+          <td>{builds.contents.status}</td>
       </tr>);
-    }.bind(this));
+  //  }
     return rows;
   }
 
@@ -41,6 +46,9 @@ export default class SavedBuilds extends React.Component {
     }
   }
   render() {
+    /*var build = readDocument("builds", 29);
+    var name = build.type;
+    var data = this.state.builds;*/
     return (
       <div className="body-container">
             <div className="col-md-2">
@@ -61,7 +69,7 @@ export default class SavedBuilds extends React.Component {
                             </thead>
 
                             <tbody data-link="row" className="rowlink">
-
+                            {this.populateTable()}
                             </tbody>
                         </table>
                     </div>
