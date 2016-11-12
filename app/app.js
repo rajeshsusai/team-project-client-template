@@ -20,6 +20,16 @@ class App extends React.Component {
   }
 }
 
+class SavedBuildsWrapper extends React.Component {
+  render(){
+    return(<div>
+              <NavBar user={1} page = {this.props.location.pathname}/>
+              <SavedBuilds user={1} />
+              <Footer />
+            </div>)
+  }
+}
+
 ReactDOM.render((
   <Router history={ browserHistory }>
     <Route
@@ -33,10 +43,10 @@ ReactDOM.render((
       <Route
              path="build/:id"
              component={ Build } />
-      <Route
-             path="savedbuilds/:id"
-             component={ SavedBuilds } />
     </Route>
+    <Route
+           path="savedbuilds/:id"
+           component={ SavedBuildsWrapper } />
   </Router>
   ),
   document.getElementById('bikePage'));
