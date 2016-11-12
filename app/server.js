@@ -14,6 +14,15 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(userData, cb);
   }
 
+  export function getUserBuilds(user, cb){
+    var userData = readDocument("users", user);
+    var builds = [];
+    userData.builds.forEach((build) =>{
+      builds.push(readDocument("builds", build));
+    });
+    emulateServerReturn(builds, cb);
+  }
+
   function getBuildPartsSync(buildId) {
     var build = readDocument('build_parts', buildId);
     build.contents.parts.forEach((part) => {
