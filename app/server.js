@@ -45,9 +45,9 @@ import {readDocument, writeDocument, addDocument} from './database.js';
 
   export function selectBikeType(user, bikeType, cb) {
     var newBuild;
-    if(bikeType === "winter") {
+    if(bikeType === "Winter") {
       newBuild ={
-        "type": "winter",
+        "type": "Winter",
         "contents": {
           "author": user,
           "buildName": [],
@@ -72,9 +72,9 @@ import {readDocument, writeDocument, addDocument} from './database.js';
         }
       };
     }
-    else if(bikeType === "trail") {
+    else if(bikeType === "Trail") {
       newBuild ={
-        "type": "trail",
+        "type": "Trail",
         "contents": {
         "author": user,
         "buildName": [],
@@ -99,9 +99,9 @@ import {readDocument, writeDocument, addDocument} from './database.js';
       }
     };
   }
-  else if(bikeType === "mountain") {
+  else if(bikeType === "Mountain") {
     newBuild ={
-      "type": "mountain",
+      "type": "Mountain",
       "contents": {
         "author": user,
         "buildName": [],
@@ -126,9 +126,9 @@ import {readDocument, writeDocument, addDocument} from './database.js';
       }
     };
   }
-  else if(bikeType === "road") {
+  else if(bikeType === "Road") {
     newBuild ={
-      "type": "road",
+      "type": "Road",
       "contents": {
       "author": user,
       "buildName": [],
