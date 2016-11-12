@@ -14,7 +14,7 @@ function emulateServerReturn(data, cb) {
     var userData = readDocument('users', user);
     emulateServerReturn(userData, cb);
   }
-  
+
   function getBuildItemSync(userId) {
     var buildsList = readDocument('buildItems', userId);
     buildsList.build.forEach((build) => {

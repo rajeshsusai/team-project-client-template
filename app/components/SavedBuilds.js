@@ -26,16 +26,18 @@ export default class SavedBuilds extends React.Component {
   }
 
   populateTable(){
+
     var rows = [];
-    var builds = readDocument("builds", this.props.builds);
-  //  for(var i = 0; i < builds.length; i++){
+  //  var builds = readDocument("builds", this.props.builds);
+    for(var i = 0; i < Object.keys(this.props.builds).length; i++){
+      var build = readDocument("builds", this.props.builds[i]);
       rows.push(<tr onClick = {this.handleClick}>
-          <td>{builds.contents.build_name}</td>
-          <td>{builds.contents.total_price}</td>
-          <td>{builds.type}</td>
-          <td>{builds.contents.status}</td>
+          <td>{build.contents.build_name}</td>
+          <td>{build.contents.total_price}</td>
+          <td>{build.contents.bike_type}</td>
+          <td>{build.contents.status}</td>
       </tr>);
-  //  }
+    }
     return rows;
   }
 
@@ -46,9 +48,7 @@ export default class SavedBuilds extends React.Component {
     }
   }
   render() {
-    /*var build = readDocument("builds", 29);
-    var name = build.type;
-    var data = this.state.builds;*/
+
     return (
       <div className="body-container">
             <div className="col-md-2">

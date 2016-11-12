@@ -26,7 +26,7 @@ class SavedBuildsWrapper extends React.Component {
     var user = readDocument("users", 1);
     return(<div>
               <NavBar user={1} page = {this.props.location.pathname}/>
-              <SavedBuilds user={1} builds = {user.builds} />
+              <SavedBuilds user={1} builds = {user.buildList} />
               <Footer />
             </div>)
   }

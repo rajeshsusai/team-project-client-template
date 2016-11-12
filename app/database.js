@@ -9,190 +9,184 @@ var initialData = {
       "last_name": "Sinyard",
       "email": "specialized@example.com",
       "password": "*********",
-      "builds": [29]
+      "buildList": [29, 30, 31]
     }
   },
-    "builds": {
-        "29":{
-            "_id": 29,
-            "type": "winter",
-            "contents":{
-              "build_name": "My first Build",
-              "status": "Incomplete",
-              "total_price": 24.99,
-              "parts":{
-                "wheels": [1],
-                "handlebars": [],
-                "seatpost": [],
-                "saddle": [],
-                "frame": [],
-                "shock": [],
-                "frontDerailleur": [],
-                "backDerailleur": [],
-                "chain": [],
-                "break": [],
-                "fork": [],
-                "shifter": [],
-                "tire": []
-              }
-            }
-        },
-        "13":{
-            "_id": 13,
-            "type": "winter",
-            "contents":{
-              "build_name": "My first Build",
-              "status": 0,
-              "total_price": "2499",
-              "parts":{
-                "wheels": [1],
-                "handlebars": [],
-                "seatpost": [],
-                "saddle": [],
-                "frame": [],
-                "shock": [],
-                "frontDerailleur": [],
-                "backDerailleur": [],
-                "chain": [],
-                "break": [],
-                "fork": [],
-                "shifter": [],
-                "tire": []
-              }
-            }
-        }
+  "builds": {
+      "29":{
+          "_id": 29,
+          "contents": {
+            "bike_type": "Winter",
+            "status": "Incomplete",
+            "total_price": "64.99",
+            "build_name": "My Build",
+            "parts": [30]
+          }
+      },
+      "30":{
+          "_id": 30,
+          "contents": {
+            "bike_type": "Road",
+            "status": "Incomplete",
+            "total_price": "24.99",
+            "build_name": "Road Runner",
+            "parts": [30]
+          }
+      },
+      "31":{
+          "_id": 31,
+          "contents": {
+            "bike_type": "Trail",
+            "status": "Incomplete",
+            "total_price": "78.99",
+            "build_name": "The Explorer",
+            "parts": [30]
+          }
+      }
+  },
+  "bike_type": {
+    "10": {
+      "type": "Mountain",
+      "_id": 10
     },
-    "bike_types": {
-        "1": {
-            "name": "Mountain",
-            "_id": 1,
-            "parts":{
-              "wheels": [],
-              "handlebars": [],
-              "seatpost": [],
-              "saddle": [],
-              "frame": [],
-              "shock": [],
-              "frontDerailleur": [],
-              "backDerailleur": [],
-              "chain": [],
-              "break": [],
-              "fork": [],
-              "shifter": [],
-              "tire": []
-            }
-        },
-        "2": {
-            "name": "Road",
-            "_id": 2,
-            "parts":{
-              "wheels": [],
-              "handlebars": [],
-              "seatpost": [],
-              "saddle": [],
-              "frame": [],
-              "frontDerailleur": [],
-              "backDerailleur": [],
-              "chain": [],
-              "break": [],
-              "shifter": [],
-              "tire": []
-            }
-        },
-        "3": {
-            "name": "Trail",
-            "_id": 3,
-            "parts":{
-              "wheels": [],
-              "handlebars": [],
-              "seatpost": [],
-              "saddle": [],
-              "frame": [],
-              "shock": [],
-              "frontDerailleur": [],
-              "backDerailleur": [],
-              "chain": [],
-              "break": [],
-              "fork": [],
-              "shifter": [],
-              "tire": []
-            }
-        },
-        "4": {
-            "name": "Winter",
-            "_id": 4,
-            "parts":{
-              "wheels": [],
-              "handlebars": [],
-              "seatpost": [],
-              "saddle": [],
-              "frame": [],
-              "shock": [],
-              "frontDerailleur": [],
-              "backDerailleur": [],
-              "chain": [],
-              "break": [],
-              "fork": [],
-              "shifter": [],
-              "tire": []
-            }
-        }
+    "11": {
+      "type": "Road",
+      "_id": 11
     },
-    "parts":{
-        "1":{
-            "bike_type": 4,
-            "part_type": 82,
-            "url": "jensonusa.com",
-            "_id": 1,
-            "name": "29ner Wheel 1",
-            "build": [29]
-        }
+    "12": {
+      "type": "Trail",
+      "_id": 12
     },
-    "part_types":{
-        "82":{
-            "name": "29 wheel FRONT",
-            "_id": 82
-        },
-        "83":{
-            "name": "29 wheel REAR",
-            "_id": 83
-        },
-        "84":{
-            "name": "Fork MTN",
-            "_id": 84
-        },
-        "85":{
-            "name": "Shock MTN",
-            "_id": 85
-        },
-        "86":{
-            "name": "Handlebar",
-            "_id": 86
-        },
-        "87":{
-            "name": "Saddle",
-            "_id": 87
-        },
-        "88":{
-            "name": "Seatpost",
-            "_id": 88
-        },
-        "89":{
-            "name": "Frame MTN",
-            "_id": 89
-        },
-        "90":{
-            "name": "Brakes",
-            "_id": 90
-        },
-        "91":{
-            "name": "29 wheel FRONT",
-            "_id": 91
-        }
-
+    "13": {
+      "type": "Winter",
+      "_id": 13
     }
-
-};
+  },
+  "parts":{
+    "30":{
+      "bike_type": [10,11,12,13],
+      "part_type": 82,
+      "url": "jensonusa.com",
+      "_id": 30,
+      "name": "29ner Wheel Front",
+      "build": []
+    },
+    "31":{
+      "bike_type": [10,11,12,13],
+      "part_type": 83,
+      "url": "jensonusa.com",
+      "_id": 31,
+      "name": "29ner Wheel Rear",
+      "build": []
+    },
+    "32":{
+      "bike_type": [10,12,13],
+      "part_type": 84,
+      "url": "jensonusa.com",
+      "_id": 32,
+      "name": "Fork",
+      "build": []
+    },
+    "33":{
+      "bike_type": [10,12,13],
+      "part_type": 85,
+      "url": "jensonusa.com",
+      "_id": 33,
+      "name": "Shock",
+      "build": []
+    },
+    "34":{
+      "bike_type": [10,11,12,13],
+      "part_type": 86,
+      "url": "jensonusa.com",
+      "_id": 34,
+      "name": "Handlebar",
+      "build": []
+    },
+    "35":{
+      "bike_type": [10,11,12,13],
+      "part_type": 87,
+      "url": "jensonusa.com",
+      "_id": 35,
+      "name": "Saddle",
+      "build": []
+    },
+    "36":{
+      "bike_type": [10,11,12,13],
+      "part_type": 88,
+      "url": "jensonusa.com",
+      "_id": 36,
+      "name": "Seatpost",
+      "build": []
+    },
+    "37":{
+      "bike_type": [10,11,12,13],
+      "part_type": 89,
+      "url": "jensonusa.com",
+      "_id": 37,
+      "name": "Frame",
+      "build": []
+    },
+    "38":{
+      "bike_type": [10,11,12,13],
+      "part_type": 90,
+      "url": "jensonusa.com",
+      "_id": 38,
+      "name": "Brakes",
+      "build": []
+    },
+    "39":{
+      "bike_type": [10,11,12,13],
+      "part_type": 91,
+      "url": "jensonusa.com",
+      "_id": 39,
+      "name": "29ner Wheel FRONT",
+      "build": []
+    }
+  },
+    "part_type": {
+      "82":{
+        "name": "29 wheel FRONT",
+        "_id": 82
+      },
+      "83":{
+        "name": "29 wheel REAR",
+        "_id": 83
+      },
+      "84":{
+        "name": "Fork MTN",
+        "_id": 84
+      },
+      "85":{
+        "name": "Shock MTN",
+        "_id": 85
+      },
+      "86":{
+        "name": "Handlebar",
+        "_id": 86
+      },
+      "87":{
+        "name": "Saddle",
+        "_id": 87
+      },
+      "88":{
+        "name": "Seatpost",
+        "_id": 88
+      },
+      "89":{
+        "name": "Frame",
+        "_id": 89
+      },
+      "90":{
+        "name": "Brakes",
+        "_id": 90
+      },
+      "91":{
+        "name": "29 wheel FRONT",
+        "_id": 91
+      }
+    }
+  };
   /**
  * A dumb cloning routing. Serializes a JSON object as a string, then
  * deserializes it.
