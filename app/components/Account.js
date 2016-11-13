@@ -1,6 +1,6 @@
 import React from 'react';
 // import React-Router from 'react-router'
-import {getUserData} from './app/server.js'
+import {getUserData} from '../server.js'
 export default class Account extends React.Component {
   constructor(props) {
     super(props);
@@ -8,10 +8,9 @@ export default class Account extends React.Component {
       contents: []
     };
   }
-
   /*
-    Refresh should be called after a client event is handled by the server if
-    any persistent state needs to be synced
+  Refresh should be called after a client event is handled by the server if
+  any persistent state needs to be synced
   */
   refresh(){
     getUserData(this.props.user, (userData) =>{
@@ -20,58 +19,55 @@ export default class Account extends React.Component {
   }
 
   componentDidMount(){
-  this.refresh();
-}
+    this.refresh();
+  }
 
   render() {
-    // var data = this.props.data;
-    // var contents;
-    // switch(data.type){
-    //   case "account":
-    //   contents=(
-    //     <Account key ={data._id}
-    //              firstName ={data.contents.first_name}
-    //              lastName = {data.contents.last_name}
-    //              email = {data.contents.email}
-    //              password = {data.contents.password}>
-    //         {data.contents.contents}
-    //     </Account>
-      // );
-      // break;
-      // default:
-      //   throw new Error("Unknown Account: " + data.type);
-      // }
+
+    var firstName = this.props.user.first_name;
+    var lastName = this.props.last_name;
+    var email = this.props.email;
+    var password = this.props.password;
+    var username = this.props.user_name;
+
     return (
-    <div>
-      <div className = "container accountPage">
-        <div className = "jumbotron">
-          <div className = "form-group">
-
-            <caption>Account: + </caption>
-            <form>
-              <div className="form-group">
-                <label className="Email">Email Address</label>
-
+      <div className="container jumbotron accountcontrol">
+        <div action="My-Account-Page form-horizontal" method="post">
+          <div className="form-group">
+            <label className="control-label col-sm-2 left" htmlFor="first name" >First Name</label>
+            <div className="col-sm-10">
+              <input type="text" className="form-control" id="first name" placeholder = {firstName}/>
               </div>
-              <div className = "form-group">
-                <label className ="First Name">First Name</label>
-
+            </div>
+            <div className="form-group">
+              <label className="control-label col-sm-2 left" htmlFor="last name" >Last Name</label>
+              <div className="col-sm-10">
+                <input type="text" className="form-control" id="last name" placeholder = {lastName}/>
+                </div>
               </div>
-              <div className="form-group">
-                <label className ="Last Name">Last Name</label>
-
+            <div className="form-group">
+              <label className="control-label col-sm-2 left" htmlFor="email">Email</label>
+              <div className="col-sm-10">
+                <input type="email" className="form-control" id="email" placeholder= {email} />
+                </div>
               </div>
-              <div className="form-group">
-                <label className ="Password">Password</label>
-
-               // @TODO add password change button to password once setter function
-               //has been made
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-      );
-  }
-}
+                <div className="form-group">
+                  <label className="control-label col-sm-2 left" htmlFor="username" > Username</label>
+                  <div className="col-sm-10">
+                    <input type="text" className="form-control" id="username" placeholder = {username}/>
+                    </div>
+                  </div>
+                      <div className="form-group">
+                      <label className="control-label col-sm-2 left" htmlFor="password" > Password</label>
+                      <div className="col-sm-10">
+                        <input type="text" className="form-control" id="password" placeholder = {password}/>
+                        </div>
+                      </div>
+                        <div className="submit">
+                          <input type="Submit" value="Exit" />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+                }
