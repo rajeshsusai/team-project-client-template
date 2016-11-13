@@ -31,6 +31,17 @@ class SavedBuildsWrapper extends React.Component {
             </div>)
   }
 }
+
+class AccountWrapper extends React.Component {
+  render(){
+    return(<div>
+              <NavBar user={1} page = {this.props.location.pathname}/>
+              <Account user={1} />
+              <Footer />
+            </div>)
+  }
+}
+
 class BuildWrapper extends React.Component{
   render() {
     var user=readDocument("users", 1);
@@ -49,6 +60,10 @@ ReactDOM.render((
            component={ App }>
       { /* Show the Feed at / */ }
       <IndexRoute component={ Home } />
+
+      <Route
+             path="build/:id"
+             component={ Build } />
       <Route
              path="account/:id"
              component={ Account } />
@@ -60,6 +75,9 @@ ReactDOM.render((
     <Route
            path="savedbuilds/:id"
            component={ SavedBuildsWrapper } />
+           <Route
+                  path="account/:id"
+                  component={ AccountWrapper } />
   </Router>
   ),
   document.getElementById('bikePage'));

@@ -8,6 +8,7 @@ var initialData = {
   "users": {
     "1": {
       "_id": 1,
+      "user_name": "Msinyard",
       "first_name": "Mike",
       "last_name": "Sinyard",
       "email": "specialized@example.com",
