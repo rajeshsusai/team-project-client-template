@@ -72,7 +72,7 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 82,
         "url": "jensonusa.com",
-        "name": "29ner Wheel Front",
+        "name": "29ner Tires",
         "build": []
       }
     },
@@ -82,7 +82,7 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 83,
         "url": "jensonusa.com",
-        "name": "29ner Wheel Rear",
+        "name": "29ner Wheels",
         "build": []
       }
     },
@@ -162,55 +162,97 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 91,
         "url": "jensonusa.com",
-        "name": "29ner Wheel FRONT",
+        "name": "Rear Derailleur",
+        "build": []
+      }
+    },
+    "40":{
+      "_id": 40,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 92,
+        "url": "jensonusa.com",
+        "name": "Front Derailleur",
+        "build": []
+      }
+    }
+    "41":{
+      "_id": 41,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 93,
+        "url": "jensonusa.com",
+        "name": "Chain",
+        "build": []
+      }
+    }
+    "42":{
+      "_id": 42,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 94,
+        "url": "jensonusa.com",
+        "name": "Shifter",
         "build": []
       }
     }
   },
 
-    "part_type": {
-      "82":{
-        "name": "29 wheel FRONT",
-        "_id": 82
-      },
-      "83":{
-        "name": "29 wheel REAR",
-        "_id": 83
-      },
-      "84":{
-        "name": "Fork MTN",
-        "_id": 84
-      },
-      "85":{
-        "name": "Shock MTN",
-        "_id": 85
-      },
-      "86":{
-        "name": "Handlebar",
-        "_id": 86
-      },
-      "87":{
-        "name": "Saddle",
-        "_id": 87
-      },
-      "88":{
-        "name": "Seatpost",
-        "_id": 88
-      },
-      "89":{
-        "name": "Frame",
-        "_id": 89
-      },
-      "90":{
-        "name": "Brakes",
-        "_id": 90
-      },
-      "91":{
-        "name": "29 wheel FRONT",
-        "_id": 91
-      }
+  "part_type": {
+    "82":{
+      "name": "Tires",
+      "_id": 82
+    },
+    "83":{
+      "name": "Wheels",
+      "_id": 83
+    },
+    "84":{
+      "name": "Fork",
+      "_id": 84
+    },
+    "85":{
+      "name": "Shock",
+      "_id": 85
+    },
+    "86":{
+      "name": "Handlebar",
+      "_id": 86
+    },
+    "87":{
+      "name": "Saddle",
+      "_id": 87
+    },
+    "88":{
+      "name": "Seatpost",
+      "_id": 88
+    },
+    "89":{
+      "name": "Frame",
+      "_id": 89
+    },
+    "90":{
+      "name": "Brakes",
+      "_id": 90
+    },
+    "91":{
+      "name": "Rear Derailleur",
+      "_id": 91
+    },
+    "92":{
+      "name": "Front Derailleur",
+      "_id": 92
+    },
+    "93":{
+      "name": "Chain",
+      "_id": 93
+    },
+    "94":{
+      "name": "Shifter",
+      "_id": 94
     }
-  };
+  }
+};
   /**
  * A dumb cloning routing. Serializes a JSON object as a string, then
  * deserializes it.
