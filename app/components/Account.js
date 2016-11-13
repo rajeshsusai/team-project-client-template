@@ -24,11 +24,11 @@ export default class Account extends React.Component {
 
   render() {
 
-    var firstName = this.props.user.first_name;
-    var lastName = this.props.last_name;
-    var email = this.props.email;
-    var password = this.props.password;
-    var username = this.props.user_name;
+    var firstName = this.state.first_name;
+    var lastName = this.state.last_name;
+    var email = this.state.email;
+    var password = this.state.password;
+    var username = this.state.user_name;
 
     return (
       <div className="container jumbotron accountcontrol">
@@ -63,9 +63,6 @@ export default class Account extends React.Component {
                         <input type="text" className="form-control" id="password" placeholder = {password}/>
                         </div>
                       </div>
-                        <div className="submit">
-                          <input type="Submit" value="Exit" />
-                          </div>
                         </div>
                       </div>
                     );
