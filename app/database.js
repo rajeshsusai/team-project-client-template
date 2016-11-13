@@ -175,7 +175,7 @@ var initialData = {
         "name": "Front Derailleur",
         "build": []
       }
-    }
+    },
     "41":{
       "_id": 41,
       "contents": {
@@ -185,7 +185,7 @@ var initialData = {
         "name": "Chain",
         "build": []
       }
-    }
+    },
     "42":{
       "_id": 42,
       "contents": {
