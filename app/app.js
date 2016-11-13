@@ -31,7 +31,17 @@ class SavedBuildsWrapper extends React.Component {
             </div>)
   }
 }
-
+class BuildWrapper extends React.Component{
+  render() {
+    var user=readDocument("users", 1);
+    return (<div>
+      <NavBar user={1} page={this.props.location.pathname} />
+      <Build user={1} state={0} />
+      <Footer />
+      </div>
+    );
+  }
+}
 ReactDOM.render((
   <Router history={ browserHistory }>
     <Route
@@ -42,10 +52,11 @@ ReactDOM.render((
       <Route
              path="account/:id"
              component={ Account } />
-      <Route
-             path="build/:id"
-             component={ Build } />
+      
     </Route>
+    <Route
+             path="build/:id"
+             component={ BuildWrapper } />
     <Route
            path="savedbuilds/:id"
            component={ SavedBuildsWrapper } />
