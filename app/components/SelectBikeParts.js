@@ -3,9 +3,7 @@ import { getBuildsData } from '../server';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      contents: []
-    };
+    this.state = this.props.state;
   }
 
   /*
@@ -40,7 +38,7 @@ export default class SelectBikeParts extends React.Component {
                     <tbody>
                         <tr>
                             <th scope="row">Rear Derailleur</th>
-                            <td>{this.state.contents.parts[0].name}</td>
+                            <td>{this.state.contents.parts[0].contents.build_name}</td>
                             <td>XTR-RD-M9000 11 Speed SGS</td>
                             <td><a href="http://www.jensonusa.com/Shimano-XTR-RD-M9000-11S-Rear-Derailleur">$159.99 - JensonUSA</a></td>
                         </tr>

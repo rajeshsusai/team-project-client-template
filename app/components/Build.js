@@ -12,7 +12,20 @@ export default class Build extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      contents: [],
+      contents: {
+        "parts":{
+        "0":{
+          "_id": 1,
+          "contents": {
+            "bike_type": "Winter",
+            "status": "Incomplete",
+            "total_price": "64.99",
+            "build_name": "Bugs Bunny",
+            "parts": [30]
+          }
+        }
+      }
+      },
       current_state: 0,
       buildId: null,
       user: 1
@@ -20,18 +33,19 @@ export default class Build extends React.Component {
       1 : SelectBikeParts
       2 : ReviewBuild(SelectBikeParts extended)
     */
-    };
+    }
   }
   handleBikeBtnClickEvent(clickEvent, bikeType) {
     clickEvent.preventDefault();
     if (clickEvent.button === 0) {
-      var callbackFunction = (updateBuildState) => {
+      var callbackFunction = () => {
         this.setState({
           current_state: 1
           /*dynamic buildId*/
         });
       }
-      selectBikeType(1, bikeType, callbackFunction)
+      callbackFunction();
+      // selectBikeType(1, bikeType, callbackFunction)
       this.refresh();
     }
 
@@ -72,6 +86,7 @@ export default class Build extends React.Component {
       case 1:
         return (<SelectBikeParts 
           key={this.state.buildId}
+          state={this.state}
           onClick={ (e, state) => this.reviewClick(e, state) } />);
       case 2:
         return (
