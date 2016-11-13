@@ -8,6 +8,7 @@ var initialData = {
   "users": {
     "1": {
       "_id": 1,
+      "user_name": "Msinyard",
       "first_name": "Mike",
       "last_name": "Sinyard",
       "email": "specialized@example.com",
@@ -175,7 +176,7 @@ var initialData = {
         "name": "Front Derailleur",
         "build": []
       }
-    }
+    },
     "41":{
       "_id": 41,
       "contents": {
@@ -185,7 +186,7 @@ var initialData = {
         "name": "Chain",
         "build": []
       }
-    }
+    },
     "42":{
       "_id": 42,
       "contents": {
