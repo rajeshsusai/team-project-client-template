@@ -31,11 +31,15 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(buildData, cb);
   }
 
-  function getBuildListSync(buildId) {
+  export function getBuildListSync(buildId) {
     var builds = readDocument('builds', buildId);
-    builds.contents.forEach((build) => {
-      build.contents = readDocument('builds', build.contents);
+    builds.forEach((build) => {
+      build.contents.parts = build.map((build) => {
+        var parts = readDocument('parts', build);
+        return parts;
+      });
     });
+    return builds;
   }
 
   export function getBuildListData(user, cb) {
