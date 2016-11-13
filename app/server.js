@@ -44,7 +44,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
   }
 
   export function selectBikeType(user, bikeType, cb) {
-    var newBuild;
+    var newBuild = readDocument();
     if(bikeType === "Winter") {
       newBuild ={
         "type": "Winter",

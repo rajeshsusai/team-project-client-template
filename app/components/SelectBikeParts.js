@@ -50,7 +50,7 @@ export default class SelectBikeParts extends React.Component {
                                 aria-expanded="false">Add Part <span className="caret"></span></a>
                               <ul className="dropdown-menu">
                                 <li>
-                                  <a></a>
+                                  <a>IMPLEMENT</a>
                                 </li>
                               </ul>
                             </li></td>
@@ -58,74 +58,230 @@ export default class SelectBikeParts extends React.Component {
                           </tr>
                           <tr>
                               <th scope="row">Rear Derailleur</th>
-                              <td>{this.state.contents.parts[0].name}</td>
-                              <td>XTR-RD-M9000 11 Speed SGS</td>
+                                <td>
+                                  <li className="dropdown pull-right">
+                                    <a
+                                      href="#"
+                                      className="dropdown-toggle"
+                                      data-toggle="dropdown"
+                                      role="button"
+                                      aria-haspopup="true"
+                                      aria-expanded="false">Add Part <span className="caret"></span></a>
+                                    <ul className="dropdown-menu">
+                                      <li>
+                                        <a>IMPLEMENT</a>
+                                      </li>
+                                    </ul>
+                                  </li></td>
                               <td><a href="http://www.jensonusa.com/Shimano-XTR-RD-M9000-11S-Rear-Derailleur">$159.99 - JensonUSA</a></td>
                           </tr>
                           <tr>
                               <th scope="row">Tires</th>
-                              <td>SRAM</td>
-                              <td>XG-1180 X1 11 Tires</td>
+                                <td>
+                                  <li className="dropdown pull-right">
+                                    <a
+                                      href="#"
+                                      className="dropdown-toggle"
+                                      data-toggle="dropdown"
+                                      role="button"
+                                      aria-haspopup="true"
+                                      aria-expanded="false">Add Part <span className="caret"></span></a>
+                                    <ul className="dropdown-menu">
+                                      <li>
+                                        <a>IMPLEMENT</a>
+                                      </li>
+                                    </ul>
+                                  </li></td>
                               <td><a href="http://www.jensonusa.com/SRAM-XG-1180-X1-11-Speed-Cassette">$254.99 - JensonUSA</a></td>
                           </tr>
                           <tr>
                               <th scope="row">Brakes</th>
-                              <td>Shimano</td>
-                              <td>XT-M8000 Hydraulic Disc Brake</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
                               <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                           </tr>
                           <tr>
                             <th scope="row">Fork</th>
-                            <td>FOX</td>
-                            <td>32 FLOAT 100 CTD EVO 26" FORK 2015</td>
+                            <td>
+                              <li className="dropdown pull-right">
+                                <a
+                                  href="#"
+                                  className="dropdown-toggle"
+                                  data-toggle="dropdown"
+                                  role="button"
+                                  aria-haspopup="true"
+                                  aria-expanded="false">Add Part <span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                  <li>
+                                    <a>IMPLEMENT</a>
+                                  </li>
+                                </ul>
+                              </li></td>
                             <td><a href="http://www.jensonusa.com/Fox-32-Float-100-CTD-Evo-26-Fork-2015">$299.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Wheels</th>
-                            <td>Shimano</td>
-                            <td>XT-M8000 Wheels</td>
+                            <td>
+                              <li className="dropdown pull-right">
+                                <a
+                                  href="#"
+                                  className="dropdown-toggle"
+                                  data-toggle="dropdown"
+                                  role="button"
+                                  aria-haspopup="true"
+                                  aria-expanded="false">Add Part <span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                  <li>
+                                    <a>IMPLEMENT</a>
+                                  </li>
+                                </ul>
+                              </li></td>
                             <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Shock</th>
-                            <td>Shimano</td>
-                            <td>XT-M8000 Shock</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
                             <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Handlebar</th>
-                            <td>Shimano</td>
-                            <td>XT-M8000 Handlebar</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
                             <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Saddle</th>
-                            <td>Shimano</td>
-                            <td>XT-M8000 Saddle</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
                             <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Seatpost</th>
-                            <td>Shimano</td>
-                            <td>XT-M8000 Seatpost</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
                             <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Chain</th>
-                            <td>Shimano</td>
-                            <td>XT-M8000 Chain</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
                             <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Shifter</th>
-                            <td>Shimano</td>
-                            <td>XT-M8000 Shifter</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
                             <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Frame</th>
-                            <td>Shimano</td>
-                            <td>XT-M8000 Frame</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
                             <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
