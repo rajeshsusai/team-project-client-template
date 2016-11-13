@@ -1,5 +1,4 @@
 import React from 'react';
-import {getBuildSync} from '../server';
 export default class HomeItem extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +11,8 @@ export default class HomeItem extends React.Component {
   Refresh should be called after a client event is handled by the server if
   any persistent state needs to be synced
   */
-  refresh() {}
+  refresh() {
+  }
 
   componentDidMount() {
     this.refresh();
@@ -23,7 +23,6 @@ export default class HomeItem extends React.Component {
       <div>
         <div className="body-container">
           <div className="col-md-2">
-            {alert(getBuildSync(1))}
           </div>
           <div className="col-md-8 text-center">
             <div className="panel panel-default">

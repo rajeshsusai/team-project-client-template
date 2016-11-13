@@ -16,10 +16,12 @@ import {readDocument, writeDocument, addDocument} from './database.js';
 
   export function getBuildSync(buildId) {
     var build = readDocument('builds', buildId);
-    build.contents.parts.map((val) => {
+    build.contents.parts = build.contents.parts.map((val) => {
       var parts = readDocument('parts', val);
       return parts;
     });
+
+    return build;
   }
 
   export function getBuildData(user, cb) {
