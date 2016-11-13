@@ -4,236 +4,123 @@ import {readDocument, writeDocument, addDocument} from './database.js';
  * Emulates how a REST call is *asynchronous* -- it calls your function back
  * some time in the future with data.
  */
-function emulateServerReturn(data, cb) {
-  setTimeout(() => {
-    cb(data);
-  }, 4);
-}
-
+  function emulateServerReturn(data, cb) {
+    setTimeout(() => {
+      cb(data);
+    }, 4);
+  }
   export function getUserData(user, cb) {
     var userData = readDocument('users', user);
     emulateServerReturn(userData, cb);
   }
 
-  function getBuildItemSync(userId) {
-    var buildsList = readDocument('buildItems', userId);
-    buildsList.build.forEach((build) => {
-      build.author = readDocument('users', build.author);
+  function getBuildSync(buildId) {
+    var build = readDocument('builds', buildId);
+    build.parts.forEach((part) => {
+      part.part_type = readDocument('builds', part.part_type);
     });
-    return buildsList;
+    return build;
   }
 
- export function getBuildsData(user, cb) {
-  var userData = readDocument('users', user);
-  var buildsData = readDocument('builds', userData.builds);
-  // Map the Feed's FeedItem references to actual FeedItem objects.
-  // Note: While map takes a callback function as an argument, it is
-  // synchronous, not asynchronous. It calls the callback immediately.
-  buildsData.contents = buildsData.contents.map(getBuildItemSync);
-  // Return FeedData with resolved references.
-  // emulateServerReturn will emulate an asynchronous server operation, which // invokes (calls) the "cb" function some time in the future.
-  emulateServerReturn(buildsData, cb);
-}
+  export function getBuildData(user, cb) {
+    var userData = readDocument('users', user);
+    var buildData = readDocument('builds', userData.buildList);
+    buildData.contents = buildData.contents.map(getBuildSync);
+    emulateServerReturn(buildData, cb);
+  }
 
- export function selectBikeType(user, bikeType, cb) {
-  // If we were implementing this for real on an actual server,
-  // we would check that the user ID is correct & matches the
-  // authenticated user. But since we're mocking it, we can
-  // be less strict.
-  // The new status update. The database will assign the ID for us.
-  var newBuild;
-  if(bikeType === "winter") {
-    newBuild ={
-      "type": "winter",
-      "contents": {
-        "author": user,
-        "buildName": [],
-        "status": 0,
-        "parts":{
-          "wheels": [],
-          "handlebars": [],
-          "seatpost": [],
-          "saddle": [],
-          "frame": [],
-          "shock": [],
-          "frontDerailleur": [],
-          "rearDerailleur": [],
-          "chain": [],
-          "brake": [],
-          "fork": [],
-          "shifter": [],
-          "tire": []
-        }
-      }
-    };
+  function getBuildListSync(buildId) {
+    var builds = readDocument('builds', buildId);
+    builds.contents.forEach((build) => {
+      build.contents = readDocument('builds', build.contents);
+    });
   }
-  else if(bikeType === "trail") {
-    newBuild ={
-      "type": "trail",
-      "contents": {
-        "author": user,
-        "buildName": [],
-        "status": 0,
-        "parts":{
-          "wheels": [],
-          "handlebars": [],
-          "seatpost": [],
-          "saddle": [],
-          "frame": [],
-          "shock": [],
-          "frontDerailleur": [],
-          "rearDerailleur": [],
-          "chain": [],
-          "brake": [],
-          "fork": [],
-          "shifter": [],
-          "tire": []
-        }
-      }
-    };
+
+  export function getBuildListData(user, cb) {
+    var userData = readDocument('users', user);
+    var buildsData = readDocument('builds', userData.buildList);
+    buildsData.contents = buildsData.contents.map(getBuildListSync);
+    emulateServerReturn(buildsData, cb);
   }
-  else if(bikeType === "mountain") {
-    newBuild ={
-      "type": "mountain",
-      "contents": {
-        "author": user,
-        "buildName": [],
-        "status": 0,
-        "parts":{
-          "wheels": [],
-          "handlebars": [],
-          "seatpost": [],
-          "saddle": [],
-          "frame": [],
-          "shock": [],
-          "frontDerailleur": [],
-          "rearDerailleur": [],
-          "chain": [],
-          "brake": [],
-          "fork": [],
-          "shifter": [],
-          "tire": []
-        }
-      }
-    };
-  }
-    else if(bikeType === "road") {
+
+  export function selectBikeType(user, bikeType, cb) {
+    var newBuild;
+    if(bikeType === "Winter") {
       newBuild ={
-        "type": "road",
+        "type": "Winter",
         "contents": {
           "author": user,
           "buildName": [],
           "status": 0,
-          "parts":{
-            "wheels": [],
-            "handlebars": [],
-            "seatpost": [],
-            "saddle": [],
-            "frame": [],
-            "frontDerailleur": [],
-            "rearDerailleur": [],
-            "chain": [],
-            "brake": [],
-            "shifter": [],
-            "tire": []
-          }
+          "parts": []
         }
       };
+    }
+    else if(bikeType === "Trail") {
+      newBuild ={
+        "type": "Trail",
+        "contents": {
+        "author": user,
+        "buildName": [],
+        "status": 0,
+        "part": []
+      }
+    };
   }
-  // Add the status update to the database.
-  // Returns the status update w/ an ID assigned.
-  newBuild = addDocument('buildItems', newBuild);
-  // Add the status update reference to the front of the
-  // current user's feed.
-  var userData = readDocument('users', user);
-  var buildsData = readDocument('builds', userData.build);
-  buildsData.contents.unshift(newBuild._id);
-  // Update the feed object.
-  writeDocument('builds', buildsData);
-  // Return the newly-posted object.
-  emulateServerReturn(newBuild, cb);
+  else if(bikeType === "Mountain") {
+    newBuild ={
+      "type": "Mountain",
+      "contents": {
+        "author": user,
+        "buildName": [],
+        "status": 0,
+        "part": []
+      }
+    };
+  }
+  else if(bikeType === "Road") {
+    newBuild ={
+      "type": "Road",
+      "contents": {
+      "author": user,
+      "buildName": [],
+      "status": 0,
+      "part": []
+     }
+   };
+ }
+ // Add the status update to the database.
+ // Returns the status update w/ an ID assigned.
+ newBuild = addDocument('builds', newBuild);
+ // Add the status update reference to the front of the
+ // current user's feed.
+ var userData = readDocument('users', user);
+ var buildsData = readDocument('builds', userData.build);
+ buildsData.contents.unshift(newBuild._id);
+ // Update the feed object.
+ writeDocument('builds', buildsData);
+ // Return the newly-posted object.
+ emulateServerReturn(newBuild, cb);
 }
 
-export function addWheel(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.parts.wheels = part;
+export function addPart(buildId, bike_type, part_type, url, name, build, cb) {
+  var buildData = readDocument('builds', buildId);
+  buildData.contents.parts.contents.push({
+    "bike_type": [bike_type],
+    "part_type": part_type,
+    "url": url,
+    "name": name,
+    "build": []
+  });
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-export function addHandleBars(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.parts.handlebars = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addSeatPost(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.parts.seatpost = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addSaddle(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.parts.saddle = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addFrame(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.parts.frame = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addRearDerailleur(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.parts.rearDerailleur = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addFrontDerailleur(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.parts.frontDerailleur = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addChain(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.parts.chain = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addBrake(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.parts.brake = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addFork(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.parts.fork = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addShifter(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.parts.shifter = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addTire(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.parts.tire = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
+export function changePassword(userId, newPassword, cb) {
+  var info = readDocument('users', userId);
+  info.push({
+    "password": newPassword
+  });
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
 }

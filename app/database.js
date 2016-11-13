@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// Modify with your startup's name!
+var startupName = null;
+
 var initialData = {
   "users": {
     "1": {
@@ -64,86 +67,107 @@ var initialData = {
   },
   "parts":{
     "30":{
-      "bike_type": [10,11,12,13],
-      "part_type": 82,
-      "url": "jensonusa.com",
       "_id": 30,
-      "name": "29ner Wheel Front",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 82,
+        "url": "jensonusa.com",
+        "name": "29ner Wheel Front",
+        "build": []
+      }
     },
     "31":{
-      "bike_type": [10,11,12,13],
-      "part_type": 83,
-      "url": "jensonusa.com",
       "_id": 31,
-      "name": "29ner Wheel Rear",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 83,
+        "url": "jensonusa.com",
+        "name": "29ner Wheel Rear",
+        "build": []
+      }
     },
     "32":{
-      "bike_type": [10,12,13],
-      "part_type": 84,
-      "url": "jensonusa.com",
       "_id": 32,
-      "name": "Fork",
-      "build": []
+      "contents": {
+        "bike_type": [10,12,13],
+        "part_type": 84,
+        "url": "jensonusa.com",
+        "name": "Fork",
+        "build": []
+      }
     },
     "33":{
-      "bike_type": [10,12,13],
-      "part_type": 85,
-      "url": "jensonusa.com",
       "_id": 33,
-      "name": "Shock",
-      "build": []
+      "contents": {
+        "bike_type": [10,12,13],
+        "part_type": 85,
+        "url": "jensonusa.com",
+        "name": "Shock",
+        "build": []
+      }
     },
     "34":{
-      "bike_type": [10,11,12,13],
-      "part_type": 86,
-      "url": "jensonusa.com",
       "_id": 34,
-      "name": "Handlebar",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 86,
+        "url": "jensonusa.com",
+        "name": "Handlebar",
+        "build": []
+      }
     },
     "35":{
-      "bike_type": [10,11,12,13],
-      "part_type": 87,
-      "url": "jensonusa.com",
       "_id": 35,
-      "name": "Saddle",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 87,
+        "url": "jensonusa.com",
+        "name": "Saddle",
+        "build": []
+      }
     },
     "36":{
-      "bike_type": [10,11,12,13],
-      "part_type": 88,
-      "url": "jensonusa.com",
       "_id": 36,
-      "name": "Seatpost",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 88,
+        "url": "jensonusa.com",
+        "name": "Seatpost",
+        "build": []
+      }
     },
     "37":{
-      "bike_type": [10,11,12,13],
-      "part_type": 89,
-      "url": "jensonusa.com",
       "_id": 37,
-      "name": "Frame",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 89,
+        "url": "jensonusa.com",
+        "name": "Frame",
+        "build": []
+      }
     },
     "38":{
-      "bike_type": [10,11,12,13],
-      "part_type": 90,
-      "url": "jensonusa.com",
       "_id": 38,
-      "name": "Brakes",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 90,
+        "url": "jensonusa.com",
+        "name": "Brakes",
+        "build": []
+      }
     },
     "39":{
-      "bike_type": [10,11,12,13],
-      "part_type": 91,
-      "url": "jensonusa.com",
       "_id": 39,
-      "name": "29ner Wheel FRONT",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 91,
+        "url": "jensonusa.com",
+        "name": "29ner Wheel FRONT",
+        "build": []
+      }
     }
   },
+
     "part_type": {
       "82":{
         "name": "29 wheel FRONT",
@@ -192,75 +216,79 @@ var initialData = {
  * deserializes it.
  */
 
- var data = JSON.parse(localStorage.getItem('bikedata'));
-if (data === null) {
-  data = JSONClone(initialData);
-}
+ var data = JSON.parse(localStorage.getItem(startupName));
+ if (data === null) {
+   data = JSONClone(initialData);
+ }
 
-function JSONClone(obj) {
-  return JSON.parse(JSON.stringify(obj));
-}
+ /**
+  * A dumb cloning routing. Serializes a JSON object as a string, then
+  * deserializes it.
+  */
+ function JSONClone(obj) {
+   return JSON.parse(JSON.stringify(obj));
+ }
 
-/**
- * Emulates reading a "document" from a NoSQL database.
- * Doesn't do any tricky document joins, as we will cover that in the latter
- * half of the course. :)
- */
-export function readDocument(collection, id) {
-  // Clone the data. We do this to model a database, where you receive a
-  // *copy* of an object and not the object itself.
-  return JSONClone(data[collection][id]);
-}
+ /**
+  * Emulates reading a "document" from a NoSQL database.
+  * Doesn't do any tricky document joins, as we will cover that in the latter
+  * half of the course. :)
+  */
+ export function readDocument(collection, id) {
+   // Clone the data. We do this to model a database, where you receive a
+   // *copy* of an object and not the object itself.
+   return JSONClone(data[collection][id]);
+ }
 
-/**
- * Emulates writing a "document" to a NoSQL database.
- */
-export function writeDocument(collection, changedDocument) {
-  var id = changedDocument._id;
-  // Store a copy of the object into the database. Models a database's behavior.
-  data[collection][id] = JSONClone(changedDocument);
-  // Update our 'database'.
-  localStorage.setItem('bikedata', JSON.stringify(data));
-}
+ /**
+  * Emulates writing a "document" to a NoSQL database.
+  */
+ export function writeDocument(collection, changedDocument) {
+   var id = changedDocument._id;
+   // Store a copy of the object into the database. Models a database's behavior.
+   data[collection][id] = JSONClone(changedDocument);
+   // Update our 'database'.
+   localStorage.setItem(startupName, JSON.stringify(data));
+ }
 
-/**
- * Adds a new document to the NoSQL database.
- */
-export function addDocument(collectionName, newDoc) {
-  var collection = data[collectionName];
-  var nextId = Object.keys(collection).length;
-  while (collection[nextId]) {
-    nextId++;
-  }
-  newDoc._id = nextId;
-  writeDocument(collectionName, newDoc);
-  return newDoc;
-}
+ /**
+  * Adds a new document to the NoSQL database.
+  */
+ export function addDocument(collectionName, newDoc) {
+   var collection = data[collectionName];
+   var nextId = Object.keys(collection).length;
+   while (collection[nextId]) {
+     nextId++;
+   }
+   newDoc._id = nextId;
+   writeDocument(collectionName, newDoc);
+   return newDoc;
+ }
 
-/**
- * Reset our browser-local database.
- */
-export function resetDatabase() {
-  localStorage.setItem('facebook_data', JSON.stringify(initialData));
-  data = JSONClone(initialData);
-}
+ /**
+  * Reset our browser-local database.
+  */
+ export function resetDatabase() {
+   localStorage.setItem(startupName, JSON.stringify(initialData));
+   data = JSONClone(initialData);
+ }
 
-class ResetDatabase extends React.Component {
-    render() {
-        return ( < button className = "btn btn-default"
-            type = "button"
-            onClick = {
-                () => {
-                    resetDatabase();
-                    window.alert("Database reset! Refreshing the page now...");
-                    document.location.reload(false);
-                }
-            } > Reset Mock DB < /button>
-        );
-    }
-}
+ /**
+  * Reset database button.
+  */
+ class ResetDatabase extends React.Component {
+   render() {
+     return (
+       <button className="btn btn-default" type="button" onClick={() => {
+         resetDatabase();
+         window.alert("Database reset! Refreshing the page now...");
+         document.location.reload(false);
+       }}>Reset Mock DB</button>
+     );
+   }
+ }
 
-ReactDOM.render(
-    <ResetDatabase />,
-    document.getElementById('bb-db-reset')
-);
+ ReactDOM.render(
+   <ResetDatabase />,
+   document.getElementById('db-reset')
+ );
