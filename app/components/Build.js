@@ -27,7 +27,7 @@ export default class Build extends React.Component {
     if (clickEvent.button === 0) {
       var callbackFunction = (updateBuildState) => {
         this.setState({
-          current_state: 1,
+          current_state: 1
           /*dynamic buildId*/
         });
       }
