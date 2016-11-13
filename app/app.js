@@ -49,10 +49,7 @@ ReactDOM.render((
            component={ App }>
       { /* Show the Feed at / */ }
       <IndexRoute component={ Home } />
-      <Route
-             path="account/:id"
-             component={ Account } />
-      
+
     </Route>
     <Route
              path="build/:id"
