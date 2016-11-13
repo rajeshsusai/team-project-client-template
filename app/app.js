@@ -64,9 +64,6 @@ ReactDOM.render((
       <Route
              path="build/:id"
              component={ Build } />
-      <Route
-             path="account/:id"
-             component={ Account } />
 
     </Route>
     <Route
