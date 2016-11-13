@@ -47,84 +47,104 @@ var initialData = {
   },
   "parts":{
     "30":{
-      "bike_type": [10,11,12,13],
-      "part_type": 82,
-      "url": "jensonusa.com",
       "_id": 30,
-      "name": "29ner Wheel Front",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 82,
+        "url": "jensonusa.com",
+        "name": "29ner Wheel Front",
+        "build": []
+      }
     },
     "31":{
-      "bike_type": [10,11,12,13],
-      "part_type": 83,
-      "url": "jensonusa.com",
       "_id": 31,
-      "name": "29ner Wheel Rear",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 83,
+        "url": "jensonusa.com",
+        "name": "29ner Wheel Rear",
+        "build": []
+      }
     },
     "32":{
-      "bike_type": [10,12,13],
-      "part_type": 84,
-      "url": "jensonusa.com",
       "_id": 32,
-      "name": "Fork",
-      "build": []
+      "contents": {
+        "bike_type": [10,12,13],
+        "part_type": 84,
+        "url": "jensonusa.com",
+        "name": "Fork",
+        "build": []
+      }
     },
     "33":{
-      "bike_type": [10,12,13],
-      "part_type": 85,
-      "url": "jensonusa.com",
       "_id": 33,
-      "name": "Shock",
-      "build": []
+      "contents": {
+        "bike_type": [10,12,13],
+        "part_type": 85,
+        "url": "jensonusa.com",
+        "name": "Shock",
+        "build": []
+      }
     },
     "34":{
-      "bike_type": [10,11,12,13],
-      "part_type": 86,
-      "url": "jensonusa.com",
       "_id": 34,
-      "name": "Handlebar",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 86,
+        "url": "jensonusa.com",
+        "name": "Handlebar",
+        "build": []
+      }
     },
     "35":{
-      "bike_type": [10,11,12,13],
-      "part_type": 87,
-      "url": "jensonusa.com",
       "_id": 35,
-      "name": "Saddle",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 87,
+        "url": "jensonusa.com",
+        "name": "Saddle",
+        "build": []
+      }
     },
     "36":{
-      "bike_type": [10,11,12,13],
-      "part_type": 88,
-      "url": "jensonusa.com",
       "_id": 36,
-      "name": "Seatpost",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 88,
+        "url": "jensonusa.com",
+        "name": "Seatpost",
+        "build": []
+      }
     },
     "37":{
-      "bike_type": [10,11,12,13],
-      "part_type": 89,
-      "url": "jensonusa.com",
       "_id": 37,
-      "name": "Frame",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 89,
+        "url": "jensonusa.com",
+        "name": "Frame",
+        "build": []
+      }
     },
     "38":{
-      "bike_type": [10,11,12,13],
-      "part_type": 90,
-      "url": "jensonusa.com",
       "_id": 38,
-      "name": "Brakes",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 90,
+        "url": "jensonusa.com",
+        "name": "Brakes",
+        "build": []
+      }
     },
     "39":{
-      "bike_type": [10,11,12,13],
-      "part_type": 91,
-      "url": "jensonusa.com",
       "_id": 39,
-      "name": "29ner Wheel FRONT",
-      "build": []
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 91,
+        "url": "jensonusa.com",
+        "name": "29ner Wheel FRONT",
+        "build": []
+      }
     }
   },
 

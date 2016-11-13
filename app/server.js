@@ -15,7 +15,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
   }
 
   function getBuildItemSync(buildId) {
-    var build = readDocument('build_parts', buildId);
+    var build = readDocument('builds', buildId);
     build.forEach((part) => {
       part.part_type = readDocument('builds', part.part_type);
     });
@@ -24,7 +24,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
 
   export function getBuildData(user, cb) {
     var userData = readDocument('users', user);
-    var buildData = readDocument('builds', userData.builds);
+    var buildData = readDocument('builds', userData.buildList);
     buildData.contents = buildData.contents.map(getBuildItemSync);
     emulateServerReturn(buildData, cb);
   }
@@ -38,7 +38,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
 
   export function getBuildsData(user, cb) {
     var userData = readDocument('users', user);
-    var buildsData = readDocument('builds', userData.builds);
+    var buildsData = readDocument('builds', userData.buildList);
     buildsData.contents = buildsData.contents.map(getBuildsItemSync);
     emulateServerReturn(buildsData, cb);
   }
@@ -52,23 +52,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
           "author": user,
           "buildName": [],
           "status": 0,
-          "part":{
-            "part_type":{
-              "wheels": [],
-              "handlebars": [],
-              "seatpost": [],
-              "saddle": [],
-              "frame": [],
-              "shock": [],
-              "frontDerailleur": [],
-              "rearDerailleur": [],
-              "chain": [],
-              "brake": [],
-              "fork": [],
-              "shifter": [],
-              "tire": []
-            }
-          }
+          "parts": []
         }
       };
     }
@@ -79,23 +63,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
         "author": user,
         "buildName": [],
         "status": 0,
-        "part":{
-          "part_type":{
-            "wheels": [],
-            "handlebars": [],
-            "seatpost": [],
-            "saddle": [],
-            "frame": [],
-            "shock": [],
-            "frontDerailleur": [],
-            "rearDerailleur": [],
-            "chain": [],
-            "brake": [],
-            "fork": [],
-            "shifter": [],
-            "tire": []
-          }
-        }
+        "part": []
       }
     };
   }
@@ -106,23 +74,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
         "author": user,
         "buildName": [],
         "status": 0,
-        "part":{
-          "part_type":{
-            "wheels": [],
-            "handlebars": [],
-            "seatpost": [],
-            "saddle": [],
-            "frame": [],
-            "shock": [],
-            "frontDerailleur": [],
-            "rearDerailleur": [],
-            "chain": [],
-            "brake": [],
-            "fork": [],
-            "shifter": [],
-            "tire": []
-          }
-        }
+        "part": []
       }
     };
   }
@@ -133,21 +85,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
       "author": user,
       "buildName": [],
       "status": 0,
-      "part":{
-        "part_type": {
-          "wheels": [],
-          "handlebars": [],
-          "seatpost": [],
-          "saddle": [],
-          "frame": [],
-          "frontDerailleur": [],
-          "rearDerailleur": [],
-          "chain": [],
-          "brake": [],
-          "shifter": [],
-          "tire": []
-         }
-       }
+      "part": []
      }
    };
  }
@@ -165,86 +103,15 @@ import {readDocument, writeDocument, addDocument} from './database.js';
  emulateServerReturn(newBuild, cb);
 }
 
-export function addWheel(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.wheel = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addHandleBars(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.handlebars = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addSeatPost(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.seatpost = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addSaddle(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.saddle = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addFrame(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.frame = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addRearDerailleur(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.rearDerailleur = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addFrontDerailleur(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.frontDerailleur = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addChain(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.chain = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addBrake(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.brake = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addFork(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.fork = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addShifter(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.shifter = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addTire(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.tire = part;
+export function addPart(buildId, bike_type, part_type, url, name, build, cb) {
+  var buildData = readDocument('builds', buildId);
+  buildData.contents.parts.contents.push({
+    "bike_type": [bike_type],
+    "part_type": part_type,
+    "url": url,
+    "name": name,
+    "build": []
+  });
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
