@@ -13,12 +13,12 @@ var initialData = {
       "last_name": "Sinyard",
       "email": "specialized@example.com",
       "password": "*********",
-      "buildList": [29, 30, 31]
+      "buildList": [1, 2, 3]
     }
   },
   "builds": {
-      "29":{
-          "_id": 29,
+      "1":{
+          "_id": 1,
           "contents": {
             "bike_type": "Winter",
             "status": "Incomplete",
@@ -27,8 +27,8 @@ var initialData = {
             "parts": [30]
           }
       },
-      "30":{
-          "_id": 30,
+      "2":{
+          "_id": 2,
           "contents": {
             "bike_type": "Road",
             "status": "Incomplete",
@@ -37,13 +37,13 @@ var initialData = {
             "parts": [30]
           }
       },
-      "31":{
-          "_id": 31,
+      "3":{
+          "_id": 3,
           "contents": {
             "bike_type": "Trail",
             "status": "Incomplete",
             "total_price": "78.99",
-            "build_name": "The Explorer",
+            "build_name": "Wiley Coyote",
             "parts": [30]
           }
       }
