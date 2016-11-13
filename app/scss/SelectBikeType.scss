@@ -1,0 +1,49 @@
+#SelectBikeType {
+  /* Style for main buttons */
+  .build-bike-button {
+
+      font-size: 22px;
+      line-height: normal;
+      -webkit-border-radius: 0px;
+         -moz-border-radius: 0px;
+              border-radius: 0px;
+      border: black;
+      width:  200px;
+      height:  200px;
+      outline: 2px solid #408E2F;
+      padding:  0px 0px;
+
+  }
+
+  /* Styles for button images begin */
+  .icon-winter-bike {
+      background-image: url("/img/winter_bike.jpg");
+  }
+
+  .icon-mtn-bike {
+      background-image: url("/img/mtn_bike.jpg");
+  }
+
+  .icon-trail-bike {
+      background-image: url("/img/trail_bike.jpg");
+  }
+
+  .icon-city-bike {
+      background-image: url("/img/city_bike.jpg");
+  }
+
+
+  /* Button image style */
+  .img-button {
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 100% 100%;
+  	width: 200px;
+  	display: inline-block;
+  	height:  200px;
+  	color: #9AD58E;
+      font-weight: bold;
+  }
+
+  /* Styles for button images end */
+}

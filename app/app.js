@@ -41,7 +41,6 @@ class AccountWrapper extends React.Component {
             </div>)
   }
 }
-
 ReactDOM.render((
   <Router history={ browserHistory }>
     <Route
@@ -50,6 +49,9 @@ ReactDOM.render((
       { /* Show the Feed at / */ }
       <IndexRoute component={ Home } />
 
+      <Route
+             path="account/:id"
+             component={ Account } />
       <Route
              path="build/:id"
              component={ Build } />

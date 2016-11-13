@@ -19,8 +19,25 @@ export default class NavBar extends React.Component {
     this.refresh();
   }
 
+  getName(){
+    if( this.props.page.match("/SavedBuilds")){
+      return "Saved Builds";
+    }
+    else if(this.props.page.match("/Build/")){
+      return "My Build";
+    }
+    else if (this.props.page.match("/account/")){
+      return "My Account";
+    }
+    else{
+      return "Home";
+    }
+  }
+
+
   render() {
-    var data = this.state.first_name;
+    var userName = this.state.first_name;
+    var userId = this.state._id;
     return (
       <div>
         <nav className="navbar navbar-fixed-top navbar-default">
@@ -54,18 +71,18 @@ export default class NavBar extends React.Component {
                           className="btn btn-info navbar-btn navbar-btn-left">
                     Bike Part Picker
                   </button>
-                  <Link to={ "/Build/" + "1" }>
+                  <Link to={ "/Build/" + {userId} }>
                   <button
                           type="button"
                           className="btn btn-danger navbar-btn navbar-btn-left">
                     New Build
                   </button>
                   </Link>
-                  <Link to={ "/SavedBuilds/" + "1" }>
+                  <Link to={ "/SavedBuilds/" + {userId}}>
                   <button
                           type="button"
                           className="btn btn-warning navbar-btn navbar-btn-left">
-                    Other Builds
+                    Saved Builds
                   </button>
                   </Link>
                 </div>
@@ -78,7 +95,7 @@ export default class NavBar extends React.Component {
                       type="button"
                       className="btn btn-success navbar-btn"
                       disabled>
-                Current Page: Home
+                Current Page: {this.getName()}
               </button>
             </div>
             <div
@@ -87,7 +104,7 @@ export default class NavBar extends React.Component {
               <ul className="nav navbar-nav navbar-right account-name pull-left">
                 <Link to={"/account/"+"1"}>
                 <a
-                   className="account-name-toggle">{data}</a></Link>
+                   className="account-name-toggle">{userName}</a></Link>
               </ul>
               <ul
                   className="nav navbar-nav navbar-right pull-right"
@@ -102,12 +119,12 @@ export default class NavBar extends React.Component {
                      aria-expanded="false">Account <span className="caret"></span></a>
                   <ul className="dropdown-menu">
                     <li>
-                      <Link to={"/account/"+"1"}>
-                      <a>My Account</a> {/*TODO: replace with dynamic IDs*/}
+                      <Link to={"/account/"+{userId}}>
+                      <a>My Account</a>
                       </Link>
                     </li>
                     <li>
-                    <Link to={ "/SavedBuilds/" + "1" }>{/*TODO: replace with dynamic IDs*/}
+                    <Link to={ "/SavedBuilds/" + {userId} }>
                       <a>My Builds</a>
                       </Link>
                     </li>
