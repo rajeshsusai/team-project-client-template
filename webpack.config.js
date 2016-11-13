@@ -39,6 +39,10 @@ module.exports = {
           // HTML in your React modules into code.
           presets: ['es2015', 'react']
         }
+      },
+      {
+        test: /\.scss$/,
+        loaders: ["style", "css", "sass"]
       }
     ]
   }

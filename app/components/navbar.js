@@ -82,7 +82,7 @@ export default class NavBar extends React.Component {
                   <button
                           type="button"
                           className="btn btn-warning navbar-btn navbar-btn-left">
-                    Other Builds
+                    Saved Builds
                   </button>
                   </Link>
                 </div>
