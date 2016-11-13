@@ -14,7 +14,8 @@ export default class Build extends React.Component {
     this.state = {
       contents: [],
       current_state: 0,
-      buildId: 0
+      buildId: 29,
+      user: 1
     /* 0 : SelectBikeType
       1 : SelectBikeParts
       2 : ReviewBuild(SelectBikeParts extended)
@@ -51,7 +52,7 @@ export default class Build extends React.Component {
     any persistent state needs to be synced
   */
   refresh() {
-    getBuildData(this.props.user, (buildData) => {
+    getBuildData(this.state.user, (buildData) => {
       this.setState(buildData)
     });
   }
