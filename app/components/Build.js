@@ -64,7 +64,7 @@ export default class Build extends React.Component {
   render() {
     switch (this.state.current_state) {
       case 0:
-        return (<SelectBikeType onClick={ (e, t) => this.handleBikeBtnClickEvent(e, t) } />);
+        return (<SelectBikeType key={0} onClick={ (e, t) => this.handleBikeBtnClickEvent(e, t) } />);
       case 1:
         return (<SelectBikeParts 
           key={this.state.buildId}
@@ -77,7 +77,7 @@ export default class Build extends React.Component {
           </div>
           );
       default:
-        return "404";
+        return "418";
     }
   }
 }
