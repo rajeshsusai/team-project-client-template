@@ -14,13 +14,12 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(userData, cb);
   }
 
-  export function getBuildSync(buildId) {
+   function getBuildSync(buildId) {
     var build = readDocument('builds', buildId);
     build.contents.parts = build.contents.parts.map((val) => {
       var parts = readDocument('parts', val);
       return parts;
     });
-
     return build;
   }
 
@@ -29,24 +28,6 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     var buildData = readDocument('builds', userData.buildList);
     buildData = buildData.map(getBuildSync);
     emulateServerReturn(buildData, cb);
-  }
-
-  export function getBuildListSync(buildId) {
-    var builds = readDocument('builds', buildId);
-    builds.forEach((build) => {
-      build.contents.parts = build.map((build) => {
-        var parts = readDocument('parts', build);
-        return parts;
-      });
-    });
-    return builds;
-  }
-
-  export function getBuildListData(user, cb) {
-    var userData = readDocument('users', user);
-    var buildsData = readDocument('builds', userData.buildList);
-    buildsData.contents = buildsData.contents.map(getBuildListSync);
-    emulateServerReturn(buildsData, cb);
   }
 
   export function selectBikeType(user, bikeType, cb) {
@@ -122,11 +103,37 @@ export function addPart(buildId, bike_type, part_type, url, name, build, cb) {
   emulateServerReturn(buildData, cb);
 }
 
+export function changeFirstName(userId, newFirstName, cb) {
+  var info = readDocument('users', userId);
+  info.first_name = newFirstName;
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
+}
+
+export function changeLastName(userId, newLastName, cb) {
+  var info = readDocument('users', userId);
+  info.last_name = newLastName;
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
+}
+
+export function changeEmail(userId, newEmail, cb) {
+  var info = readDocument('users', userId);
+  info.email = newEmail;
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
+}
+
+export function changeUserName(userId, newUserName, cb) {
+  var info = readDocument('users', userId);
+  info.user_name = newUserName;
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
+}
+
 export function changePassword(userId, newPassword, cb) {
   var info = readDocument('users', userId);
-  info.push({
-    "password": newPassword
-  });
+  info.password = newPassword;
   writeDocument('users', info);
   emulateServerReturn(userId, cb);
 }
