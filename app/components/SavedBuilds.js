@@ -55,8 +55,6 @@ export default class SavedBuilds extends React.Component {
             </div>
             <div className="col-md-8 text-center">
                 <div className="panel panel-default">
-                <div className="container savedBuildTable">
-                    <div className="jumbotron">
                         <table className="table table-hover table-bordered">
                             <caption>My Favorite Builds</caption>
                             <thead>
@@ -72,10 +70,8 @@ export default class SavedBuilds extends React.Component {
                             {this.populateTable()}
                             </tbody>
                         </table>
-                    </div>
                 </div>
                 </div>
-            </div>
             <div className="col-md-2">
             </div>
         </div>
