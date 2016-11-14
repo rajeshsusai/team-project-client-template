@@ -14,21 +14,6 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(userData, cb);
   }
 
-<<<<<<< HEAD
-  export function getBuildData(user, cb) {
-    var userData = readDocument('users', user);
-    var buildData = readDocument('builds', userData.builds);
-    buildData.contents = buildData.contents.map(getBuildSync);
-    emulateServerReturn(buildData, cb);
-  }
-
-  function getBuildSync(buildId) {
-    var build = readDocument('builds', buildId);
-    build.contents.bike_type = build.contents.bike_type.map((id) => readDocument('bike_type', id));
-    build.contents.parts = build.contents.parts.map((id) => readDocument('parts', id));
-  }
-
-=======
    function getBuildSync(buildId) {
     var build = readDocument('builds', buildId);
     build.contents.parts = build.contents.parts.map((val) => {
@@ -45,7 +30,6 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(buildData, cb);
   }
 
->>>>>>> c7c05a5f5e8d02e18877a5273240de23d38708d4
   export function selectBikeType(user, bikeType, cb) {
     var newBuild;
     if(bikeType === 13) {
