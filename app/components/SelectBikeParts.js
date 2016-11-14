@@ -1,16 +1,9 @@
 import React from 'react';
-import { getBuildsData } from '../server';
+import { getBuildData } from '../server';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
-    this.handleClick = this.handleClick.bind(this);
-    this.state = {
-      contents: []
-    };
-=======
     this.state = this.props.state;
->>>>>>> 372e094f2d1cbb340f3b44af8097fb29f91c8ccb
   }
 
   /*
@@ -18,7 +11,7 @@ export default class SelectBikeParts extends React.Component {
     any persistent state needs to be synced
   */
   refresh() {
-    getBuildsData(this.props.users, (buildsData) => {
+    getBuildData(this.props.users, (buildsData) => {
       this.setState(buildsData);
     });
   }
@@ -58,7 +51,6 @@ export default class SelectBikeParts extends React.Component {
                                 </li>
                               </ul>
                             </li></td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                           </tr>
                           <tr>
                               <th scope="row">Rear Derailleur</th>
@@ -77,7 +69,6 @@ export default class SelectBikeParts extends React.Component {
                                       </li>
                                     </ul>
                                   </li></td>
-                              <td><a href="http://www.jensonusa.com/Shimano-XTR-RD-M9000-11S-Rear-Derailleur">$159.99 - JensonUSA</a></td>
                           </tr>
                           <tr>
                               <th scope="row">Tires</th>
@@ -96,7 +87,6 @@ export default class SelectBikeParts extends React.Component {
                                       </li>
                                     </ul>
                                   </li></td>
-                              <td><a href="http://www.jensonusa.com/SRAM-XG-1180-X1-11-Speed-Cassette">$254.99 - JensonUSA</a></td>
                           </tr>
                           <tr>
                               <th scope="row">Brakes</th>
@@ -115,7 +105,6 @@ export default class SelectBikeParts extends React.Component {
                                     </li>
                                   </ul>
                                 </li></td>
-                              <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                           </tr>
                           <tr>
                             <th scope="row">Fork</th>
@@ -134,10 +123,8 @@ export default class SelectBikeParts extends React.Component {
                                   </li>
                                 </ul>
                               </li></td>
-                            <td><a href="http://www.jensonusa.com/Fox-32-Float-100-CTD-Evo-26-Fork-2015">$299.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
-<<<<<<< HEAD
                             <th scope="row">Wheels</th>
                             <td>
                               <li className="dropdown pull-right">
@@ -154,13 +141,6 @@ export default class SelectBikeParts extends React.Component {
                                   </li>
                                 </ul>
                               </li></td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
-=======
-                            <th scope="row">Rear Derailleur</th>
-                            <td>{this.state.contents.parts[0].contents.build_name}</td>
-                            <td>XTR-RD-M9000 11 Speed SGS</td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XTR-RD-M9000-11S-Rear-Derailleur">$159.99 - JensonUSA</a></td>
->>>>>>> 372e094f2d1cbb340f3b44af8097fb29f91c8ccb
                         </tr>
                         <tr>
                             <th scope="row">Shock</th>
@@ -179,7 +159,6 @@ export default class SelectBikeParts extends React.Component {
                                     </li>
                                   </ul>
                                 </li></td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Handlebar</th>
@@ -198,7 +177,6 @@ export default class SelectBikeParts extends React.Component {
                                     </li>
                                   </ul>
                                 </li></td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Saddle</th>
@@ -217,7 +195,6 @@ export default class SelectBikeParts extends React.Component {
                                     </li>
                                   </ul>
                                 </li></td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Seatpost</th>
@@ -236,7 +213,6 @@ export default class SelectBikeParts extends React.Component {
                                     </li>
                                   </ul>
                                 </li></td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Chain</th>
@@ -255,7 +231,6 @@ export default class SelectBikeParts extends React.Component {
                                     </li>
                                   </ul>
                                 </li></td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Shifter</th>
@@ -274,7 +249,6 @@ export default class SelectBikeParts extends React.Component {
                                     </li>
                                   </ul>
                                 </li></td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
                             <th scope="row">Frame</th>
@@ -293,10 +267,8 @@ export default class SelectBikeParts extends React.Component {
                                     </li>
                                   </ul>
                                 </li></td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
-                            <th scope="row"><a href="javascript:void();">Add another part</a></th>
                             <td></td>
                             <td></td>
                             <td></td>

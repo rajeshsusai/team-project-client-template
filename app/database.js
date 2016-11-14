@@ -215,7 +215,7 @@ var initialData = {
       "_id": 82
     },
     "83":{
-      "name": "Wheels",
+      "name": "Front Wheel",
       "_id": 83
     },
     "84":{
@@ -261,6 +261,10 @@ var initialData = {
     "94":{
       "name": "Shifter",
       "_id": 94
+    },
+    "95":{
+      "name": "Rear Wheel",
+      "_id": 95
     }
   }
 };
