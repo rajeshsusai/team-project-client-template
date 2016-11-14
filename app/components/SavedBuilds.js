@@ -84,5 +84,5 @@ export default class SavedBuilds extends React.Component {
 }
 
 SavedBuilds.contextTypes = {
-  history: React.PropTypes.object.isRequired,
+  history: React.PropTypes.object.isRequired
 };
