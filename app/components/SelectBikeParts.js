@@ -66,6 +66,7 @@ export default class SelectBikeParts extends React.Component {
                             <td></td>
                             <td></td>
                         </tr>
+                        <button type="button" onClick={(e)=>this.props.onClick(e, 1)} className="btn btn-default">Review</button>
                     </tbody>
                 </table>
             </div>
