@@ -1,8 +1,9 @@
 import React from 'react';
 import SelectBikeType from './SelectBikeType';
-import SelectBikeParts from './SelectBikeParts'
-import { selectBikeType } from '../server'
-import { getBuildData } from '../server'
+import SelectBikeParts from './SelectBikeParts';
+import { selectBikeType } from '../server';
+import { getBuildData } from '../server';
+import ReviewBuild from './ReviewBuild'
 //import NavBar from './navbar'
 //import Footer from './footer'
 /*
@@ -12,26 +13,41 @@ export default class Build extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      contents: [],
+      contents: {
+        "parts":{
+        "0":{
+          "_id": 1,
+          "contents": {
+            "bike_type": "Winter",
+            "status": "Incomplete",
+            "total_price": "64.99",
+            "build_name": "Bugs Bunny",
+            "parts": [30]
+          }
+        }
+      }
+      },
       current_state: 0,
       buildId: null,
-      user: 1
+      user: 1,
+      buildList:props.buildList
     /* 0 : SelectBikeType
       1 : SelectBikeParts
       2 : ReviewBuild(SelectBikeParts extended)
     */
-    };
+    }
   }
   handleBikeBtnClickEvent(clickEvent, bikeType) {
     clickEvent.preventDefault();
     if (clickEvent.button === 0) {
-      var callbackFunction = (updateBuildState) => {
+      var callbackFunction = () => {
         this.setState({
-          current_state: 1,
+          current_state: 1
           /*dynamic buildId*/
         });
       }
-      selectBikeType(1, bikeType, callbackFunction)
+      callbackFunction();
+      // selectBikeType(1, bikeType, callbackFunction)
       this.refresh();
     }
 
@@ -39,8 +55,10 @@ export default class Build extends React.Component {
   reviewClick(e, buildList) {
     e.preventDefault();
     if (e.button === 0) {
-      var callbackFunction=(revState)=>{this.setState({buildList: buildList})}
+      var callbackFunction=()=>{this.setState({current_state:2,
+        build_List:buildList})}
     }
+    callbackFunction();
     /*need to set var to progress to state 2, communicate to reviewBuild*/
     this.refresh();
     
@@ -71,13 +89,19 @@ export default class Build extends React.Component {
         return (<SelectBikeType key={0} onClick={ (e, t) => this.handleBikeBtnClickEvent(e, t) } />);
       case 1:
         return (<SelectBikeParts 
-          key={this.state.buildId}
-          onClick={ (e, state) => this.reviewClick(e, state) } />);
+          key={1}
+          state={this.state}
+          onClick={ (e, buildList) => this.reviewClick(e, buildList) } />);
       case 2:
         return (
           <div>
-            <SelectBikeParts />
-            <ReviewBuild />
+            <SelectBikeParts
+            key={2}
+            state={this.state}
+            onClick={ (e, buildList) => this.reviewClick(e, buildList) } />
+            <ReviewBuild
+            key={3}
+            state={this.state} />
           </div>
           );
       default:
