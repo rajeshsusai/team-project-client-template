@@ -1,11 +1,9 @@
 import React from 'react';
-import { getBuildsData } from '../server';
+import { getBuildData } from '../server';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      contents: []
-    };
+    this.state = this.props.state;
   }
 
   /*
@@ -13,7 +11,7 @@ export default class SelectBikeParts extends React.Component {
     any persistent state needs to be synced
   */
   refresh() {
-    getBuildsData(this.props.users, (buildsData) => {
+    getBuildData(this.props.users, (buildsData) => {
       this.setState(buildsData);
     });
   }
@@ -32,42 +30,250 @@ export default class SelectBikeParts extends React.Component {
                     <thead>
                         <tr>
                             <th>Part Type</th>
-                            <th>Brand</th>
-                            <th>Model</th>
-                            <th>Cost</th>
+                            <th>Part</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">Rear Derailleur</th>
-                            <td>{this.state.contents.parts[0].name}</td>
-                            <td>XTR-RD-M9000 11 Speed SGS</td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XTR-RD-M9000-11S-Rear-Derailleur">$159.99 - JensonUSA</a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Cassette</th>
-                            <td>SRAM</td>
-                            <td>XG-1180 X1 11 Speed Cassette</td>
-                            <td><a href="http://www.jensonusa.com/SRAM-XG-1180-X1-11-Speed-Cassette">$254.99 - JensonUSA</a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Brakes</th>
-                            <td>Shimano</td>
-                            <td>XT-M8000 Hydraulic Disc Brake</td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
-                        </tr>
-                        <tr>
+                      <tr>
+                          <th scope="row">Front Derailleur</th>
+                          <td>
+                            <li className="dropdown pull-right">
+                              <a
+                                href="#"
+                                className="dropdown-toggle"
+                                data-toggle="dropdown"
+                                role="button"
+                                aria-haspopup="true"
+                                aria-expanded="false">Add Part <span className="caret"></span></a>
+                              <ul className="dropdown-menu">
+                                <li>
+                                  <a>IMPLEMENT</a>
+                                </li>
+                              </ul>
+                            </li></td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Rear Derailleur</th>
+                                <td>
+                                  <li className="dropdown pull-right">
+                                    <a
+                                      href="#"
+                                      className="dropdown-toggle"
+                                      data-toggle="dropdown"
+                                      role="button"
+                                      aria-haspopup="true"
+                                      aria-expanded="false">Add Part <span className="caret"></span></a>
+                                    <ul className="dropdown-menu">
+                                      <li>
+                                        <a>IMPLEMENT</a>
+                                      </li>
+                                    </ul>
+                                  </li></td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Tires</th>
+                                <td>
+                                  <li className="dropdown pull-right">
+                                    <a
+                                      href="#"
+                                      className="dropdown-toggle"
+                                      data-toggle="dropdown"
+                                      role="button"
+                                      aria-haspopup="true"
+                                      aria-expanded="false">Add Part <span className="caret"></span></a>
+                                    <ul className="dropdown-menu">
+                                      <li>
+                                        <a>IMPLEMENT</a>
+                                      </li>
+                                    </ul>
+                                  </li></td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Brakes</th>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
+                          </tr>
+                          <tr>
                             <th scope="row">Fork</th>
-                            <td>FOX</td>
-                            <td>32 FLOAT 100 CTD EVO 26" FORK 2015</td>
-                            <td><a href="http://www.jensonusa.com/Fox-32-Float-100-CTD-Evo-26-Fork-2015">$299.99 - JensonUSA</a></td>
+                            <td>
+                              <li className="dropdown pull-right">
+                                <a
+                                  href="#"
+                                  className="dropdown-toggle"
+                                  data-toggle="dropdown"
+                                  role="button"
+                                  aria-haspopup="true"
+                                  aria-expanded="false">Add Part <span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                  <li>
+                                    <a>IMPLEMENT</a>
+                                  </li>
+                                </ul>
+                              </li></td>
                         </tr>
                         <tr>
-                            <th scope="row"><a href="javascript:void();">Add another part</a></th>
+                            <th scope="row">Wheels</th>
+                            <td>
+                              <li className="dropdown pull-right">
+                                <a
+                                  href="#"
+                                  className="dropdown-toggle"
+                                  data-toggle="dropdown"
+                                  role="button"
+                                  aria-haspopup="true"
+                                  aria-expanded="false">Add Part <span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                  <li>
+                                    <a>IMPLEMENT</a>
+                                  </li>
+                                </ul>
+                              </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Shock</th>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Handlebar</th>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Saddle</th>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Seatpost</th>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Chain</th>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Shifter</th>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Frame</th>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      <a>IMPLEMENT</a>
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
                             <td></td>
                             <td></td>
                             <td></td>
                         </tr>
+                        <button type="button" onClick={(e)=>this.props.onClick(e, 1)} className="btn btn-default">Review</button>
                     </tbody>
                 </table>
             </div>

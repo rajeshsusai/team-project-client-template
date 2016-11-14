@@ -8,104 +8,264 @@ var initialData = {
   "users": {
     "1": {
       "_id": 1,
-      "contents":{
-        "first_name": "Mike",
-        "last_name": "Sinyard",
-        "email": "specialized@example.com",
-        "password": "*********",
-        "builds": [29]
+      "user_name": "Msinyard",
+      "first_name": "Mike",
+      "last_name": "Sinyard",
+      "email": "specialized@example.com",
+      "password": "*********",
+      "buildList": [1, 2, 3]
+    }
+  },
+  "builds": {
+      "1":{
+          "_id": 1,
+          "contents": {
+            "bike_type": "Winter",
+            "status": "Incomplete",
+            "total_price": "64.99",
+            "build_name": "My Build",
+            "parts": [30]
+          }
+      },
+      "2":{
+          "_id": 2,
+          "contents": {
+            "bike_type": "Road",
+            "status": "Incomplete",
+            "total_price": "24.99",
+            "build_name": "Road Runner",
+            "parts": [30]
+          }
+      },
+      "3":{
+          "_id": 3,
+          "contents": {
+            "bike_type": "Trail",
+            "status": "Incomplete",
+            "total_price": "78.99",
+            "build_name": "Wiley Coyote",
+            "parts": [30]
+          }
+      }
+  },
+  "bike_type": {
+    "10": {
+      "type": "Mountain",
+      "_id": 10
+    },
+    "11": {
+      "type": "Road",
+      "_id": 11
+    },
+    "12": {
+      "type": "Trail",
+      "_id": 12
+    },
+    "13": {
+      "type": "Winter",
+      "_id": 13
+    }
+  },
+  "parts":{
+    "30":{
+      "_id": 30,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 82,
+        "url": "jensonusa.com",
+        "name": "29ner Tires",
+        "build": []
+      }
+    },
+    "31":{
+      "_id": 31,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 83,
+        "url": "jensonusa.com",
+        "name": "29 Front Wheel",
+        "build": []
+      }
+    },
+    "32":{
+      "_id": 32,
+      "contents": {
+        "bike_type": [10,12,13],
+        "part_type": 84,
+        "url": "jensonusa.com",
+        "name": "Fork",
+        "build": []
+      }
+    },
+    "33":{
+      "_id": 33,
+      "contents": {
+        "bike_type": [10,12,13],
+        "part_type": 85,
+        "url": "jensonusa.com",
+        "name": "Shock",
+        "build": []
+      }
+    },
+    "34":{
+      "_id": 34,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 86,
+        "url": "jensonusa.com",
+        "name": "Handlebar",
+        "build": []
+      }
+    },
+    "35":{
+      "_id": 35,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 87,
+        "url": "jensonusa.com",
+        "name": "Saddle",
+        "build": []
+      }
+    },
+    "36":{
+      "_id": 36,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 88,
+        "url": "jensonusa.com",
+        "name": "Seatpost",
+        "build": []
+      }
+    },
+    "37":{
+      "_id": 37,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 89,
+        "url": "jensonusa.com",
+        "name": "Frame",
+        "build": []
+      }
+    },
+    "38":{
+      "_id": 38,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 90,
+        "url": "jensonusa.com",
+        "name": "Brakes",
+        "build": []
+      }
+    },
+    "39":{
+      "_id": 39,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 91,
+        "url": "jensonusa.com",
+        "name": "Rear Derailleur",
+        "build": []
+      }
+    },
+    "40":{
+      "_id": 40,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 92,
+        "url": "jensonusa.com",
+        "name": "Front Derailleur",
+        "build": []
+      }
+    },
+    "41":{
+      "_id": 41,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 93,
+        "url": "jensonusa.com",
+        "name": "Chain",
+        "build": []
+      }
+    },
+    "42":{
+      "_id": 42,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 94,
+        "url": "jensonusa.com",
+        "name": "Shifter",
+        "build": []
+      }
+    },
+    "43":{
+      "_id": 43,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 95,
+        "url": "jensonusa.com",
+        "name": "29 Rear Wheel",
+        "build": []
       }
     }
   },
 
-  "builds": {
-      "29":{
-        "_id": 29,
-        "contents":{
-          "bike_type": "Winter",
-          "status": 0,
-          "total_price": "2499",
-          "build_name": "My Build",
-          "part": [1]
-        }
-      }
-  },
-
-  "bike_type": {
-      "1": {
-        "type": "Mountain",
-        "_id": 1,
-      },
-
-      "2": {
-        "type": "Road",
-        "_id": 2,
-
-      },
-
-      "3": {
-        "type": "Trail",
-        "_id": 3,
-      },
-
-      "4": {
-        "type": "Winter",
-        "_id": 4,
-      }
-  },
-
-  "parts":{
-      "1":{
-          "bike_type": [1,2,3,4],
-          "part_type": 82,
-          "url": "jensonusa.com",
-          "_id": 1,
-          "name": "29ner Wheel 1",
-          "build": [29]
-      }
-  },
-
   "part_type": {
     "82":{
-          "name": "29 wheel FRONT",
-          "_id": 82
-      },
-      "83":{
-          "name": "29 wheel REAR",
-          "_id": 83
-      },
-      "84":{
-          "name": "Fork MTN",
-          "_id": 84
-      },
-      "85":{
-          "name": "Shock MTN",
-          "_id": 85
-      },
-      "86":{
-          "name": "Handlebar",
-          "_id": 86
-      },
-      "87":{
-          "name": "Saddle",
-          "_id": 87
-      },
-      "88":{
-          "name": "Seatpost",
-          "_id": 88
-      },
-      "89":{
-          "name": "Frame MTN",
-          "_id": 89
-      },
-      "90":{
-          "name": "Brakes",
-          "_id": 90
-      },
-      "91":{
-          "name": "29 wheel FRONT",
-          "_id": 91
-      }
+      "name": "Tires",
+      "_id": 82
+    },
+    "83":{
+      "name": "Front Wheel",
+      "_id": 83
+    },
+    "84":{
+      "name": "Fork",
+      "_id": 84
+    },
+    "85":{
+      "name": "Shock",
+      "_id": 85
+    },
+    "86":{
+      "name": "Handlebar",
+      "_id": 86
+    },
+    "87":{
+      "name": "Saddle",
+      "_id": 87
+    },
+    "88":{
+      "name": "Seatpost",
+      "_id": 88
+    },
+    "89":{
+      "name": "Frame",
+      "_id": 89
+    },
+    "90":{
+      "name": "Brakes",
+      "_id": 90
+    },
+    "91":{
+      "name": "Rear Derailleur",
+      "_id": 91
+    },
+    "92":{
+      "name": "Front Derailleur",
+      "_id": 92
+    },
+    "93":{
+      "name": "Chain",
+      "_id": 93
+    },
+    "94":{
+      "name": "Shifter",
+      "_id": 94
+    },
+    "95":{
+      "name": "Rear Wheel",
+      "_id": 95
+    }
   }
 };
   /**

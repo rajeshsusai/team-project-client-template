@@ -14,6 +14,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(userData, cb);
   }
 
+<<<<<<< HEAD
   export function getBuildData(user, cb) {
     var userData = readDocument('users', user);
     var buildData = readDocument('builds', userData.builds);
@@ -27,111 +28,67 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     build.contents.parts = build.contents.parts.map((id) => readDocument('parts', id));
   }
 
+=======
+   function getBuildSync(buildId) {
+    var build = readDocument('builds', buildId);
+    build.contents.parts = build.contents.parts.map((val) => {
+      var parts = readDocument('parts', val);
+      return parts;
+    });
+    return build;
+  }
+
+  export function getBuildData(user, cb) {
+    var userData = readDocument('users', user);
+    var buildData = readDocument('builds', userData.buildList);
+    buildData = buildData.map(getBuildSync);
+    emulateServerReturn(buildData, cb);
+  }
+
+>>>>>>> c7c05a5f5e8d02e18877a5273240de23d38708d4
   export function selectBikeType(user, bikeType, cb) {
     var newBuild;
-    if(bikeType === "winter") {
+    if(bikeType === 13) {
       newBuild ={
-        "type": "winter",
+        "type": "Winter",
         "contents": {
           "author": user,
           "buildName": [],
           "status": 0,
-          "part":{
-            "part_type":{
-              "wheels": [],
-              "handlebars": [],
-              "seatpost": [],
-              "saddle": [],
-              "frame": [],
-              "shock": [],
-              "frontDerailleur": [],
-              "rearDerailleur": [],
-              "chain": [],
-              "brake": [],
-              "fork": [],
-              "shifter": [],
-              "tire": []
-            }
-          }
+          "parts": []
         }
       };
     }
-    else if(bikeType === "trail") {
+    else if(bikeType === 12) {
       newBuild ={
-        "type": "trail",
+        "type": "Trail",
         "contents": {
         "author": user,
         "buildName": [],
         "status": 0,
-        "part":{
-          "part_type":{
-            "wheels": [],
-            "handlebars": [],
-            "seatpost": [],
-            "saddle": [],
-            "frame": [],
-            "shock": [],
-            "frontDerailleur": [],
-            "rearDerailleur": [],
-            "chain": [],
-            "brake": [],
-            "fork": [],
-            "shifter": [],
-            "tire": []
-          }
-        }
+        "part": []
       }
     };
   }
-  else if(bikeType === "mountain") {
+  else if(bikeType === 10) {
     newBuild ={
-      "type": "mountain",
+      "type": "Mountain",
       "contents": {
         "author": user,
         "buildName": [],
         "status": 0,
-        "part":{
-          "part_type":{
-            "wheels": [],
-            "handlebars": [],
-            "seatpost": [],
-            "saddle": [],
-            "frame": [],
-            "shock": [],
-            "frontDerailleur": [],
-            "rearDerailleur": [],
-            "chain": [],
-            "brake": [],
-            "fork": [],
-            "shifter": [],
-            "tire": []
-          }
-        }
+        "part": []
       }
     };
   }
-  else if(bikeType === "road") {
+  else if(bikeType === 11) {
     newBuild ={
-      "type": "road",
+      "type": "Road",
       "contents": {
       "author": user,
       "buildName": [],
       "status": 0,
-      "part":{
-        "part_type": {
-          "wheels": [],
-          "handlebars": [],
-          "seatpost": [],
-          "saddle": [],
-          "frame": [],
-          "frontDerailleur": [],
-          "rearDerailleur": [],
-          "chain": [],
-          "brake": [],
-          "shifter": [],
-          "tire": []
-         }
-       }
+      "part": []
      }
    };
  }
@@ -141,7 +98,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
  // Add the status update reference to the front of the
  // current user's feed.
  var userData = readDocument('users', user);
- var buildsData = readDocument('builds', userData.build);
+ var buildsData = readDocument('builds', userData.buildList);
  buildsData.contents.unshift(newBuild._id);
  // Update the feed object.
  writeDocument('builds', buildsData);
@@ -149,95 +106,50 @@ import {readDocument, writeDocument, addDocument} from './database.js';
  emulateServerReturn(newBuild, cb);
 }
 
-export function addWheel(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.wheel = part;
+export function addPart(buildId, bike_type, part_type, url, name, build, cb) {
+  var buildData = readDocument('builds', buildId);
+  buildData.contents.parts.contents.push({
+    "bike_type": [bike_type],
+    "part_type": part_type,
+    "url": url,
+    "name": name,
+    "build": []
+  });
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-export function addHandleBars(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.handlebars = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
+export function changeFirstName(userId, newFirstName, cb) {
+  var info = readDocument('users', userId);
+  info.first_name = newFirstName;
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
 }
 
-export function addSeatPost(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.seatpost = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
+export function changeLastName(userId, newLastName, cb) {
+  var info = readDocument('users', userId);
+  info.last_name = newLastName;
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
 }
 
-export function addSaddle(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.saddle = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
+export function changeEmail(userId, newEmail, cb) {
+  var info = readDocument('users', userId);
+  info.email = newEmail;
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
 }
 
-export function addFrame(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.frame = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addRearDerailleur(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.rearDerailleur = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addFrontDerailleur(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.frontDerailleur = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addChain(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.chain = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addBrake(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.brake = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addFork(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.fork = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addShifter(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.shifter = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
-export function addTire(build, part, cb) {
-  var buildData = readDocument('builds', build.contents);
-  buildData.part.part_type.tire = part;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
+export function changeUserName(userId, newUserName, cb) {
+  var info = readDocument('users', userId);
+  info.user_name = newUserName;
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
 }
 
 export function changePassword(userId, newPassword, cb) {
   var info = readDocument('users', userId);
-  info.push({
-    "password": newPassword
-  });
+  info.password = newPassword;
   writeDocument('users', info);
   emulateServerReturn(userId, cb);
 }
