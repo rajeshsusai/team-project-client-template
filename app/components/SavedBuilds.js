@@ -51,29 +51,29 @@ export default class SavedBuilds extends React.Component {
 
     return (
       <div className="body-container">
-            <div className="col-md-2">
-            </div>
-            <div className="col-md-8 text-center">
-                <div className="panel panel-default">
-                        <table className="table table-hover table-bordered">
-                            <caption>My Favorite Builds</caption>
-                            <thead>
-                                <tr>
-                                    <th>Build Name</th>
-                                    <th>Price</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
+        <div className="col-md-2">
+        </div>
+        <div className="col-md-8 text-center">
+          <div className="panel panel-default">
+            <table className="table table-hover table-bordered">
+                <caption>My Favorite Builds</caption>
+                <thead>
+                    <tr>
+                        <th>Build Name</th>
+                        <th>Price</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
 
-                            <tbody data-link="row" className="rowlink">
-                            {this.populateTable()}
-                            </tbody>
-                        </table>
-                </div>
-                </div>
-            <div className="col-md-2">
+                <tbody data-link="row" className="rowlink">
+                {this.populateTable()}
+                </tbody>
+              </table>
             </div>
+          </div>
+          <div className="col-md-2">
+          </div>
         </div>
       );
   }
