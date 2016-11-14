@@ -13,6 +13,8 @@ export default class Build extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      /*Passing to contents.parts[0].build_name in select bike parts
+      Structure should support bike part table format in proper order.*/
       contents: {
         "parts":{
         "0":{
@@ -43,7 +45,8 @@ export default class Build extends React.Component {
       var callbackFunction = () => {
         this.setState({
           current_state: 1
-          /*dynamic buildId*/
+          /*dynamic buildId, TODO update buildState, store in this.state
+          so it can be handed to reviewBuild*/
         });
       }
       callbackFunction();
@@ -59,7 +62,8 @@ export default class Build extends React.Component {
         build_List:buildList})}
     }
     callbackFunction();
-    /*need to set var to progress to state 2, communicate to reviewBuild*/
+    /*need to set var to progress to state 2, communicate to reviewBuild
+    TODO: update state/store buildList in arrow func.*/
     this.refresh();
     
   }
