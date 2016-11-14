@@ -3,10 +3,14 @@ import { getBuildsData } from '../server';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);
+<<<<<<< HEAD
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       contents: []
     };
+=======
+    this.state = this.props.state;
+>>>>>>> 372e094f2d1cbb340f3b44af8097fb29f91c8ccb
   }
 
   /*
@@ -133,6 +137,7 @@ export default class SelectBikeParts extends React.Component {
                             <td><a href="http://www.jensonusa.com/Fox-32-Float-100-CTD-Evo-26-Fork-2015">$299.99 - JensonUSA</a></td>
                         </tr>
                         <tr>
+<<<<<<< HEAD
                             <th scope="row">Wheels</th>
                             <td>
                               <li className="dropdown pull-right">
@@ -150,6 +155,12 @@ export default class SelectBikeParts extends React.Component {
                                 </ul>
                               </li></td>
                             <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
+=======
+                            <th scope="row">Rear Derailleur</th>
+                            <td>{this.state.contents.parts[0].contents.build_name}</td>
+                            <td>XTR-RD-M9000 11 Speed SGS</td>
+                            <td><a href="http://www.jensonusa.com/Shimano-XTR-RD-M9000-11S-Rear-Derailleur">$159.99 - JensonUSA</a></td>
+>>>>>>> 372e094f2d1cbb340f3b44af8097fb29f91c8ccb
                         </tr>
                         <tr>
                             <th scope="row">Shock</th>
@@ -290,6 +301,7 @@ export default class SelectBikeParts extends React.Component {
                             <td></td>
                             <td></td>
                         </tr>
+                        <button type="button" onClick={(e)=>this.props.onClick(e, 1)} className="btn btn-default">Review</button>
                     </tbody>
                 </table>
             </div>
