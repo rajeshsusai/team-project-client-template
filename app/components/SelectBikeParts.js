@@ -1,13 +1,14 @@
 import React from 'react';
-import { getBuildData, addPart } from '../server';
+import { getBuildData, writeBuild } from '../server';
 import {readDocument} from '../database';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClickEvent = this.handleClickEvent.bind(this);
+  //  this.handleClickEvent = this.handleClickEvent.bind(this);
     this.state = {
       build: null,
-      part: null
+      part: null,
+      partsList: []
 
     }
   }
@@ -19,7 +20,8 @@ export default class SelectBikeParts extends React.Component {
   refresh() {
     getBuildData(this.props.buildId, (buildsData) => {
       this.setState({
-        build: buildsData
+        build: buildsData,
+        partsList: buildsData.contents.parts
     });
   });
 }
@@ -30,38 +32,61 @@ export default class SelectBikeParts extends React.Component {
 
   handleClickEvent(clickEvent, partId){
     clickEvent.preventDefault();
+    alert(partId);
     if(clickEvent.button === 0){
-      addPart(this.props.buildId, partId, (buildData) => {
-        this.setState({
-          build: buildData,
-          part: partId
-        });
-      });
+      this.state.partsList.push(partId);
+    //  alert(partId);
+      writeBuild(this.props.buildId, partId);
+      this.refresh();
     }
   }
 
   getPartName(partId){
-    if(partId === null){
-      return "Empty";
-    } else {
-      var part = readDocument('parts', partId);
-      var name = part.contents.name;
-      return name;
+    var name = "Empty";
+    for(var i = 0; i < Object.keys(this.state.partsList).length; i++){
+      var part = readDocument("parts", this.state.partsList[i]);
+      if(part.contents.part_type === partId){
+        name = part.contents.name;
+        break;
+      }
     }
+    return name;
   }
 
-  populateDropDown(partId){
+  getPartPrice(partId){
+    var price = "N/A";
+    for(var i = 0; i < Object.keys(this.state.partsList).length; i++){
+      var part = readDocument("parts", this.state.partsList[i]);
+      if(part.contents.part_type === partId){
+        price = part.contents.price;
+        break;
+      }
+    }
+    return price;
+  }
+
+  populateDropDown(partTypeId){
     var  dropdown = [];
     for(var i = 30; i <= 44; i++){
       var part = readDocument('parts', i);
-      if(part.contents.part_type === partId){
-        dropdown.push(<a onClick = {(e)=> this.handleClickEvent(e, part._id)}>{part.contents.name}</a>);
+      if(part.contents.part_type === partTypeId){
+        dropdown.push(<a onClick = {(e)=>this.handleClickEvent(e, part._id)}>{part.contents.name}</a>);
       }
     }
     return dropdown;
   }
 
+  calculateTotalPrice(){
+    var totalPrice = 0;
+    for (var i = 0; i < Object.keys(this.state.partsList).length; i++){
+      var part = readDocument("parts", this.state.partList[i]);
+      totalPrice = totalPrice + part.contents.price;
+    }
+    return totalPrice;
+  }
+
   render() {
+
     return (
         <div className="body-container container mainBuildTable">
             <div className="panel panel-default">
@@ -78,8 +103,8 @@ export default class SelectBikeParts extends React.Component {
                     <tbody>
                       <tr>
                           <th scope="row">Front Derailleur</th>
-                          <td>{this.getPartName(43)}</td>
-                          <td>N/A</td>
+                          <td>{this.getPartName(92)}</td>
+                          <td>{this.getPartPrice(92)}</td>
                           <td>
                             <li className="dropdown pull-right">
                               <a
@@ -98,8 +123,8 @@ export default class SelectBikeParts extends React.Component {
                           </tr>
                           <tr>
                               <th scope="row">Rear Derailleur</th>
-                              <td>Blah</td>
-                              <td>N/A</td>
+                              <td>{this.getPartName(91)}</td>
+                              <td>{this.getPartPrice(91)}</td>
                                 <td>
                                   <li className="dropdown pull-right">
                                     <a
@@ -118,8 +143,8 @@ export default class SelectBikeParts extends React.Component {
                           </tr>
                           <tr>
                               <th scope="row">Tires</th>
-                              <td>Blah</td>
-                              <td>N/A</td>
+                              <td>{this.getPartName(82)}</td>
+                              <td>{this.getPartPrice(82)}</td>
                                 <td>
                                   <li className="dropdown pull-right">
                                     <a
@@ -138,8 +163,8 @@ export default class SelectBikeParts extends React.Component {
                           </tr>
                           <tr>
                               <th scope="row">Brakes</th>
-                              <td>Blah</td>
-                              <td>N/A</td>
+                              <td>{this.getPartName(90)}</td>
+                              <td>{this.getPartPrice(90)}</td>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -158,8 +183,8 @@ export default class SelectBikeParts extends React.Component {
                           </tr>
                           <tr>
                             <th scope="row">Fork</th>
-                            <td>Blah</td>
-                            <td>N/A</td>
+                            <td>{this.getPartName(84)}</td>
+                            <td>{this.getPartPrice(84)}</td>
                             <td>
                               <li className="dropdown pull-right">
                                 <a
@@ -178,8 +203,8 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Front Wheel</th>
-                            <td>Blah</td>
-                            <td>N/A</td>
+                            <td>{this.getPartName(83)}</td>
+                            <td>{this.getPartPrice(83)}</td>
                             <td>
                               <li className="dropdown pull-right">
                                 <a
@@ -198,8 +223,8 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Rear Wheel</th>
-                            <td>Blah</td>
-                            <td>N/A</td>
+                            <td>{this.getPartName(95)}</td>
+                            <td>{this.getPartPrice(95)}</td>
                             <td>
                               <li className="dropdown pull-right">
                                 <a
@@ -218,8 +243,8 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Shock</th>
-                            <td>Blah</td>
-                            <td>N/A</td>
+                            <td>{this.getPartName(85)}</td>
+                            <td>{this.getPartPrice(85)}</td>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -238,8 +263,8 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Handlebar</th>
-                            <td>Blah</td>
-                            <td>N/A</td>
+                            <td>{this.getPartName(86)}</td>
+                            <td>{this.getPartPrice(86)}</td>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -258,8 +283,8 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Saddle</th>
-                            <td>Blah</td>
-                            <td>N/A</td>
+                            <td>{this.getPartName(87)}</td>
+                            <td>{this.getPartPrice(87)}</td>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -278,8 +303,8 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Seatpost</th>
-                            <td>Blah</td>
-                            <td>N/A</td>
+                            <td>{this.getPartName(88)}</td>
+                            <td>{this.getPartPrice(88)}</td>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -298,8 +323,8 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Chain</th>
-                            <td>Blah</td>
-                            <td>N/A</td>
+                            <td>{this.getPartName(93)}</td>
+                            <td>{this.getPartPrice(93)}</td>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -318,8 +343,8 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Shifter</th>
-                            <td>Blah</td>
-                            <td>N/A</td>
+                            <td>{this.getPartName(94)}</td>
+                            <td>{this.getPartPrice(94)}</td>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -338,8 +363,8 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Frame</th>
-                            <td>Blah</td>
-                            <td>N/A</td>
+                            <td>{this.getPartName(89)}</td>
+                            <td>{this.getPartPrice(89)}</td>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a

@@ -30,6 +30,12 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(buildData, cb);
   }
 
+  export function writeBuild(buildId, partId){
+    var build = readDocument("builds", buildId);
+    build.contents.parts.push(partId);
+    writeDocument("builds", build);
+  }
+
   export function selectBikeType(user, bikeType, cb) {
     var newBuild;
     if(bikeType === 13) {

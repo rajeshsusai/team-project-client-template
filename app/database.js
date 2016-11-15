@@ -24,7 +24,7 @@ var initialData = {
             "status": "Incomplete",
             "total_price": "64.99",
             "build_name": "My Build",
-            "parts": [30]
+            "parts": []
           }
       },
       "2":{
@@ -84,6 +84,7 @@ var initialData = {
         "part_type": 82,
         "url": "jensonusa.com",
         "name": "29ner Tires",
+        "price": 24.99,
         "build": []
       }
     },
@@ -94,6 +95,7 @@ var initialData = {
         "part_type": 83,
         "url": "jensonusa.com",
         "name": "29 Front Wheel",
+        "price": 24.99,
         "build": []
       }
     },
@@ -104,6 +106,7 @@ var initialData = {
         "part_type": 84,
         "url": "jensonusa.com",
         "name": "Fork",
+        "price": 24.99,
         "build": []
       }
     },
@@ -114,6 +117,7 @@ var initialData = {
         "part_type": 85,
         "url": "jensonusa.com",
         "name": "Shock",
+        "price": 24.99,
         "build": []
       }
     },
@@ -124,6 +128,7 @@ var initialData = {
         "part_type": 86,
         "url": "jensonusa.com",
         "name": "Handlebar",
+        "price": 24.99,
         "build": []
       }
     },
@@ -134,6 +139,7 @@ var initialData = {
         "part_type": 87,
         "url": "jensonusa.com",
         "name": "Saddle",
+        "price": 24.99,
         "build": []
       }
     },
@@ -144,6 +150,7 @@ var initialData = {
         "part_type": 88,
         "url": "jensonusa.com",
         "name": "Seatpost",
+        "price": 24.99,
         "build": []
       }
     },
@@ -154,6 +161,7 @@ var initialData = {
         "part_type": 89,
         "url": "jensonusa.com",
         "name": "Frame",
+        "price": 24.99,
         "build": []
       }
     },
@@ -164,6 +172,7 @@ var initialData = {
         "part_type": 90,
         "url": "jensonusa.com",
         "name": "Brakes",
+        "price": 24.99,
         "build": []
       }
     },
@@ -174,6 +183,7 @@ var initialData = {
         "part_type": 91,
         "url": "jensonusa.com",
         "name": "Rear Derailleur",
+        "price": 24.99,
         "build": []
       }
     },
@@ -184,6 +194,7 @@ var initialData = {
         "part_type": 92,
         "url": "jensonusa.com",
         "name": "Front Derailleur",
+        "price": 24.99,
         "build": []
       }
     },
@@ -194,6 +205,7 @@ var initialData = {
         "part_type": 93,
         "url": "jensonusa.com",
         "name": "Chain",
+        "price": 24.99,
         "build": []
       }
     },
@@ -204,6 +216,7 @@ var initialData = {
         "part_type": 94,
         "url": "jensonusa.com",
         "name": "Shifter",
+        "price": 24.99,
         "build": []
       }
     },
@@ -214,6 +227,7 @@ var initialData = {
         "part_type": 95,
         "url": "jensonusa.com",
         "name": "29 Rear Wheel",
+        "price": 24.99,
         "build": []
       }
     },
@@ -224,6 +238,7 @@ var initialData = {
         "part_type": 95,
         "url": "jensonusa.com",
         "name": "30 Rear Wheel",
+        "price": 24.99,
         "build": []
       }
     }
