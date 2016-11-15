@@ -3,7 +3,7 @@ export default class ReviewBuild extends React.Component{
 	constructor(props){
 		super(props);
 		this.state=this.props.state;
-		this.state.total_price = 1337;
+		this.state.total_price = this.props.total_price;
 		this.state.build_name = "";
 	}
 

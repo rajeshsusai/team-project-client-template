@@ -87,7 +87,7 @@ export default class SelectBikeParts extends React.Component {
       if(part.contents.part_type === partTypeId){
         var link = document.createElement('a');
         link.i = part._id;
-        dropdown.push(<a onClick = {(e)=>this.handleClickEvent(e, link.i)}>{part.contents.name}</a>);
+        dropdown.push(<a key={i} onClick = {(e)=>this.handleClickEvent(e, link.i)}>{part.contents.name}</a>);
       }
     }
     return dropdown;
@@ -96,7 +96,7 @@ export default class SelectBikeParts extends React.Component {
   calculateTotalPrice(){
     var totalPrice = 0;
     for (var i = 0; i < Object.keys(this.state.partsList).length; i++){
-      var part = readDocument("parts", this.state.partList[i]);
+      var part = readDocument("parts", this.state.partsList[i]);
       totalPrice = totalPrice + part.contents.price;
     }
     return totalPrice;
@@ -405,9 +405,10 @@ export default class SelectBikeParts extends React.Component {
                             <td></td>
                             <td></td>
                         </tr>
-                        <button type="button" onClick={(e)=>this.props.onClick(e, 1)} className="btn btn-default">Review</button>
+
                     </tbody>
                 </table>
+                <button type="button" onClick={(e)=>this.props.onClick(e, 1, this.calculateTotalPrice())} className="btn btn-default">Review</button>
             </div>
         </div>
       );

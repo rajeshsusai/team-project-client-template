@@ -56,31 +56,35 @@ export default class Build extends React.Component {
 
   }
 
-  reviewClick(e, buildList) {
+  reviewClick(e, buildList, total_price) {
     e.preventDefault();
     if (e.button === 0) {
-      var callbackFunction=()=>{this.setState({current_state:2,
-        build_List:buildList})}
+      this.setState({
+        current_state:2,
+        build_List:buildList,
+        total_price: total_price
+      })
     }
-    callbackFunction();
     /*need to set var to progress to state 2, communicate to reviewBuild
     TODO: update state/store buildList in arrow func.*/
+
     this.refresh();
 
   }
 
-  onClickSave(e) { // TODO remove alert message, write build to database.
+  onClickSave(e) {
     e.preventDefault();
 
     if(e.button === 0)
 		{
-			window.alert(this.state.build_name);
-		}
+			  //TODO from tony: get unique BuildID from server, write build using server function
+        alert("Your build has been saved as " + this.state.build_name + "!" +
+      "\nThank you for using BikePartPicker! To make another build, please navigate back to the home page by clicking \"BikePartPicker\" on the top navbar.")
+    }
   }
 
-  onChangedText(e) { // TODO remove alert message
+  onChangedText(e) {
     this.setState({build_name: e.target.value});
-    window.alert("my text changed");
   }
 
 
@@ -110,7 +114,7 @@ export default class Build extends React.Component {
         return (<SelectBikeParts
           key={1}
           state={this.state}
-          onClick={ (e, buildList) => this.reviewClick(e, buildList) }
+          onClick={ (e, buildList, total_price) => this.reviewClick(e, buildList, total_price) }
           buildId = {4}/>);
       case 2:
         return (
@@ -118,12 +122,14 @@ export default class Build extends React.Component {
             <SelectBikeParts
             key={2}
             state={this.state}
-            onClick={ (e, buildList) => this.reviewClick(e, buildList) } />
+            onClick={ (e, buildList, total_price) => this.reviewClick(e, buildList, total_price) }
+            buildId = {4} />
             <ReviewBuild
             key={3}
             state={this.state}
             onChangedText={(e) => this.onChangedText(e)}
-            onClickSave={(e) => this.onClickSave(e)}/>
+            onClickSave={(e) => this.onClickSave(e)}
+            total_price={this.state.total_price}/>
           </div>
           );
       default:

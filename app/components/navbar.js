@@ -103,8 +103,8 @@ export default class NavBar extends React.Component {
                  role="toolbar">
               <ul className="nav navbar-nav navbar-right account-name pull-left">
                 <Link to={"/account/"+"1"}>
-                <a
-                   className="account-name-toggle">{userName}</a></Link>
+                <span
+                   className="account-name-toggle">{userName}</span></Link>
               </ul>
               <ul
                   className="nav navbar-nav navbar-right pull-right"
@@ -120,12 +120,12 @@ export default class NavBar extends React.Component {
                   <ul className="dropdown-menu">
                     <li>
                       <Link to={"/account/"+{userId}}>
-                      <a>My Account</a>
+                      <span>My Account</span>
                       </Link>
                     </li>
                     <li>
                     <Link to={ "/SavedBuilds/" + {userId} }>
-                      <a>My Builds</a>
+                      <span>My Builds</span>
                       </Link>
                     </li>
                     <li
