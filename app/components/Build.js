@@ -55,6 +55,7 @@ export default class Build extends React.Component {
     }
 
   }
+
   reviewClick(e, buildList) {
     e.preventDefault();
     if (e.button === 0) {
