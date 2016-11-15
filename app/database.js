@@ -94,7 +94,7 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 83,
         "url": "jensonusa.com",
-        "name": "29 Front Wheel",
+        "name": "29 cm Front Wheel",
         "price": 24.99,
         "build": []
       }
@@ -105,7 +105,7 @@ var initialData = {
         "bike_type": [10,12,13],
         "part_type": 84,
         "url": "jensonusa.com",
-        "name": "Fork",
+        "name": "Bike Suspension Fork",
         "price": 24.99,
         "build": []
       }
@@ -116,7 +116,7 @@ var initialData = {
         "bike_type": [10,12,13],
         "part_type": 85,
         "url": "jensonusa.com",
-        "name": "Shock",
+        "name": "Adjustable Shock",
         "price": 24.99,
         "build": []
       }
@@ -127,7 +127,7 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 86,
         "url": "jensonusa.com",
-        "name": "Handlebar",
+        "name": "Cruiser Handlebar",
         "price": 24.99,
         "build": []
       }
@@ -138,7 +138,7 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 87,
         "url": "jensonusa.com",
-        "name": "Saddle",
+        "name": "Toupe Sport Saddle",
         "price": 24.99,
         "build": []
       }
@@ -149,7 +149,7 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 88,
         "url": "jensonusa.com",
-        "name": "Seatpost",
+        "name": "XSpeed Alloy Seatpost",
         "price": 24.99,
         "build": []
       }
@@ -160,7 +160,7 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 89,
         "url": "jensonusa.com",
-        "name": "Frame",
+        "name": "Sempre Road Frame",
         "price": 24.99,
         "build": []
       }
@@ -171,7 +171,7 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 90,
         "url": "jensonusa.com",
-        "name": "Brakes",
+        "name": "Avid Disc Brakes",
         "price": 24.99,
         "build": []
       }
@@ -182,7 +182,7 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 91,
         "url": "jensonusa.com",
-        "name": "Rear Derailleur",
+        "name": "Athena 11s Rear Derailleur",
         "price": 24.99,
         "build": []
       }
@@ -193,7 +193,7 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 92,
         "url": "jensonusa.com",
-        "name": "Front Derailleur",
+        "name": "Shimano 105 Front Derailleur",
         "price": 24.99,
         "build": []
       }
@@ -204,7 +204,7 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 93,
         "url": "jensonusa.com",
-        "name": "Chain",
+        "name": "415 Heavy Duty Chain",
         "price": 24.99,
         "build": []
       }
@@ -215,7 +215,7 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 94,
         "url": "jensonusa.com",
-        "name": "Shifter",
+        "name": "Concord Grid Shifter",
         "price": 24.99,
         "build": []
       }
