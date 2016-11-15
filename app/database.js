@@ -46,6 +46,16 @@ var initialData = {
             "build_name": "Wiley Coyote",
             "parts": [30]
           }
+      },
+      "4":{
+          "_id": 4,
+          "contents": {
+            "bike_type": "Trail",
+            "status": "Incomplete",
+            "total_price": "78.99",
+            "build_name": "Wiley Coyote 2",
+            "parts": []
+          }
       }
   },
   "bike_type": {
@@ -204,6 +214,16 @@ var initialData = {
         "part_type": 95,
         "url": "jensonusa.com",
         "name": "29 Rear Wheel",
+        "build": []
+      }
+    },
+    "44":{
+      "_id": 44,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 95,
+        "url": "jensonusa.com",
+        "name": "30 Rear Wheel",
         "build": []
       }
     }

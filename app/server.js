@@ -23,10 +23,10 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     return build;
   }
 
-  export function getBuildData(user, cb) {
-    var userData = readDocument('users', user);
-    var buildData = readDocument('builds', userData.buildList);
-    buildData = buildData.map(getBuildSync);
+  export function getBuildData(buildId, cb) {
+    //var userData = readDocument('users', user);
+    var buildData = readDocument('builds', buildId);
+    //buildData = buildData.map(getBuildSync);
     emulateServerReturn(buildData, cb);
   }
 
@@ -90,15 +90,9 @@ import {readDocument, writeDocument, addDocument} from './database.js';
  emulateServerReturn(newBuild, cb);
 }
 
-export function addPart(buildId, bike_type, part_type, url, name, build, cb) {
+export function addPart(buildId, partId, cb) {
   var buildData = readDocument('builds', buildId);
-  buildData.contents.parts.contents.push({
-    "bike_type": [bike_type],
-    "part_type": part_type,
-    "url": url,
-    "name": name,
-    "build": []
-  });
+  buildData.contents.parts.push(partId);
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }

@@ -110,7 +110,8 @@ export default class Build extends React.Component {
         return (<SelectBikeParts
           key={1}
           state={this.state}
-          onClick={ (e, buildList) => this.reviewClick(e, buildList) } />);
+          onClick={ (e, buildList) => this.reviewClick(e, buildList) }
+          buildId = {4}/>);
       case 2:
         return (
           <div>
