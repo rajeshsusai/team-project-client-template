@@ -42,16 +42,18 @@ export default class SelectBikeType extends React.Component {
             <div className="col-md-2">
             </div>
             <div className="col-md-8 text-center">
-              <div className="panel panel-default">
-                <div className="btn-group" role="group" aria-label="...">
-                  <button type="button" onClick={(e) => this.props.onClick(e, 13)} className="btn btn-primary build-bike-button"><span className="img-button icon-winter-bike"><br /><br /><br /><br /><br /><br />WINTER</span></button>
-                  <button type="button" onClick={(e) => this.props.onClick(e, 12)} className="btn btn-primary build-bike-button"><span className="img-button icon-trail-bike"><br /><br /><br /><br /><br /><br />TRAIL</span></button>
-                </div>
-                <div className="btn-group" role="group" aria-label="...">
-                  <button type="button" onClick={(e) => this.props.onClick(e, 11)} className="btn btn-primary build-bike-button"><span className="img-button icon-city-bike"><br /><br /><br /><br /><br /><br />CITY</span></button>
-                  <button type="button" onClick={(e) => this.props.onClick(e, 10)} className="btn btn-primary build-bike-button"><span className="img-button icon-mtn-bike"><br /><br /><br /><br /><br /><br />MOUNTAIN</span></button>
-                </div>
-              </div>
+            <div className="panel panel-default">
+              <row>
+                  <div className="btn-group" role="group" aria-label="...">
+                    <button type="button" onClick={(e) => this.props.onClick(e, 13)} className="btn btn-primary build-bike-button"><span className="img-button icon-winter-bike"><br /><br /><br /><br /><br /><br />WINTER</span></button>
+                    <button type="button" onClick={(e) => this.props.onClick(e, 12)} className="btn btn-primary build-bike-button"><span className="img-button icon-trail-bike"><br /><br /><br /><br /><br /><br />TRAIL</span></button>
+                  </div>
+                  <div className="btn-group" role="group" aria-label="...">
+                    <button type="button" onClick={(e) => this.props.onClick(e, 11)} className="btn btn-primary build-bike-button"><span className="img-button icon-city-bike"><br /><br /><br /><br /><br /><br />CITY</span></button>
+                    <button type="button" onClick={(e) => this.props.onClick(e, 10)} className="btn btn-primary build-bike-button"><span className="img-button icon-mtn-bike"><br /><br /><br /><br /><br /><br />MOUNTAIN</span></button>
+                  </div>
+              </row>
+            </div>
             </div>
             <div className="col-md-2">
             </div>
