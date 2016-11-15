@@ -8,7 +8,7 @@ export default class ReviewBuild extends React.Component{
 		return (
 			<div>
 				<div className="container mainBuildTable">
-					<div className="jumbotron">
+					<div className="panel panel-default">
 						REVIEW YOUR BUILD HERE. WATCH OUT FOR TNT.
 					</div>
 				</div>

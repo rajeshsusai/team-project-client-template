@@ -22,9 +22,8 @@ export default class SelectBikeParts extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="container mainBuildTable">
-            <div className="jumbotron">
+        <div className="body-container container mainBuildTable">
+            <div className="panel panel-default">
                 <table className="table table-striped">
                     <caption>My Current Build</caption>
                     <thead>
@@ -278,7 +277,6 @@ export default class SelectBikeParts extends React.Component {
                 </table>
             </div>
         </div>
-      </div>
       );
   }
 }

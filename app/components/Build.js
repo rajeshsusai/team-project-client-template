@@ -55,6 +55,7 @@ export default class Build extends React.Component {
     }
 
   }
+
   reviewClick(e, buildList) {
     e.preventDefault();
     if (e.button === 0) {
@@ -65,7 +66,7 @@ export default class Build extends React.Component {
     /*need to set var to progress to state 2, communicate to reviewBuild
     TODO: update state/store buildList in arrow func.*/
     this.refresh();
-    
+
   }
 
 
@@ -92,7 +93,7 @@ export default class Build extends React.Component {
       case 0:
         return (<SelectBikeType key={0} onClick={ (e, t) => this.handleBikeBtnClickEvent(e, t) } />);
       case 1:
-        return (<SelectBikeParts 
+        return (<SelectBikeParts
           key={1}
           state={this.state}
           onClick={ (e, buildList) => this.reviewClick(e, buildList) } />);
