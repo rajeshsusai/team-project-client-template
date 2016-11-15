@@ -7,7 +7,11 @@ export default class Account extends React.Component {
     super(props);
     this.state = {
       contents: [],
-      value: ''
+      fname:'',
+      lname: '',
+      email: '',
+      uname: '',
+      pw: ''
     };
   }
   /*
@@ -23,6 +27,16 @@ export default class Account extends React.Component {
   componentDidMount(){
     this.refresh();
   }
+
+  handlePWClickEvent(clickEvent, password){
+    clickEvent.preventDefault();
+    //alert(password);
+    if(clickEvent.button === 0){
+      changePassword(this.state.password, password);
+      this.refresh();
+    }
+  }
+
 
 
   render() {
@@ -43,20 +57,25 @@ export default class Account extends React.Component {
             <div className="form-group">
               <br></br>
             <label className="control-label " htmlFor="first name" >First Name</label>
-              <input type="text" className="form-control" id="first name" placeholder = {firstName}/><br>
-              </br> <div className="form-group">
+              <input type="text" className="form-control" id="first name" placeholder = {firstName}/>
+                <button type="button" role="group" onClick ={(e) => this.state.onclick(e,this.state.fname)} className ="btn btn-primary">Update First Name</button>
+                </div>
+                <div className="form-group">
                 <label className="control-label " htmlFor="last name" >Last Name</label>
                   <input type="text" className="form-control" id="last name" placeholder = {lastName}/>
-                  </div>
+                  <button type="button" role="group" onClick ={(e) => this.state.onclick(e,this.state.fname)} className ="btn btn-primary">Update Last Name</button>
+
                 </div>
           <div className="form-group">
             <label className="control-label " htmlFor="email">Email</label>
               <input type="email" className="form-control" id="email" placeholder= {email} />
+              <button type="button" role="group" onClick ={(e) => this.state.onclick(e,this.state.fname)} className ="btn btn-primary">Update Email</button>
               </div>
 
           <div className="form-group">
             <label className="control-label " htmlFor="username" > Username</label>
               <input type="text" className="form-control" id="username" placeholder = {username}/>
+              <button type="button" role="group" onClick ={(e) => this.state.onclick(e,this.state.fname)} className ="btn btn-primary">Update User Name</button>
               </div>
           <div className="form-group">
             <label className="control-label " htmlFor="password" > Password</label>
