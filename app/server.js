@@ -36,6 +36,15 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     writeDocument("builds", build);
   }
 
+  export function removePartFromBuild(buildId, partId){
+    var build = readDocument("builds", buildId);
+    var index = build.contents.parts.indexOf(partId);
+    if(index > -1){
+      build.contents.parts.splice(index, 1);
+    }
+    writeDocument("builds", build);
+  }
+
   export function selectBikeType(user, bikeType, cb) {
     var newBuild;
     if(bikeType === 13) {

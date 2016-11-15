@@ -1,5 +1,5 @@
 import React from 'react';
-import { getBuildData, writeBuild } from '../server';
+import { getBuildData, writeBuild, removePartFromBuild } from '../server';
 import {readDocument} from '../database';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
@@ -32,14 +32,25 @@ export default class SelectBikeParts extends React.Component {
 
   handleClickEvent(clickEvent, partId){
     clickEvent.preventDefault();
-    alert(partId);
+    //alert(partId);
     if(clickEvent.button === 0){
-      this.state.partsList.push(partId);
+      //this.state.partsList.push(partId);
     //  alert(partId);
+      //this.removeParts(partId);
       writeBuild(this.props.buildId, partId);
       this.refresh();
     }
   }
+
+  /*removeParts(partId){
+    var part = readDocument("parts", partId);
+    for (var i =0; Object.keys(this.state.partsList).length; i++){
+      var oldPart = readDocument("parts", this.state.partsList[i]);
+      if(part.contents.part_type === oldPart.contents.part_type){
+        removePartFromBuild(this.props.buildId, oldPart._id);
+      }
+    }
+  }*/
 
   getPartName(partId){
     var name = "Empty";
@@ -65,12 +76,18 @@ export default class SelectBikeParts extends React.Component {
     return price;
   }
 
+  linkListener(){
+    alert(this.i);
+  }
+
   populateDropDown(partTypeId){
     var  dropdown = [];
     for(var i = 30; i <= 44; i++){
       var part = readDocument('parts', i);
       if(part.contents.part_type === partTypeId){
-        dropdown.push(<a onClick = {(e)=>this.handleClickEvent(e, part._id)}>{part.contents.name}</a>);
+        var link = document.createElement('a');
+        link.i = part._id;
+        dropdown.push(<a onClick = {(e)=>this.handleClickEvent(e, link.i)}>{part.contents.name}</a>);
       }
     }
     return dropdown;
