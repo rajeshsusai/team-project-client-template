@@ -69,6 +69,20 @@ export default class Build extends React.Component {
 
   }
 
+  onClickSave(e) { // TODO remove alert message, write build to database.
+    e.preventDefault();
+
+    if(e.button === 0)
+		{
+			window.alert(this.state.build_name);
+		}
+  }
+
+  onChangedText(e) { // TODO remove alert message
+    this.setState({build_name: e.target.value});
+    window.alert("my text changed");
+  }
+
 
   /*
     Refresh should be called after a client event is handled by the server if
@@ -106,7 +120,9 @@ export default class Build extends React.Component {
             onClick={ (e, buildList) => this.reviewClick(e, buildList) } />
             <ReviewBuild
             key={3}
-            state={this.state} />
+            state={this.state}
+            onChangedText={(e) => this.onChangedText(e)}
+            onClickSave={(e) => this.onClickSave(e)}/>
           </div>
           );
       default:
