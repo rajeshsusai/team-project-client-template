@@ -45,7 +45,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
 
   export function selectBikeType(user, bikeType, cb) {
     var newBuild;
-    if(bikeType === "Winter") {
+    if(bikeType === 13) {
       newBuild ={
         "type": "Winter",
         "contents": {
@@ -56,7 +56,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
         }
       };
     }
-    else if(bikeType === "Trail") {
+    else if(bikeType === 12) {
       newBuild ={
         "type": "Trail",
         "contents": {
@@ -67,7 +67,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
       }
     };
   }
-  else if(bikeType === "Mountain") {
+  else if(bikeType === 10) {
     newBuild ={
       "type": "Mountain",
       "contents": {
@@ -78,7 +78,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
       }
     };
   }
-  else if(bikeType === "Road") {
+  else if(bikeType === 11) {
     newBuild ={
       "type": "Road",
       "contents": {
@@ -95,7 +95,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
  // Add the status update reference to the front of the
  // current user's feed.
  var userData = readDocument('users', user);
- var buildsData = readDocument('builds', userData.build);
+ var buildsData = readDocument('builds', userData.buildList);
  buildsData.contents.unshift(newBuild._id);
  // Update the feed object.
  writeDocument('builds', buildsData);

@@ -8,6 +8,7 @@ var initialData = {
   "users": {
     "1": {
       "_id": 1,
+      "user_name": "Msinyard",
       "first_name": "Mike",
       "last_name": "Sinyard",
       "email": "specialized@example.com",
@@ -82,7 +83,7 @@ var initialData = {
         "bike_type": [10,11,12,13],
         "part_type": 83,
         "url": "jensonusa.com",
-        "name": "29ner Wheels",
+        "name": "29 Front Wheel",
         "build": []
       }
     },
@@ -175,7 +176,7 @@ var initialData = {
         "name": "Front Derailleur",
         "build": []
       }
-    }
+    },
     "41":{
       "_id": 41,
       "contents": {
@@ -185,7 +186,7 @@ var initialData = {
         "name": "Chain",
         "build": []
       }
-    }
+    },
     "42":{
       "_id": 42,
       "contents": {
@@ -193,6 +194,16 @@ var initialData = {
         "part_type": 94,
         "url": "jensonusa.com",
         "name": "Shifter",
+        "build": []
+      }
+    },
+    "43":{
+      "_id": 43,
+      "contents": {
+        "bike_type": [10,11,12,13],
+        "part_type": 95,
+        "url": "jensonusa.com",
+        "name": "29 Rear Wheel",
         "build": []
       }
     }

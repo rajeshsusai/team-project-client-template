@@ -32,6 +32,9 @@ class SavedBuildsWrapper extends React.Component {
   }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5002eede7d7b7bbf6527d9f5df1ae6feb4b93838
 
 class AccountWrapper extends React.Component {
   render(){
@@ -40,7 +43,13 @@ class AccountWrapper extends React.Component {
               <Account user={1} />
               <Footer />
             </div>)
+<<<<<<< HEAD
 =======
+=======
+  }
+}
+
+>>>>>>> 5002eede7d7b7bbf6527d9f5df1ae6feb4b93838
 class BuildWrapper extends React.Component{
   render() {
     var user=readDocument("users", 1);
@@ -62,9 +71,9 @@ ReactDOM.render((
       <IndexRoute component={ Home } />
 
       <Route
-             path="account/:id"
-             component={ Account } />
-      
+             path="build/:id"
+             component={ Build } />
+
     </Route>
     <Route
              path="build/:id"
@@ -72,9 +81,15 @@ ReactDOM.render((
     <Route
            path="savedbuilds/:id"
            component={ SavedBuildsWrapper } />
+<<<<<<< HEAD
            <Route
                   path="account/:id"
                   component={ AccountWrapper } />
+=======
+    <Route
+          path="account/:id"
+          component={ AccountWrapper } />
+>>>>>>> 5002eede7d7b7bbf6527d9f5df1ae6feb4b93838
   </Router>
   ),
   document.getElementById('bikePage'));
