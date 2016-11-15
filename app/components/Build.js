@@ -77,7 +77,7 @@ export default class Build extends React.Component {
 
     if(e.button === 0)
 		{
-			  //TODO from tony: get unique BuildID from server, write build using server function
+        //TODO from tony: get unique BuildID from server, write build using server function
         alert("Your build has been saved as " + this.state.build_name + "!" +
       "\nThank you for using BikePartPicker! To make another build, please navigate back to the home page by clicking \"BikePartPicker\" on the top navbar.")
     }

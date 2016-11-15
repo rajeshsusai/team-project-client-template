@@ -31,58 +31,41 @@ export default class Account extends React.Component {
     var username = this.state.user_name;
 
     return (
+      <div className="body-container">
+        <div className="col-md-2">
+        </div>
+        <div className="col-md-8 text-align-left">
+          <div className="panel panel-default">
+            <div className="form-group">
+              <br></br>
+            <label className="control-label " htmlFor="first name" >First Name</label>
+              <input type="text" className="form-control" id="first name" placeholder = {firstName}/><br>
+              </br> <div className="form-group">
+                <label className="control-label " htmlFor="last name" >Last Name</label>
+                  <input type="text" className="form-control" id="last name" placeholder = {lastName}/>
+                  </div>
+                </div>
+              <div className="form-group">
+                <label className="control-label " htmlFor="email">Email</label>
+                  <input type="email" className="form-control" id="email" placeholder= {email} />
+                  </div>
 
-      <div>
-        <div className="body-container">
-          <div className="col-md-2">
-          </div>
-          <div className="col-md-8 text-center">
-            <div className="panel panel-default">
-              <div className="jumbotron accountcontrol">
-                <div action="My-Account-Page form-horizontal" method="post">
                   <div className="form-group">
-                    <label className="control-label col-sm-2 left" htmlFor="first name" >First Name</label>
-                    <div className="col-sm-10">
-                      <input type="text" className="form-control" id="first name" placeholder = {firstName}/>
+                    <label className="control-label " htmlFor="username" > Username</label>
+                      <input type="text" className="form-control" id="username" placeholder = {username}/>
                       </div>
-                    </div>
-                    <div className="form-group">
-                      <label className="control-label col-sm-2 left" htmlFor="last name" >Last Name</label>
-                      <div className="col-sm-10">
-                        <input type="text" className="form-control" id="last name" placeholder = {lastName}/>
-                        </div>
-                      </div>
-                    <div className="form-group">
-                      <label className="control-label col-sm-2 left" htmlFor="email">Email</label>
-                      <div className="col-sm-10">
-                        <input type="email" className="form-control" id="email" placeholder= {email} />
-                        </div>
-                      </div>
-                        <div className="form-group">
-                          <label className="control-label col-sm-2 left" htmlFor="username" > Username</label>
-                          <div className="col-sm-10">
-                            <input type="text" className="form-control" id="username" placeholder = {username}/>
-                            </div>
-                          </div>
-                              <div className="form-group">
-                              <label className="control-label col-sm-2 left" htmlFor="password" > Password</label>
-                              <div className="col-sm-10">
-                                <input type="text" className="form-control" id="password" placeholder = {password}/>
-                                </div>
-                              </div>
-                                </div>
 
-                              </div>
+                        <div className="form-group">
+                        <label className="control-label " htmlFor="password" > Password</label>
+                          <input type="text" className="form-control" id="password" placeholder = {password}/>
+                        </div>
+                        <div className="submit">
+                            <input type="Submit" value="Save" />
+                        </div>
             </div>
           </div>
-          <div className="col-md-2">
-          </div>
         </div>
-      </div>
 
-
-
-
-                    );
-                  }
-                }
+              );
+            }
+          }
