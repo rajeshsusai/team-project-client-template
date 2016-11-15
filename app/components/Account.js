@@ -1,11 +1,13 @@
 import React from 'react';
 // import React-Router from 'react-router'
 import {getUserData} from '../server.js'
+import {changePassword} from '../server.js'
 export default class Account extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      contents: []
+      contents: [],
+      value: ''
     };
   }
   /*
@@ -22,6 +24,7 @@ export default class Account extends React.Component {
     this.refresh();
   }
 
+
   render() {
 
     var firstName = this.state.first_name;
@@ -29,6 +32,7 @@ export default class Account extends React.Component {
     var email = this.state.email;
     var password = this.state.password;
     var username = this.state.user_name;
+    var id = this.state.userId;
 
     return (
 
@@ -46,27 +50,24 @@ export default class Account extends React.Component {
                   <input type="text" className="form-control" id="last name" placeholder = {lastName}/>
                   </div>
                 </div>
-              <div className="form-group">
-                <label className="control-label " htmlFor="email">Email</label>
-                  <input type="email" className="form-control" id="email" placeholder= {email} />
-                  </div>
+          <div className="form-group">
+            <label className="control-label " htmlFor="email">Email</label>
+              <input type="email" className="form-control" id="email" placeholder= {email} />
+              </div>
 
-                  <div className="form-group">
-                    <label className="control-label " htmlFor="username" > Username</label>
-                      <input type="text" className="form-control" id="username" placeholder = {username}/>
-                      </div>
-
-                        <div className="form-group">
-                        <label className="control-label " htmlFor="password" > Password</label>
-                          <input type="text" className="form-control" id="password" placeholder = {password}/>
-                        </div>
-                        <div className="submit">
-                            <input type="Submit" value="Save" />
-                        </div>
-            </div>
+          <div className="form-group">
+            <label className="control-label " htmlFor="username" > Username</label>
+              <input type="text" className="form-control" id="username" placeholder = {username}/>
+              </div>
+          <div className="form-group">
+            <label className="control-label " htmlFor="password" > Password</label>
+              <input type="text" className="form-control" id="password" placeholder = {password}/>
+                <button type="button" role="group" onClick ={(e) => this.state.onClick(e,changePassword(id,this.state.value))}className="btn btn-primary"> Update Password</button>
           </div>
+                <button type="button" role="group" onClick ={(e) => this.state.onClick(e,this.setState)} className = "btn btn-primary">Save</button>
         </div>
-
+       </div>
+       </div>
               );
             }
           }
