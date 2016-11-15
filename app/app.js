@@ -44,7 +44,6 @@ class AccountWrapper extends React.Component {
 
 class BuildWrapper extends React.Component{
   render() {
-    var user=readDocument("users", 1);
     return (<div>
       <NavBar user={1} page={this.props.location.pathname} />
       <Build user={1} state={0} />
