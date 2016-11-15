@@ -14,33 +14,35 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(userData, cb);
   }
 
-  function getBuildSync(buildId) {
+   function getBuildSync(buildId) {
     var build = readDocument('builds', buildId);
-    build.parts.forEach((part) => {
-      part.part_type = readDocument('builds', part.part_type);
+    build.contents.parts = build.contents.parts.map((val) => {
+      var parts = readDocument('parts', val);
+      return parts;
     });
     return build;
   }
 
-  export function getBuildData(user, cb) {
-    var userData = readDocument('users', user);
-    var buildData = readDocument('builds', userData.buildList);
-    buildData.contents = buildData.contents.map(getBuildSync);
+  export function getBuildData(buildId, cb) {
+    //var userData = readDocument('users', user);
+    var buildData = readDocument('builds', buildId);
+    //buildData = buildData.map(getBuildSync);
     emulateServerReturn(buildData, cb);
   }
 
-  function getBuildListSync(buildId) {
-    var builds = readDocument('builds', buildId);
-    builds.contents.forEach((build) => {
-      build.contents = readDocument('builds', build.contents);
-    });
+  export function writeBuild(buildId, partId){
+    var build = readDocument("builds", buildId);
+    build.contents.parts.push(partId);
+    writeDocument("builds", build);
   }
 
-  export function getBuildListData(user, cb) {
-    var userData = readDocument('users', user);
-    var buildsData = readDocument('builds', userData.buildList);
-    buildsData.contents = buildsData.contents.map(getBuildListSync);
-    emulateServerReturn(buildsData, cb);
+  export function removePartFromBuild(buildId, partId){
+    var build = readDocument("builds", buildId);
+    var index = build.contents.parts.indexOf(partId);
+    if(index > -1){
+      build.contents.parts.splice(index, 1);
+    }
+    writeDocument("builds", build);
   }
 
   export function selectBikeType(user, bikeType, cb) {
@@ -103,24 +105,44 @@ import {readDocument, writeDocument, addDocument} from './database.js';
  emulateServerReturn(newBuild, cb);
 }
 
-export function addPart(buildId, bike_type, part_type, url, name, build, cb) {
+export function addPart(buildId, partId, cb) {
   var buildData = readDocument('builds', buildId);
-  buildData.contents.parts.contents.push({
-    "bike_type": [bike_type],
-    "part_type": part_type,
-    "url": url,
-    "name": name,
-    "build": []
-  });
+  buildData.contents.parts.push(partId);
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
+export function changeFirstName(userId, newFirstName, cb) {
+  var info = readDocument('users', userId);
+  info.first_name = newFirstName;
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
+}
+
+export function changeLastName(userId, newLastName, cb) {
+  var info = readDocument('users', userId);
+  info.last_name = newLastName;
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
+}
+
+export function changeEmail(userId, newEmail, cb) {
+  var info = readDocument('users', userId);
+  info.email = newEmail;
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
+}
+
+export function changeUserName(userId, newUserName, cb) {
+  var info = readDocument('users', userId);
+  info.user_name = newUserName;
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
+}
+
 export function changePassword(userId, newPassword, cb) {
   var info = readDocument('users', userId);
-  info.push({
-    "password": newPassword
-  });
+  info.password = newPassword;
   writeDocument('users', info);
   emulateServerReturn(userId, cb);
 }

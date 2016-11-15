@@ -1,9 +1,16 @@
 import React from 'react';
-import { getBuildsData } from '../server';
+import { getBuildData, writeBuild, removePartFromBuild } from '../server';
+import {readDocument} from '../database';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.state;
+  //  this.handleClickEvent = this.handleClickEvent.bind(this);
+    this.state = {
+      build: null,
+      part: null,
+      partsList: []
+
+    }
   }
 
   /*
@@ -11,67 +18,399 @@ export default class SelectBikeParts extends React.Component {
     any persistent state needs to be synced
   */
   refresh() {
-    getBuildsData(this.props.users, (buildsData) => {
-      this.setState(buildsData);
+    getBuildData(this.props.buildId, (buildsData) => {
+      this.setState({
+        build: buildsData,
+        partsList: buildsData.contents.parts
     });
-  }
+  });
+}
 
   componentDidMount() {
     this.refresh();
   }
 
+  handleClickEvent(clickEvent, partId){
+    clickEvent.preventDefault();
+    //alert(partId);
+    if(clickEvent.button === 0){
+      //this.state.partsList.push(partId);
+    //  alert(partId);
+      //this.removeParts(partId);
+      writeBuild(this.props.buildId, partId);
+      this.refresh();
+    }
+  }
+
+  /*removeParts(partId){
+    var part = readDocument("parts", partId);
+    for (var i =0; Object.keys(this.state.partsList).length; i++){
+      var oldPart = readDocument("parts", this.state.partsList[i]);
+      if(part.contents.part_type === oldPart.contents.part_type){
+        removePartFromBuild(this.props.buildId, oldPart._id);
+      }
+    }
+  }*/
+
+  getPartName(partId){
+    var name = "Empty";
+    for(var i = 0; i < Object.keys(this.state.partsList).length; i++){
+      var part = readDocument("parts", this.state.partsList[i]);
+      if(part.contents.part_type === partId){
+        name = part.contents.name;
+        break;
+      }
+    }
+    return name;
+  }
+
+  getPartPrice(partId){
+    var price = "N/A";
+    for(var i = 0; i < Object.keys(this.state.partsList).length; i++){
+      var part = readDocument("parts", this.state.partsList[i]);
+      if(part.contents.part_type === partId){
+        price = part.contents.price;
+        break;
+      }
+    }
+    return price;
+  }
+
+  linkListener(){
+    alert(this.i);
+  }
+
+  populateDropDown(partTypeId){
+    var  dropdown = [];
+    for(var i = 30; i <= 44; i++){
+      var part = readDocument('parts', i);
+      if(part.contents.part_type === partTypeId){
+        var link = document.createElement('a');
+        link.i = part._id;
+        dropdown.push(<a key={i} onClick = {(e)=>this.handleClickEvent(e, link.i)}>{part.contents.name}</a>);
+      }
+    }
+    return dropdown;
+  }
+
+  calculateTotalPrice(){
+    var totalPrice = 0;
+    for (var i = 0; i < Object.keys(this.state.partsList).length; i++){
+      var part = readDocument("parts", this.state.partsList[i]);
+      totalPrice = totalPrice + part.contents.price;
+    }
+    return totalPrice;
+  }
+
   render() {
+
     return (
-      <div>
-        <div className="container mainBuildTable">
-            <div className="jumbotron">
+        <div className="body-container container mainBuildTable">
+            <div className="panel panel-default">
                 <table className="table table-striped">
                     <caption>My Current Build</caption>
                     <thead>
                         <tr>
                             <th>Part Type</th>
-                            <th>Brand</th>
-                            <th>Model</th>
-                            <th>Cost</th>
+                            <th>Part</th>
+                            <th>Price</th>
+                            <th className="pull-right">Select Part</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">Rear Derailleur</th>
-                            <td>{this.state.contents.parts[0].contents.build_name}</td>
-                            <td>XTR-RD-M9000 11 Speed SGS</td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XTR-RD-M9000-11S-Rear-Derailleur">$159.99 - JensonUSA</a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Cassette</th>
-                            <td>SRAM</td>
-                            <td>XG-1180 X1 11 Speed Cassette</td>
-                            <td><a href="http://www.jensonusa.com/SRAM-XG-1180-X1-11-Speed-Cassette">$254.99 - JensonUSA</a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Brakes</th>
-                            <td>Shimano</td>
-                            <td>XT-M8000 Hydraulic Disc Brake</td>
-                            <td><a href="http://www.jensonusa.com/Shimano-XT-M8000-Disc-Brake">$90.99 - JensonUSA</a></td>
-                        </tr>
-                        <tr>
+                      <tr>
+                          <th scope="row">Front Derailleur</th>
+                          <td>{this.getPartName(92)}</td>
+                          <td>{this.getPartPrice(92)}</td>
+                          <td>
+                            <li className="dropdown pull-right">
+                              <a
+                                href="#"
+                                className="dropdown-toggle"
+                                data-toggle="dropdown"
+                                role="button"
+                                aria-haspopup="true"
+                                aria-expanded="false">Add Part <span className="caret"></span></a>
+                              <ul className="dropdown-menu">
+                                <li>
+                                  {this.populateDropDown(92)}
+                                </li>
+                              </ul>
+                            </li></td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Rear Derailleur</th>
+                              <td>{this.getPartName(91)}</td>
+                              <td>{this.getPartPrice(91)}</td>
+                                <td>
+                                  <li className="dropdown pull-right">
+                                    <a
+                                      href="#"
+                                      className="dropdown-toggle"
+                                      data-toggle="dropdown"
+                                      role="button"
+                                      aria-haspopup="true"
+                                      aria-expanded="false">Add Part <span className="caret"></span></a>
+                                    <ul className="dropdown-menu">
+                                      <li>
+                                        {this.populateDropDown(91)}
+                                      </li>
+                                    </ul>
+                                  </li></td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Tires</th>
+                              <td>{this.getPartName(82)}</td>
+                              <td>{this.getPartPrice(82)}</td>
+                                <td>
+                                  <li className="dropdown pull-right">
+                                    <a
+                                      href="#"
+                                      className="dropdown-toggle"
+                                      data-toggle="dropdown"
+                                      role="button"
+                                      aria-haspopup="true"
+                                      aria-expanded="false">Add Part <span className="caret"></span></a>
+                                    <ul className="dropdown-menu">
+                                      <li>
+                                        {this.populateDropDown(82)}
+                                      </li>
+                                    </ul>
+                                  </li></td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Brakes</th>
+                              <td>{this.getPartName(90)}</td>
+                              <td>{this.getPartPrice(90)}</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      {this.populateDropDown(90)}
+                                    </li>
+                                  </ul>
+                                </li></td>
+                          </tr>
+                          <tr>
                             <th scope="row">Fork</th>
-                            <td>FOX</td>
-                            <td>32 FLOAT 100 CTD EVO 26" FORK 2015</td>
-                            <td><a href="http://www.jensonusa.com/Fox-32-Float-100-CTD-Evo-26-Fork-2015">$299.99 - JensonUSA</a></td>
+                            <td>{this.getPartName(84)}</td>
+                            <td>{this.getPartPrice(84)}</td>
+                            <td>
+                              <li className="dropdown pull-right">
+                                <a
+                                  href="#"
+                                  className="dropdown-toggle"
+                                  data-toggle="dropdown"
+                                  role="button"
+                                  aria-haspopup="true"
+                                  aria-expanded="false">Add Part <span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                  <li>
+                                    {this.populateDropDown(84)}
+                                  </li>
+                                </ul>
+                              </li></td>
                         </tr>
                         <tr>
-                            <th scope="row"><a href="javascript:void();">Add another part</a></th>
+                            <th scope="row">Front Wheel</th>
+                            <td>{this.getPartName(83)}</td>
+                            <td>{this.getPartPrice(83)}</td>
+                            <td>
+                              <li className="dropdown pull-right">
+                                <a
+                                  href="#"
+                                  className="dropdown-toggle"
+                                  data-toggle="dropdown"
+                                  role="button"
+                                  aria-haspopup="true"
+                                  aria-expanded="false">Add Part <span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                  <li>
+                                    {this.populateDropDown(83)}
+                                  </li>
+                                </ul>
+                              </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Rear Wheel</th>
+                            <td>{this.getPartName(95)}</td>
+                            <td>{this.getPartPrice(95)}</td>
+                            <td>
+                              <li className="dropdown pull-right">
+                                <a
+                                  href="#"
+                                  className="dropdown-toggle"
+                                  data-toggle="dropdown"
+                                  role="button"
+                                  aria-haspopup="true"
+                                  aria-expanded="false">Add Part <span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                  <li>
+                                    {this.populateDropDown(95)}
+                                  </li>
+                                </ul>
+                              </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Shock</th>
+                            <td>{this.getPartName(85)}</td>
+                            <td>{this.getPartPrice(85)}</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      {this.populateDropDown(85)}
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Handlebar</th>
+                            <td>{this.getPartName(86)}</td>
+                            <td>{this.getPartPrice(86)}</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      {this.populateDropDown(86)}
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Saddle</th>
+                            <td>{this.getPartName(87)}</td>
+                            <td>{this.getPartPrice(87)}</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      {this.populateDropDown(87)}
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Seatpost</th>
+                            <td>{this.getPartName(88)}</td>
+                            <td>{this.getPartPrice(88)}</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      {this.populateDropDown(88)}
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Chain</th>
+                            <td>{this.getPartName(93)}</td>
+                            <td>{this.getPartPrice(93)}</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      {this.populateDropDown(93)}
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Shifter</th>
+                            <td>{this.getPartName(94)}</td>
+                            <td>{this.getPartPrice(94)}</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      {this.populateDropDown(94)}
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Frame</th>
+                            <td>{this.getPartName(89)}</td>
+                            <td>{this.getPartPrice(89)}</td>
+                              <td>
+                                <li className="dropdown pull-right">
+                                  <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Add Part <span className="caret"></span></a>
+                                  <ul className="dropdown-menu">
+                                    <li>
+                                      {this.populateDropDown(89)}
+                                    </li>
+                                  </ul>
+                                </li></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
                         </tr>
-                        <button type="button" onClick={(e)=>this.props.onClick(e, 1)} className="btn btn-default">Review</button>
+
                     </tbody>
                 </table>
+                <button type="button" onClick={(e)=>this.props.onClick(e, 1, this.calculateTotalPrice())} className="btn btn-default">Review</button>
             </div>
         </div>
-      </div>
       );
   }
 }

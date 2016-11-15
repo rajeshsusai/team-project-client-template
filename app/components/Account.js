@@ -35,7 +35,6 @@ export default class Account extends React.Component {
     var id = this.state.userId;
 
     return (
-
       <div className="body-container">
         <div className="col-md-2">
         </div>
