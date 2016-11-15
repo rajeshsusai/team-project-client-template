@@ -60,10 +60,13 @@ export default class Account extends React.Component {
                         <label className="control-label " htmlFor="password" > Password</label>
                           <input type="text" className="form-control" id="password" placeholder = {password}/>
                         </div>
+                        <div className="submit">
+                            <input type="Submit" value="Save" />
                         </div>
-                        </div>
-                        </div>
+            </div>
+          </div>
+        </div>
 
-                    );
-                  }
-                }
+              );
+            }
+          }
