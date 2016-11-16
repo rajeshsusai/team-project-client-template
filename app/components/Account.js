@@ -31,7 +31,6 @@ export default class Account extends React.Component {
     var username = this.state.user_name;
 
     return (
-
       <div className="body-container">
         <div className="col-md-2">
         </div>
