@@ -1,6 +1,6 @@
 import React from 'react';
-// import React-Router from 'react-router'
 import {getUserData} from '../server.js'
+// import {} from '../server.js'
 export default class Account extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +22,15 @@ export default class Account extends React.Component {
     this.refresh();
   }
 
+
+  onClickUpdateAccount(e){
+    e.preventDefault();
+    if(e ===0){
+      alert("Your account has been updated");
+    }
+  }
+
+
   render() {
 
     var firstName = this.state.first_name;
@@ -39,33 +48,31 @@ export default class Account extends React.Component {
             <div className="form-group">
               <br></br>
             <label className="control-label " htmlFor="first name" >First Name</label>
-              <input type="text" className="form-control" id="first name" placeholder = {firstName}/><br>
-              </br> <div className="form-group">
+              <input type="text" className="form-control" id="first name" placeholder = {firstName}/>
+
+                </div>
+                <div className="form-group">
                 <label className="control-label " htmlFor="last name" >Last Name</label>
                   <input type="text" className="form-control" id="last name" placeholder = {lastName}/>
-                  </div>
+
                 </div>
-              <div className="form-group">
-                <label className="control-label " htmlFor="email">Email</label>
-                  <input type="email" className="form-control" id="email" placeholder= {email} />
-                  </div>
+          <div className="form-group">
+            <label className="control-label " htmlFor="email">Email</label>
+              <input type="email" className="form-control" id="email" placeholder= {email} />
+              </div>
 
-                  <div className="form-group">
-                    <label className="control-label " htmlFor="username" > Username</label>
-                      <input type="text" className="form-control" id="username" placeholder = {username}/>
-                      </div>
-
-                        <div className="form-group">
-                        <label className="control-label " htmlFor="password" > Password</label>
-                          <input type="text" className="form-control" id="password" placeholder = {password}/>
-                        </div>
-                        <div className="submit">
-                            <input type="Submit" value="Save" />
-                        </div>
-            </div>
+          <div className="form-group">
+            <label className="control-label " htmlFor="username" > Username</label>
+              <input type="text" className="form-control" id="username" placeholder = {username}/>
+              </div>
+          <div className="form-group">
+            <label className="control-label " htmlFor="password" > Password</label>
+              <input type="text" className="form-control" id="password" placeholder = {password}/>
           </div>
+          <button type="button" className="btn btn-primary build-bike-button">Save</button>
         </div>
-
+       </div>
+       </div>
               );
             }
           }
