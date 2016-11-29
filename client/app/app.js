@@ -47,14 +47,8 @@ ReactDOM.render((
       { /* Show the Feed at / */ }
       <IndexRoute component={ Home } />
       <Route
-<<<<<<< HEAD
-             path="build/:id"
-             component={ Build } />
-=======
              path="account/:id"
              component={ Account } />
-
->>>>>>> 183571e3c88dfe9041778e61038680384d60107a
     </Route>
     <Route
              path="build/:id"
