@@ -32,7 +32,7 @@ class SavedBuildsWrapper extends React.Component {
 class BuildWrapper extends React.Component{
   constructor(props){
     super(props);
-    alert(this.props.params.id);
+    console.log("Build wrapper id: " + this.props.params.id);
   }
 
   render() {
