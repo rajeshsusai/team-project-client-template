@@ -43,19 +43,13 @@ ReactDOM.render((
   <Router history={ browserHistory }>
     <Route
            path="/"
-           component={ App }>
+           component={ App } >
       { /* Show the Feed at / */ }
       <IndexRoute component={ Home } />
       <Route
-<<<<<<< HEAD
-             path="build/:id"
-             component={ Build } />
-=======
-             path="account/:id"
-             component={ Account } />
-
->>>>>>> 183571e3c88dfe9041778e61038680384d60107a
-    </Route>
+          path="account/:id"
+          component={ Account } />
+      </Route>
     <Route
              path="build/:id"
              component={ BuildWrapper } />

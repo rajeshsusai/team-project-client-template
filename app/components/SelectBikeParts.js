@@ -1,5 +1,5 @@
 import React from 'react';
-import { getBuildData, writeBuild, removePartFromBuild } from '../server';
+import { getBuildData, writeBuild} from '../server';
 import {readDocument} from '../database';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
@@ -36,21 +36,10 @@ export default class SelectBikeParts extends React.Component {
     if(clickEvent.button === 0){
       //this.state.partsList.push(partId);
     //  alert(partId);
-      //this.removeParts(partId);
       writeBuild(this.props.buildId, partId);
       this.refresh();
     }
   }
-
-  /*removeParts(partId){
-    var part = readDocument("parts", partId);
-    for (var i =0; Object.keys(this.state.partsList).length; i++){
-      var oldPart = readDocument("parts", this.state.partsList[i]);
-      if(part.contents.part_type === oldPart.contents.part_type){
-        removePartFromBuild(this.props.buildId, oldPart._id);
-      }
-    }
-  }*/
 
   getPartName(partId){
     var name = "Empty";
