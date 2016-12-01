@@ -146,3 +146,14 @@ export function changePassword(userId, newPassword, cb) {
   writeDocument('users', info);
   emulateServerReturn(userId, cb);
 }
+
+export function updateAccount(userId, fName, lName, email, uName, newPassword){
+  var info = readDocument('users',userId);
+  info.first_name = fName;
+  info.last_name = lName;
+  info.email = email;
+  info.user_name = uName;
+  info.password = newPassword;
+  writeDocument('users',info);
+  return info;
+}
