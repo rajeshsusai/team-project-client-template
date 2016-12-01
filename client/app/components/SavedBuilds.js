@@ -29,9 +29,10 @@ export default class SavedBuilds extends React.Component {
 
     var rows = [];
   //  var builds = readDocument("builds", this.props.builds);
-    for(var i = 0; i < Object.keys(this.props.builds).length; i++){
+    for(let i = 0; i < Object.keys(this.props.builds).length; i++){
       var build = readDocument("builds", this.props.builds[i]);
-      rows.push(<tr onClick = {this.handleClick}>
+      rows.push(<tr key={i} onClick ={(e) => {
+        this.handleClick(e, i + 1)}}>
           <td>{build.contents.build_name}</td>
           <td>{build.contents.total_price}</td>
           <td>{build.contents.bike_type}</td>
@@ -41,10 +42,11 @@ export default class SavedBuilds extends React.Component {
     return rows;
   }
 
-  handleClick(clickEvent){
+  handleClick(clickEvent, id){
     clickEvent.preventDefault();
     if(clickEvent.button === 0){
-      this.context.history.pushState(null, 'Build/:id');
+      console.log("going to build : " + id);
+      this.context.history.pushState(null, 'Build/' + id);
     }
   }
   render() {

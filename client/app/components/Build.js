@@ -29,9 +29,9 @@ export default class Build extends React.Component {
         }
       }
       },
-      current_state: 0,
-      buildId: null,
-      user: 1,
+      current_state: props.state,
+      buildId: props.buildId,
+      user: props.user,
       buildList:props.buildList
     /* 0 : SelectBikeType
       1 : SelectBikeParts
@@ -39,6 +39,8 @@ export default class Build extends React.Component {
     */
     }
   }
+
+
   handleBikeBtnClickEvent(clickEvent, bikeType) {
     clickEvent.preventDefault();
     if (clickEvent.button === 0) {
@@ -97,9 +99,8 @@ export default class Build extends React.Component {
     //   this.setState(buildData)
     // });
       this.setState({
-        buildId:1
+
       });
-      /*TODO: dynamically grab new ID generated*/
   }
 
   componentDidMount() {
@@ -115,7 +116,7 @@ export default class Build extends React.Component {
           key={1}
           state={this.state}
           onClick={ (e, buildList, total_price) => this.reviewClick(e, buildList, total_price) }
-          buildId = {4}/>);
+          buildId = {this.state.buildId}/>);
       case 2:
         return (
           <div>
@@ -123,7 +124,7 @@ export default class Build extends React.Component {
             key={2}
             state={this.state}
             onClick={ (e, buildList, total_price) => this.reviewClick(e, buildList, total_price) }
-            buildId = {4} />
+            buildId = {this.state.buildId} />
             <ReviewBuild
             key={3}
             state={this.state}
