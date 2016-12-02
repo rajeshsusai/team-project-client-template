@@ -23,10 +23,10 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     return build;
   }
 
-  export function getBuildData(userId, buildId, cb) {
-    var userData = readDocument('users', userId);
-    var buildData = userData.buildList[buildId];
-    buildData.contents = buildData.contents.map(getBuildSync);
+  export function getBuildData(buildId, cb) {
+    //var userData = readDocument('users', userId);
+    var buildData = readDocument('builds', buildId);
+    // buildData.contents = buildData.contents.map(getBuildSync);
     emulateServerReturn(buildData, cb);
   }
 
@@ -80,7 +80,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
       }
     };
  }
- newBuild = addDocument('builds', newBuild);
+ newBuild = addDocument('builds', newBuild);//returns whole collection?
  var userData = readDocument('users', user);
  userData.buildList.push(buildId);
  writeDocument('builds', newBuild);

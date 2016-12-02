@@ -15,9 +15,9 @@ export default class Build extends React.Component {
       /*Passing to contents.parts[0].build_name in select bike parts
       Structure should support bike part table format in proper order.*/
       current_state: props.state,
-      buildId: props.buildId,
-      user: props.user,
-      buildList:props.buildList
+      buildId: 1,
+      user: 1
+      // buildList:props.buildList
     /* 0 : SelectBikeType
       1 : SelectBikeParts
       2 : ReviewBuild(SelectBikeParts extended)
@@ -40,26 +40,34 @@ export default class Build extends React.Component {
     var newBuildId = this.generateUUID();
     clickEvent.preventDefault();
     if (clickEvent.button === 0) {
-      var callbackFunction = () => {
+      // var callbackFunction = () => {
+      //   this.setState({
+      //     current_state: 1,
+      //     buildId:1
+      //     dynamic buildId, TODO update buildState, store in this.state
+      //     so it can be handed to reviewBuild
+      //   });
+      // }
+      selectBikeType(1, bikeType, newBuildId, (debug)=>{
         this.setState({
           current_state: 1,
-          buildId: newBuildId
-          /*dynamic buildId, TODO update buildState, store in this.state
-          so it can be handed to reviewBuild*/
+          buildId: newBuildId,//fscking buildIdGenerator was unnecessary in the end. 
+          user: this.props.user
         });
-      }
-      selectBikeType(1, bikeType, newBuildId, callbackFunction)
-      this.refresh();
+        getBuildData(this.state.user, this.state.buildId, (buildData) => {
+       this.setState(buildData)
+     });
+      })
     }
 
   }
 
-  reviewClick(e, buildList, total_price) {
+  reviewClick(e, total_price) {
     e.preventDefault();
     if (e.button === 0) {
       this.setState({
         current_state:2,
-        build_List:buildList,
+        // build_List:buildList,
         total_price: total_price
       })
     }
@@ -91,7 +99,7 @@ export default class Build extends React.Component {
     any persistent state needs to be synced
   */
   refresh() {
-     getBuildData(this.state.user, this.state.buildId, (buildData) => {
+     getBuildData(this.state.buildId, (buildData) => {
        this.setState(buildData)
      });
   }
@@ -108,7 +116,7 @@ export default class Build extends React.Component {
         return (<SelectBikeParts
           key={1}
           state={this.state}
-          onClick={ (e, buildList, total_price) => this.reviewClick(e, buildList, total_price) }
+          onClick={ (e, buildList, total_price) => this.reviewClick(e, total_price) }
           buildId = {this.state.buildId}/>);
       case 2:
         return (
@@ -116,7 +124,7 @@ export default class Build extends React.Component {
             <SelectBikeParts
             key={2}
             state={this.state}
-            onClick={ (e, buildList, total_price) => this.reviewClick(e, buildList, total_price) }
+            onClick={ (e, buildList, total_price) => this.reviewClick(e, total_price) }
             buildId = {this.state.buildId} />
             <ReviewBuild
             key={3}
