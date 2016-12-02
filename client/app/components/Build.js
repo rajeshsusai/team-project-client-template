@@ -4,8 +4,7 @@ import SelectBikeParts from './SelectBikeParts';
 import { selectBikeType } from '../server';
 import { getBuildData } from '../server';
 import ReviewBuild from './ReviewBuild'
-//import NavBar from './navbar'
-//import Footer from './footer'
+
 /*
 The wrapper for the build process starting from SelectBikeType
 */
@@ -15,20 +14,6 @@ export default class Build extends React.Component {
     this.state = {
       /*Passing to contents.parts[0].build_name in select bike parts
       Structure should support bike part table format in proper order.*/
-      contents: {
-        "parts":{
-        "0":{
-          "_id": 1,
-          "contents": {
-            "bike_type": "Winter",
-            "status": "Incomplete",
-            "total_price": "64.99",
-            "build_name": "Bugs Bunny",
-            "parts": [30]
-          }
-        }
-      }
-      },
       current_state: props.state,
       buildId: props.buildId,
       user: props.user,
@@ -39,7 +24,7 @@ export default class Build extends React.Component {
     */
     }
   }
-  
+
   generateUUID() {
       var d = new Date().getTime();
       var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -50,18 +35,21 @@ export default class Build extends React.Component {
       return uuid;
   }
 
+
   handleBikeBtnClickEvent(clickEvent, bikeType) {
+    var newBuildId = this.generateUUID();
     clickEvent.preventDefault();
     if (clickEvent.button === 0) {
       var callbackFunction = () => {
         this.setState({
-          current_state: 1
+          current_state: 1,
+          buildId: newBuildId
           /*dynamic buildId, TODO update buildState, store in this.state
           so it can be handed to reviewBuild*/
         });
       }
       callbackFunction();
-      // selectBikeType(1, bikeType, callbackFunction)
+      selectBikeType(1, bikeType, newBuildId, callbackFunction)
       this.refresh();
     }
 
@@ -104,9 +92,9 @@ export default class Build extends React.Component {
     any persistent state needs to be synced
   */
   refresh() {
-    // getBuildData(this.state.user, (buildData) => {
-    //   this.setState(buildData)
-    // });
+     getBuildData(this.state.user, this.state.buildId, (buildData) => {
+       this.setState(buildData)
+     });
       this.setState({
 
       });

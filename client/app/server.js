@@ -30,51 +30,55 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(buildData, cb);
   }
 
-  export function selectBikeType(user, bikeType, cb) {
+  export function selectBikeType(user, bikeType, buildId, cb) {
     var newBuild;
     if(bikeType === 13) {
       newBuild ={
-        "type": "Winter",
+        "id": buildId,
         "contents": {
-          "author": user,
-          "buildName": [],
+          "bike_type": "Winter",
           "status": 0,
+          "total_price": [],
+          "build_name": [],
           "parts": []
         }
       };
     }
     else if(bikeType === 12) {
       newBuild ={
-        "type": "Trail",
+        "id": buildId,
         "contents": {
-        "author": user,
-        "buildName": [],
-        "status": 0,
-        "part": []
-      }
-    };
+          "bike_type": "Trail",
+          "status": 0,
+          "total_price": [],
+          "build_name": [],
+          "parts": []
+        }
+      };
   }
   else if(bikeType === 10) {
     newBuild ={
-      "type": "Mountain",
+      "id": buildId,
       "contents": {
-        "author": user,
-        "buildName": [],
+        "bike_type": "Mountain",
         "status": 0,
-        "part": []
+        "total_price": [],
+        "build_name": [],
+        "parts": []
       }
     };
   }
   else if(bikeType === 11) {
     newBuild ={
-      "type": "Road",
+      "id": buildId,
       "contents": {
-      "author": user,
-      "buildName": [],
-      "status": 0,
-      "part": []
-     }
-   };
+        "bike_type": "Road",
+        "status": 0,
+        "total_price": [],
+        "build_name": [],
+        "parts": []
+      }
+    };
  }
  newBuild = addDocument('builds', newBuild);
  emulateServerReturn(newBuild, cb);
