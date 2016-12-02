@@ -25,38 +25,20 @@ export default class Build extends React.Component {
     }
   }
 
-  generateUUID() {
-      var d = new Date().getTime();
-      var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-          var r = (d + Math.random()*16)%16 | 0;
-          d = Math.floor(d/16);
-          return (c=='x' ? r : (r&0x3|0x8)).toString(16);
-      });
-      return uuid;
-  }
-
-
   handleBikeBtnClickEvent(clickEvent, bikeType) {
-    var newBuildId = this.generateUUID();
     clickEvent.preventDefault();
     if (clickEvent.button === 0) {
-      // var callbackFunction = () => {
-      //   this.setState({
-      //     current_state: 1,
-      //     buildId:1
       //     dynamic buildId, TODO update buildState, store in this.state
       //     so it can be handed to reviewBuild
       //   });
       // }
-      selectBikeType(1, bikeType, newBuildId, (debug)=>{
+      selectBikeType(1, bikeType, (debug)=>{
         this.setState({
           current_state: 1,
-          buildId: newBuildId,//fscking buildIdGenerator was unnecessary in the end. 
+          buildId: debug._id,//fscking buildIdGenerator was unnecessary in the end.
           user: this.props.user
         });
-        getBuildData(this.state.user, this.state.buildId, (buildData) => {
-       this.setState(buildData)
-     });
+        this.refresh();
       })
     }
 
@@ -83,7 +65,6 @@ export default class Build extends React.Component {
 
     if(e.button === 0)
 		{
-        //TODO from tony: get unique BuildID from server, write build using server function
         alert("Your build has been saved as " + this.state.build_name + "!" +
       "\nThank you for using BikePartPicker! To make another build, please navigate back to the home page by clicking \"BikePartPicker\" on the top navbar.")
     }

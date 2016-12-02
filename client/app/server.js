@@ -30,11 +30,10 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(buildData, cb);
   }
 
-  export function selectBikeType(user, bikeType, buildId, cb) {
+  export function selectBikeType(user, bikeType, cb) {
     var newBuild;
     if(bikeType === 13) {
       newBuild ={
-        "id": buildId,
         "contents": {
           "bike_type": "Winter",
           "status": 0,
@@ -46,7 +45,6 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     }
     else if(bikeType === 12) {
       newBuild ={
-        "id": buildId,
         "contents": {
           "bike_type": "Trail",
           "status": 0,
@@ -58,7 +56,6 @@ import {readDocument, writeDocument, addDocument} from './database.js';
   }
   else if(bikeType === 10) {
     newBuild ={
-      "id": buildId,
       "contents": {
         "bike_type": "Mountain",
         "status": 0,
@@ -70,7 +67,6 @@ import {readDocument, writeDocument, addDocument} from './database.js';
   }
   else if(bikeType === 11) {
     newBuild ={
-      "id": buildId,
       "contents": {
         "bike_type": "Road",
         "status": 0,
@@ -82,8 +78,9 @@ import {readDocument, writeDocument, addDocument} from './database.js';
  }
  newBuild = addDocument('builds', newBuild);//returns whole collection?
  var userData = readDocument('users', user);
- userData.buildList.push(buildId);
- writeDocument('builds', newBuild);
+ userData.buildList.push(newBuild._id);
+ //writeDocument('builds', newBuild);
+ writeDocument('users', userData);
  emulateServerReturn(newBuild, cb);
 }
 
