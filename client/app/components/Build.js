@@ -48,7 +48,6 @@ export default class Build extends React.Component {
           so it can be handed to reviewBuild*/
         });
       }
-      callbackFunction();
       selectBikeType(1, bikeType, newBuildId, callbackFunction)
       this.refresh();
     }
@@ -95,9 +94,6 @@ export default class Build extends React.Component {
      getBuildData(this.state.user, this.state.buildId, (buildData) => {
        this.setState(buildData)
      });
-      this.setState({
-
-      });
   }
 
   componentDidMount() {

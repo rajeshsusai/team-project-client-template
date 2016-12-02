@@ -26,7 +26,7 @@ import {readDocument, writeDocument, addDocument} from './database.js';
   export function getBuildData(userId, buildId, cb) {
     var userData = readDocument('users', userId);
     var buildData = userData.buildList[buildId];
-    buildData = buildData.map(getBuildSync);
+    buildData.contents = buildData.contents.map(getBuildSync);
     emulateServerReturn(buildData, cb);
   }
 
@@ -81,6 +81,9 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     };
  }
  newBuild = addDocument('builds', newBuild);
+ var userData = readDocument('users', user);
+ userData.buildList.push(buildId);
+ writeDocument('builds', newBuild);
  emulateServerReturn(newBuild, cb);
 }
 
