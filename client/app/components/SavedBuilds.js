@@ -28,7 +28,6 @@ export default class SavedBuilds extends React.Component {
   populateTable(){
 
     var rows = [];
-   var builds = readDocument("builds", this.props.builds);
     for(let i = 0; i < Object.keys(this.props.builds).length; i++){
       var build = readDocument("builds", this.props.builds[i]);
       rows.push(<tr key={i} onClick ={(e) => {
