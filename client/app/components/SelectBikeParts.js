@@ -1,30 +1,17 @@
 import React from 'react';
-import { getBuildData, addPart, getCurrentStatus, getBuildSync} from '../server';
+import { getBuildData, addPart, getCurrentStatus} from '../server';
 import {readDocument} from '../database';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);
-    // var buildData;
     this.state={
       build:props.buildId,
       partsList:[]
     };
-    var buildData=getBuildData(props.buildId, (buildD)=>{this.state={
+    getBuildData(props.buildId, (buildD)=>{this.state={
       build:props.buildId,
       partsList: buildD.contents.parts
     }});
-    console.log('Pray this piece of shit works');
-    // console.log(buildData);
-    // var x=[];
-    // getBuildData(props.buildId, (buildData)=>{
-    //   x=buildData.contents.parts;
-    // })
-  //  this.handleClickEvent = this.handleClickEvent.bind(this);
-    // this.state = {
-    //   build: props.buildId,
-    //   partsList: buildData.contents.parts
-
-    // }
   }
 
   /*
