@@ -31,7 +31,7 @@ class SavedBuildsWrapper extends React.Component {
 class BuildWrapper extends React.Component{
   constructor(props){
     super(props);
-    alert(this.props.params.id);
+    // alert(this.props.params.id);
   }
 
   render() {

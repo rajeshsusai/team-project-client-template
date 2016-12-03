@@ -1,5 +1,5 @@
 import React from 'react';
-import { getBuildData, addPart, getCurrentStatus, getBuildSync, getPartName, getPartPrice, getParts} from '../server';
+import { getBuildData, addPart, getCurrentStatus, getPartName, getPartPrice, getParts} from '../server';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);

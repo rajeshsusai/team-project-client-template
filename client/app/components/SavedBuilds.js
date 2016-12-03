@@ -6,7 +6,6 @@ export default class SavedBuilds extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.handleClick = this.handleClick.bind(this);
-    var builds;
     this.state = {
       builds: [],
       contents: []
