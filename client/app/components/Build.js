@@ -1,8 +1,6 @@
 import React from 'react';
 import SelectBikeType from './SelectBikeType';
 import SelectBikeParts from './SelectBikeParts';
-import { selectBikeType } from '../server';
-import { getBuildData } from '../server';
 import ReviewBuild from './ReviewBuild'
 //import NavBar from './navbar'
 //import Footer from './footer'
@@ -30,7 +28,7 @@ export default class Build extends React.Component {
       }
       },
       current_state: props.state,
-      buildId: props.buildId,
+      buildId: props.buildId, //SavedBuilds should set this buildId if sender is a savedBuild, otherwise will do new build
       user: props.user,
       buildList:props.buildList
     /* 0 : SelectBikeType
