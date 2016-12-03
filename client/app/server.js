@@ -85,6 +85,13 @@ import {readDocument, writeDocument, addDocument} from './database.js';
 
 export function addPart(buildId, partId, cb) {
   var buildData = readDocument('builds', buildId);
+  var newPart = readDocument('parts', partId);
+  for(var i = 0; i < buildData.contents.parts.length; i++) {
+    var existingPart = readDocument('parts', buildData.contents.parts[i]);
+    if(newPart.contents.part_type === existingPart.contents.part_type) {
+      buildData.contents.parts.splice(i, 1);
+    }
+  }
   buildData.contents.parts.push(partId);
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
