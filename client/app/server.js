@@ -146,3 +146,27 @@ export function changePassword(userId, newPassword, cb) {
   writeDocument('users', info);
   emulateServerReturn(userId, cb);
 }
+
+export function getPartName(partId, partsList, cb){
+  var name = "Empty";
+    for(var i = 0; i < Object.keys(partsList).length; i++){
+      var part = readDocument("parts", partsList[i]);
+      if(part.contents.part_type === partId){
+        name = part.contents.name;
+        break;
+      }
+    }
+    emulateServerReturn(name, cb);
+}
+
+export function getPartPrice(partId, partsList, cb){
+  var price = "N/A";
+    for(var i = 0; i < Object.keys(partsList).length; i++){
+      var part = readDocument("parts", partsList[i]);
+      if(part.contents.part_type === partId){
+        price = part.contents.price;
+        break;
+      }
+    }
+    emulateServerReturn(price, cb);
+}

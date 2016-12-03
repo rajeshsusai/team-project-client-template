@@ -112,6 +112,7 @@ export default class Build extends React.Component {
       case 0:
         return (<SelectBikeType key={0} onClick={ (e, t) => this.handleBikeBtnClickEvent(e, t) } />);
       case 1:
+      alert(this.props.buildId);
         return (<SelectBikeParts
           key={1}
           state={this.state}
