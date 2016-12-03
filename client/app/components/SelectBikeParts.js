@@ -1,17 +1,22 @@
 import React from 'react';
 import { getBuildData, addPart, getCurrentStatus, getBuildSync, getPartName, getPartPrice, getParts} from '../server';
-import {readDocument} from '../database';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);
     this.state={
       build:props.buildId,
-      partsList:[]
+      partsList:[],
+      parts: []
     };
     getBuildData(props.buildId, (buildD)=>{this.state={
       build:props.buildId,
       partsList: buildD.contents.parts
     }});
+    getParts((part)=>{
+      this.setState({
+      parts: part
+    });
+  });
   }
 
   /*
@@ -46,8 +51,8 @@ export default class SelectBikeParts extends React.Component {
 
   populateDropDown(partTypeId){
     var  dropdown = [];
-    for(var i = 30; i <=44; i++){
-      var part = readDocument("parts", i);
+    for(var i = 0; i < Object.keys(this.state.parts).length; i++){
+      var part = this.state.parts[i];
       if(part.contents.part_type === partTypeId){
         var link = document.createElement('a');
         link.i = part._id;
@@ -58,7 +63,7 @@ export default class SelectBikeParts extends React.Component {
   }
 
   render() {
-    this.refresh();
+
     return (
         <div className="body-container container mainBuildTable">
             <div className="panel panel-default">

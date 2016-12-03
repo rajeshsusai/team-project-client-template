@@ -152,13 +152,6 @@ export function getPartName(partId, partsList, cb){
   emulateServerReturn(name,cb);
 }
 
-export function getPartNameById(partId, cb){
-  var name = "";
-  var part = readDocument("parts", partId);
-  name = part.contents.name;
-  emulateServerReturn(name, cb);
-}
-
 export function getPartPrice(partId, partsList, cb){
   var price = "N/A";
   for(var i = 0; i < Object.keys(partsList).length; i++){
@@ -173,8 +166,8 @@ export function getPartPrice(partId, partsList, cb){
 
 export function getParts(cb){
   var parts = [];
-  for(var i = 30; i <=44; i++){
-    var part = readDocument("parts", i);
+  for (var i = 30; i <= 44; i++){
+    var part = readDocument('parts', i);
     parts.push(part);
   }
   emulateServerReturn(parts, cb);
