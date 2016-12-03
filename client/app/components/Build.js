@@ -1,6 +1,8 @@
 import React from 'react';
 import SelectBikeType from './SelectBikeType';
 import SelectBikeParts from './SelectBikeParts';
+import { selectBikeType } from '../server';
+import { getBuildData } from '../server';
 import ReviewBuild from './ReviewBuild'
 //import NavBar from './navbar'
 //import Footer from './footer'
