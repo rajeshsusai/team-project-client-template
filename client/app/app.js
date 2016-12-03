@@ -29,14 +29,44 @@ class SavedBuildsWrapper extends React.Component {
             </div>)
   }
 }
-class BuildWrapper extends React.Component{
+
+class AccountWrapper extends React.Component{
   render() {
     return (<div>
       <NavBar user={1} page={this.props.location.pathname} />
-      <Build user={1} state={0} />
+      <Account user={1} />
       <Footer />
       </div>
     );
+  }
+}
+
+class BuildWrapper extends React.Component{
+  constructor(props){
+    super(props);
+    alert(this.props.params.id);
+  }
+
+  render() {
+
+    if (isNaN(this.props.params.id)){  //if id not number, its not coming from a saved build
+      return(
+        <div>
+        <NavBar user={1} page={this.props.location.pathname} />
+        <Build user={1} state={0}/>
+        <Footer />
+        </div>
+      );
+    }
+    else { //if we are passing an id, it must be a saved build
+      return(
+        <div>
+        <NavBar user={1} page={this.props.location.pathname} />
+        <Build user={1} state={1} buildId={this.props.params.id} />
+        <Footer />
+        </div>
+      );
+    }
   }
 }
 ReactDOM.render((
@@ -46,16 +76,22 @@ ReactDOM.render((
            component={ App }>
       { /* Show the Feed at / */ }
       <IndexRoute component={ Home } />
-      <Route
-             path="account/:id"
-             component={ Account } />
-    </Route>
+
+      </Route>
     <Route
              path="build/:id"
              component={ BuildWrapper } />
+
+   <Route
+            path="build/new"
+            component={ BuildWrapper } />
     <Route
            path="savedbuilds/:id"
            component={ SavedBuildsWrapper } />
+
+    <Route
+           path="account/:id"
+           component={ AccountWrapper } />
   </Router>
   ),
   document.getElementById('bikePage'));

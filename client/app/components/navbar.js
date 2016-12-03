@@ -71,14 +71,14 @@ export default class NavBar extends React.Component {
                           className="btn btn-info navbar-btn navbar-btn-left">
                     Bike Part Picker
                   </button>
-                  <Link to={ "/Build/" + {userId} }>
+                  <Link to={ "/Build/new"}>
                   <button
                           type="button"
                           className="btn btn-danger navbar-btn navbar-btn-left">
                     New Build
                   </button>
                   </Link>
-                  <Link to={ "/SavedBuilds/" + {userId}}>
+                  <Link to={ "/SavedBuilds/" + userId}>
                   <button
                           type="button"
                           className="btn btn-warning navbar-btn navbar-btn-left">
@@ -119,12 +119,12 @@ export default class NavBar extends React.Component {
                      aria-expanded="false">Account <span className="caret"></span></a>
                   <ul className="dropdown-menu">
                     <li>
-                      <Link to={"/account/"+{userId}}>
+                      <Link to={"/account/"+ userId}>
                       <span>My Account</span>
                       </Link>
                     </li>
                     <li>
-                    <Link to={ "/SavedBuilds/" + {userId} }>
+                    <Link to={ "/SavedBuilds/" + userId }>
                       <span>My Builds</span>
                       </Link>
                     </li>
