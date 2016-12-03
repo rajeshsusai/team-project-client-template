@@ -172,3 +172,13 @@ export function getParts(cb){
   }
   emulateServerReturn(parts, cb);
 }
+
+export function getBuilds(userId, cb){
+  var user = readDocument('users', userId);
+  var builds =[];
+  for(var i = 0; i < user.buildList.length; i++){
+    var build = readDocument('builds', user.buildList[i]);
+    builds.push(build);
+  }
+  emulateServerReturn(builds,cb);
+}
