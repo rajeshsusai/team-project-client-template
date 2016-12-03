@@ -1,5 +1,5 @@
 import React from 'react';
-import {changeFirstName, getUserData} from '../server.js';
+import {getUserData} from '../server.js';
 
 
 // import React-Router from 'react-router'
@@ -41,8 +41,11 @@ export default class Account extends React.Component {
 //
   handleChangefName(event){
     event.preventDefault();
+    var name = document.getElementById("first name").value;
+    document.getElementById("demo").innerHTML = name;
       // this.changeFirstName(event.target.userId, event.target.first_name);
-      this.setState({first_name: event.target.first_name});
+      this.setState({first_name: name});
+      alert(name);
       // this.refresh();
   }
 
@@ -60,11 +63,14 @@ export default class Account extends React.Component {
 
   handleChangelName(event){
     event.preventDefault();
-    // alert(event.target.last_name);
-    this.setState({last_name: event.target.last_name});
+    if(event.button === 0 ){
+    var lname = document.getElementById("last name").value;
+    alert(this.state.last_name);
+    this.setState({last_name: lname});
+  }
   }
   handleChangeEmail(event){
-    // event.preventDefault();
+    event.preventDefault();
     // alert("Changing Email");
     this.setState({email: event.target.email});
     // alert("Hello");
@@ -72,7 +78,7 @@ export default class Account extends React.Component {
   handleChangeUserName(event){
     event.preventDefault();
     // alert("Chaning User Name")
-    this.setState({user_name: event.target.user_name});
+    this.setState({user_name: event.target.user_name})
   }
   handleChangePassword(event){
     event.preventDefault();
@@ -80,12 +86,10 @@ export default class Account extends React.Component {
     this.setState({password: event.target.password});
   }
 
-  handleClickEvent(clickEvent, first_name){
+  handleClickEvent(clickEvent){
     clickEvent.preventDefault();
-    if(clickEvent.button === 0){
-      changeFirstName(this.props.userId, first_name);
-      this.refresh();
-    }
+    this.refresh();
+
   }
 
 
@@ -125,11 +129,6 @@ export default class Account extends React.Component {
 
   render() {
 
-    // var firstName = this.state.first_name;
-    // var lastName = this.state.last_name;
-    // var email = this.state.email;
-    // var password = this.state.password;
-    // var username = this.state.user_name;
 
     return (
       <div className="body-container">
@@ -143,6 +142,7 @@ export default class Account extends React.Component {
               <input type="text" className="form-control" id="first name" value = {this.state.first_name}/>
               <button type ="button"
                 onClick ={(e) => this.handleChangefName(e)}
+
                 >Update First name</button>
               <br>
 
@@ -150,14 +150,16 @@ export default class Account extends React.Component {
               <div className="form-group">
                 <label className="control-label " htmlFor="last name" >Last Name</label>
                   <input type="text" className="form-control" id="last name" value = {this.state.last_name}/>
-                  <button type  ="button" onClick ={(e) => this.handleChangelName(e)}>Update Last name</button>
+                  <button type  ="button"
+                    onClick ={(e) => this.handleChangelName(e)}>Update Last name</button>
 
                 </div>
                 </div>
               <div className="form-group">
                 <label className="control-label " htmlFor="email">Email</label>
                   <input type="email" className="form-control" id="email" value= {this.state.email} />
-                  <button type = "button" onClick ={(e) => this.handleChangeEmail(e)}>Update Email</button>
+                  <button type = "button"
+                     onClick ={(e) => this.handleChangeEmail(e)}>Update Email</button>
                   </div>
 
                   <div className="form-group">
