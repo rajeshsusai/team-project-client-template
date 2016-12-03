@@ -1,4 +1,5 @@
 import {readDocument, writeDocument, addDocument} from './database.js';
+import React from 'react';
 
 /**
  * Emulates how a REST call is *asynchronous* -- it calls your function back
@@ -142,4 +143,44 @@ export function writeBuildName(buildId, buildName, buildPrice, cb) {
   buildData.contents.total_price=buildPrice;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
+}
+
+export function getPartName(partId, partsList, cb){
+  var name = "Empty";
+  for(var i = 0; i < Object.keys(partsList).length; i++){
+    var part = readDocument("parts", partsList[i]);
+    if(part.contents.part_type === partId){
+      name = part.contents.name;
+      break;
+    }
+  }
+  emulateServerReturn(name,cb);
+}
+
+export function getPartNameById(partId, cb){
+  var name = "";
+  var part = readDocument("parts", partId);
+  name = part.contents.name;
+  emulateServerReturn(name, cb);
+}
+
+export function getPartPrice(partId, partsList, cb){
+  var price = "N/A";
+  for(var i = 0; i < Object.keys(partsList).length; i++){
+    var part = readDocument("parts", partsList[i]);
+    if(part.contents.part_type === partId){
+      price = part.contents.price;
+      break;
+    }
+  }
+  emulateServerReturn(price,cb);
+}
+
+export function getParts(cb){
+  var parts = [];
+  for(var i = 30; i <=44; i++){
+    var part = readDocument("parts", i);
+    parts.push(part);
+  }
+  emulateServerReturn(parts, cb);
 }
