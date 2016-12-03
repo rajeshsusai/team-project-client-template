@@ -21,7 +21,8 @@ class App extends React.Component {
 
 class SavedBuildsWrapper extends React.Component {
   render(){
-    //removed the database function call
+    var user = readDocument("users", 1);
+    //gotta remove this function later!
     return(<div>
               <NavBar user={1} page = {this.props.location.pathname}/>
               <SavedBuilds user={1} builds = {user.buildList} />
