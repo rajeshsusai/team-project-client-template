@@ -24,7 +24,7 @@ var initialData = {
             "status": "Incomplete",
             "total_price": "64.99",
             "build_name": "My Build",
-            "parts": []
+            "parts": [31]
           }
       },
       "2":{

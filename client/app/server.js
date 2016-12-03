@@ -13,15 +13,15 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     var userData = readDocument('users', user);
     emulateServerReturn(userData, cb);
   }
-
-   /*function getBuildSync(buildId) {
+  export function getBuildSync(buildId) {
     var build = readDocument('builds', buildId);
-    build.contents.parts = build.contents.parts.map((val) => {
-      var parts = readDocument('parts', val);
-      return parts;
-    });
+    // build.contents.parts = build.contents.parts.map((val) => {
+    //   var parts = readDocument('parts', val);
+    //   return parts;
+    // });
     return build;
-  }*/
+    //TODO: callback emulateServerReturn
+  }
 
   export function getBuildData(buildId, cb) {
     //var userData = readDocument('users', userId);
@@ -86,6 +86,12 @@ import {readDocument, writeDocument, addDocument} from './database.js';
 export function addPart(buildId, partId, cb) {
   var buildData = readDocument('builds', buildId);
   var newPart = readDocument('parts', partId);
+  // for (var key in buildData.contents.parts){
+  //   if (key.contents.part_type===newPart.contents.part_type){
+
+  //     // buildData.contents.parts.splice(index, howMany)
+  //   }
+  // }
   for(var i = 0; i < buildData.contents.parts.length; i++) {
     var existingPart = readDocument('parts', buildData.contents.parts[i]);
     if(newPart.contents.part_type === existingPart.contents.part_type) {
@@ -130,9 +136,10 @@ export function getCurrentStatus(buildId, cb) {
   emulateServerReturn(buildData, cb);
 }
 
-export function writeBuildName(buildId, buildName, cb) {
+export function writeBuildName(buildId, buildName, buildPrice, cb) {
   var buildData = readDocument('builds', buildId);
-  buildData.contents.buildName = buildName;
+  buildData.contents.build_name = buildName;
+  buildData.contents.total_price=buildPrice;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }

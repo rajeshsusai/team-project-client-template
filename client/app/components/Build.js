@@ -61,7 +61,7 @@ export default class Build extends React.Component {
 
     if(e.button === 0)
 		{
-      writeBuildName(this.state.buildId, this.state.build_name, finalBuild => {
+      writeBuildName(this.state.buildId, this.state.build_name, this.state.total_price, finalBuild => {
         this.setState({
           current_state: 2,
           buildId: finalBuild._id
