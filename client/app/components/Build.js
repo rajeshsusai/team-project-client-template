@@ -3,6 +3,7 @@ import SelectBikeType from './SelectBikeType';
 import SelectBikeParts from './SelectBikeParts';
 import { selectBikeType } from '../server';
 import { getBuildData } from '../server';
+import { writeBuildName } from '../server';
 import ReviewBuild from './ReviewBuild'
 
 /*
@@ -22,16 +23,12 @@ export default class Build extends React.Component {
       1 : SelectBikeParts
       2 : ReviewBuild(SelectBikeParts extended)
     */
-    }
   }
+}
 
   handleBikeBtnClickEvent(clickEvent, bikeType) {
     clickEvent.preventDefault();
     if (clickEvent.button === 0) {
-      //     dynamic buildId, TODO update buildState, store in this.state
-      //     so it can be handed to reviewBuild
-      //   });
-      // }
       selectBikeType(1, bikeType, (debug)=>{
         this.setState({
           current_state: 1,
@@ -41,7 +38,6 @@ export default class Build extends React.Component {
         this.refresh();
       })
     }
-
   }
 
   reviewClick(e, total_price) {
@@ -65,6 +61,13 @@ export default class Build extends React.Component {
 
     if(e.button === 0)
 		{
+      writeBuildName(this.state.buildId, this.state.build_name, finalBuild => {
+        this.setState({
+          current_state: 2,
+          buildId: finalBuild._id
+        });
+      });
+      this.refresh();
         alert("Your build has been saved as " + this.state.build_name + "!" +
       "\nThank you for using BikePartPicker! To make another build, please navigate back to the home page by clicking \"BikePartPicker\" on the top navbar.")
     }

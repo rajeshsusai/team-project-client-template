@@ -14,14 +14,14 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(userData, cb);
   }
 
-   function getBuildSync(buildId) {
+   /*function getBuildSync(buildId) {
     var build = readDocument('builds', buildId);
     build.contents.parts = build.contents.parts.map((val) => {
       var parts = readDocument('parts', val);
       return parts;
     });
     return build;
-  }
+  }*/
 
   export function getBuildData(buildId, cb) {
     //var userData = readDocument('users', userId);
@@ -79,14 +79,12 @@ import {readDocument, writeDocument, addDocument} from './database.js';
  newBuild = addDocument('builds', newBuild);//returns whole collection?
  var userData = readDocument('users', user);
  userData.buildList.push(newBuild._id);
- //writeDocument('builds', newBuild);
  writeDocument('users', userData);
  emulateServerReturn(newBuild, cb);
 }
 
-export function addPart(userId, buildId, partId, cb) {
-  var userData = readDocument('users', userId);
-  var buildData = userData.buildList[buildId];
+export function addPart(buildId, partId, cb) {
+  var buildData = readDocument('builds', buildId);
   buildData.contents.parts.push(partId);
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
@@ -101,4 +99,33 @@ export function changeAccountInfo(userId, newUserName, newFirstName, newLastName
   info.password = newPassword;
   writeDocument('users', info);
   emulateServerReturn(userId, cb);
+}
+
+export function getCurrentStatus(buildId, cb) {
+  var buildData = readDocument('builds', buildId);
+  if(buildData.contents.bike_type === "Road") {
+    if(buildData.contents.parts.length === 13) {
+      buildData.contents.status = "Complete";
+    }
+    else {
+      buildData.contents.status = "Incomplete";
+    }
+  }
+  else {
+    if(buildData.contents.parts.length === 15) {
+      buildData.contents.status = "Complete";
+    }
+    else {
+      buildData.contents.status = "Incomplete";
+    }
+  }
+  writeDocument('builds', buildData);
+  emulateServerReturn(buildData, cb);
+}
+
+export function writeBuildName(buildId, buildName, cb) {
+  var buildData = readDocument('builds', buildId);
+  buildData.contents.buildName = buildName;
+  writeDocument('builds', buildData);
+  emulateServerReturn(buildData, cb);
 }

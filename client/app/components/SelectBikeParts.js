@@ -1,13 +1,12 @@
 import React from 'react';
-import { getBuildData, writeBuild} from '../server';
+import { getBuildData, addPart, getCurrentStatus} from '../server';
 import {readDocument} from '../database';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);
   //  this.handleClickEvent = this.handleClickEvent.bind(this);
     this.state = {
-      build: null,
-      part: null,
+      build: props.buildId,
       partsList: []
 
     }
@@ -18,10 +17,10 @@ export default class SelectBikeParts extends React.Component {
     any persistent state needs to be synced
   */
   refresh() {
-    getBuildData(this.props.buildId, (buildsData) => {
+    getBuildData(this.props.buildId, (buildData) => {
       this.setState({
-        build: buildsData,
-        partsList: buildsData.contents.parts
+        build: buildData,
+        partsList: buildData.contents.parts
     });
   });
 }
@@ -32,11 +31,13 @@ export default class SelectBikeParts extends React.Component {
 
   handleClickEvent(clickEvent, partId){
     clickEvent.preventDefault();
-    //alert(partId);
     if(clickEvent.button === 0){
-      //this.state.partsList.push(partId);
-    //  alert(partId);
-      writeBuild(this.props.buildId, partId);
+      addPart(this.props.buildId, partId, updatedBuild => {
+        this.setState({
+          build: updatedBuild,
+          partList: updatedBuild.contents.partsList
+        });
+      });
       this.refresh();
     }
   }
@@ -63,10 +64,6 @@ export default class SelectBikeParts extends React.Component {
       }
     }
     return price;
-  }
-
-  linkListener(){
-    alert(this.i);
   }
 
   populateDropDown(partTypeId){
