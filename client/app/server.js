@@ -89,6 +89,12 @@ export function addPart(buildId, partId, cb) {
     }
   }
   buildData.contents.parts.push(partId);
+  var price = 0.0;
+  for(var i = 0; i < buildData.contents.parts.length; i++){
+    var part = readDocument('parts', buildData.contents.parts[i]);
+    price = price + part.contents.price;
+  }
+  buildData.contents.price = price;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }

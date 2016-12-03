@@ -57,15 +57,6 @@ export default class SelectBikeParts extends React.Component {
     return dropdown;
   }
 
-  calculateTotalPrice(){
-    var totalPrice = 0;
-    for (var i = 0; i < Object.keys(this.state.partsList).length; i++){
-      var part = readDocument("parts", this.state.partsList[i]);
-      totalPrice = totalPrice + part.contents.price;
-    }
-    return totalPrice;
-  }
-
   render() {
     this.refresh();
     return (
@@ -513,7 +504,7 @@ export default class SelectBikeParts extends React.Component {
 
                     </tbody>
                 </table>
-                <button type="button" onClick={(e)=>this.props.onClick(e, 1, this.calculateTotalPrice())} className="btn btn-default">Review</button>
+                <button type="button" onClick={(e)=>this.props.onClick(e, 1, this.state.build.contents.price)} className="btn btn-default">Review</button>
             </div>
         </div>
       );
