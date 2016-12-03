@@ -45,6 +45,21 @@ function getUserIdFromToken(authorizationLine) {
   }
 }
 
+// BEGIN HTTP routes
+
+// Reset database.
+app.post('/resetdb', function(req, res) {
+  console.log("Resetting database...");
+  // This is a debug route, so don't do any validation.
+  database.resetDatabase();
+  // res.send() sends an empty response with status code 200
+  res.send();
+});
+
+// END HTTP routes
+
+
+
 /**
   * Translate JSON Schema Validation failures into error 400s.
   Must go after all routes
