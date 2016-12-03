@@ -4,17 +4,14 @@ import {readDocument} from '../database';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);
-    var x=getBuildSync(props.buildId);
-    console.log(x);
-    // var x=[];
-    // getBuildData(props.buildId, (buildData)=>{
-    //   x=buildData.contents.parts;
-    // })
-  //  this.handleClickEvent = this.handleClickEvent.bind(this);
-    this.state = {
-      build: props.buildId,
-      partsList: x.contents.parts
+    this.state={
+      build:props.buildId,
+      partsList:[]
     };
+    getBuildData(props.buildId, (buildD)=>{this.state={
+      build:props.buildId,
+      partsList: buildD.contents.parts
+    }});
   }
 
   /*

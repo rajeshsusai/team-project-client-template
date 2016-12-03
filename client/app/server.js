@@ -14,20 +14,9 @@ import React from 'react';
     var userData = readDocument('users', user);
     emulateServerReturn(userData, cb);
   }
-  export function getBuildSync(buildId) {
-    var build = readDocument('builds', buildId);
-    // build.contents.parts = build.contents.parts.map((val) => {
-    //   var parts = readDocument('parts', val);
-    //   return parts;
-    // });
-    return build;
-    //TODO: callback emulateServerReturn
-  }
 
   export function getBuildData(buildId, cb) {
-    //var userData = readDocument('users', userId);
     var buildData = readDocument('builds', buildId);
-    // buildData.contents = buildData.contents.map(getBuildSync);
     emulateServerReturn(buildData, cb);
   }
 
