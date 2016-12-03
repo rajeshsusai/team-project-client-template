@@ -45,6 +45,14 @@ function getUserIdFromToken(authorizationLine) {
   }
 }
 
+//BEGIN REGION HTTP ROUTES PUT THEM ALL HERE
+
+
+
+
+
+//END REGION HTTP ROUTES
+
 /**
   * Translate JSON Schema Validation failures into error 400s.
   Must go after all routes
