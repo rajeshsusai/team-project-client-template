@@ -1,16 +1,22 @@
 import React from 'react';
-import { getBuildData, writeBuild, removePartFromBuild } from '../server';
-import {readDocument} from '../database';
+import { getBuildData, addPart, getCurrentStatus, getPartName, getPartPrice, getParts} from '../server';
 export default class SelectBikeParts extends React.Component {
   constructor(props) {
     super(props);
-  //  this.handleClickEvent = this.handleClickEvent.bind(this);
-    this.state = {
-      build: null,
-      part: null,
-      partsList: []
-
-    }
+    this.state={
+      build:props.buildId,
+      partsList:[],
+      parts: []
+    };
+    getBuildData(props.buildId, (buildD)=>{this.state={
+      build:props.buildId,
+      partsList: buildD.contents.parts
+    }});
+    getParts((part)=>{
+      this.setState({
+      parts: part
+    });
+  });
   }
 
   /*
@@ -18,10 +24,10 @@ export default class SelectBikeParts extends React.Component {
     any persistent state needs to be synced
   */
   refresh() {
-    getBuildData(this.props.buildId, (buildsData) => {
+    getBuildData(this.props.buildId, (buildData) => {
       this.setState({
-        build: buildsData,
-        partsList: buildsData.contents.parts
+        build: buildData,
+        partsList: buildData.contents.parts
     });
   });
 }
@@ -32,74 +38,28 @@ export default class SelectBikeParts extends React.Component {
 
   handleClickEvent(clickEvent, partId){
     clickEvent.preventDefault();
-    //alert(partId);
     if(clickEvent.button === 0){
-      //this.state.partsList.push(partId);
-    //  alert(partId);
-      //this.removeParts(partId);
-      writeBuild(this.props.buildId, partId);
+      addPart(this.props.buildId, partId, updatedBuild => {
+        this.setState({
+          build: updatedBuild,
+          partList: updatedBuild.contents.partsList
+        });
+      });
       this.refresh();
     }
   }
 
-  /*removeParts(partId){
-    var part = readDocument("parts", partId);
-    for (var i =0; Object.keys(this.state.partsList).length; i++){
-      var oldPart = readDocument("parts", this.state.partsList[i]);
-      if(part.contents.part_type === oldPart.contents.part_type){
-        removePartFromBuild(this.props.buildId, oldPart._id);
-      }
-    }
-  }*/
-
-  getPartName(partId){
-    var name = "Empty";
-    for(var i = 0; i < Object.keys(this.state.partsList).length; i++){
-      var part = readDocument("parts", this.state.partsList[i]);
-      if(part.contents.part_type === partId){
-        name = part.contents.name;
-        break;
-      }
-    }
-    return name;
-  }
-
-  getPartPrice(partId){
-    var price = "N/A";
-    for(var i = 0; i < Object.keys(this.state.partsList).length; i++){
-      var part = readDocument("parts", this.state.partsList[i]);
-      if(part.contents.part_type === partId){
-        price = part.contents.price;
-        break;
-      }
-    }
-    return price;
-  }
-
-  linkListener(){
-    alert(this.i);
-  }
-
   populateDropDown(partTypeId){
     var  dropdown = [];
-    for(var i = 30; i <= 44; i++){
-      var part = readDocument('parts', i);
+    for(var i = 0; i < Object.keys(this.state.parts).length; i++){
+      var part = this.state.parts[i];
       if(part.contents.part_type === partTypeId){
         var link = document.createElement('a');
         link.i = part._id;
-        dropdown.push(<a key={i} onClick = {(e)=>this.handleClickEvent(e, link.i)}>{part.contents.name}</a>);
+        dropdown.push(<a key={link.i} onClick = {(e)=>this.handleClickEvent(e, link.i)}>{part.contents.name}</a>);
       }
     }
     return dropdown;
-  }
-
-  calculateTotalPrice(){
-    var totalPrice = 0;
-    for (var i = 0; i < Object.keys(this.state.partsList).length; i++){
-      var part = readDocument("parts", this.state.partsList[i]);
-      totalPrice = totalPrice + part.contents.price;
-    }
-    return totalPrice;
   }
 
   render() {
@@ -120,8 +80,18 @@ export default class SelectBikeParts extends React.Component {
                     <tbody>
                       <tr>
                           <th scope="row">Front Derailleur</th>
-                          <td>{this.getPartName(92)}</td>
-                          <td>{this.getPartPrice(92)}</td>
+                          <td id = "92a"></td>
+                          <script>{
+                            getPartName(92, this.state.partsList, (name)=>{
+                              document.getElementById("92a").innerHTML = name;
+                            })
+                          }</script>
+                          <td id="92b"></td>
+                          <script>{
+                            getPartPrice(92, this.state.partsList, (price)=>{
+                              document.getElementById("92b").innerHTML = price;
+                            })
+                          }</script>
                           <td>
                             <li className="dropdown pull-right">
                               <a
@@ -133,15 +103,26 @@ export default class SelectBikeParts extends React.Component {
                                 aria-expanded="false">Add Part <span className="caret"></span></a>
                               <ul className="dropdown-menu">
                                 <li>
-                                  {this.populateDropDown(92)}
+                                {this.populateDropDown(92)}
                                 </li>
+
                               </ul>
                             </li></td>
                           </tr>
                           <tr>
                               <th scope="row">Rear Derailleur</th>
-                              <td>{this.getPartName(91)}</td>
-                              <td>{this.getPartPrice(91)}</td>
+                              <td id = "91a"></td>
+                              <script>{
+                                getPartName(91, this.state.partsList, (name)=>{
+                                  document.getElementById("91a").innerHTML = name;
+                                })
+                              }</script>
+                              <td id="91b"></td>
+                              <script>{
+                                getPartPrice(91, this.state.partsList, (price)=>{
+                                  document.getElementById("91b").innerHTML = price;
+                                })
+                              }</script>
                                 <td>
                                   <li className="dropdown pull-right">
                                     <a
@@ -160,8 +141,18 @@ export default class SelectBikeParts extends React.Component {
                           </tr>
                           <tr>
                               <th scope="row">Tires</th>
-                              <td>{this.getPartName(82)}</td>
-                              <td>{this.getPartPrice(82)}</td>
+                              <td id = "82a"></td>
+                              <script>{
+                                getPartName(82, this.state.partsList, (name)=>{
+                                  document.getElementById("82a").innerHTML = name;
+                                })
+                              }</script>
+                              <td id="82b"></td>
+                              <script>{
+                                getPartPrice(82, this.state.partsList, (price)=>{
+                                  document.getElementById("82b").innerHTML = price;
+                                })
+                              }</script>
                                 <td>
                                   <li className="dropdown pull-right">
                                     <a
@@ -180,8 +171,18 @@ export default class SelectBikeParts extends React.Component {
                           </tr>
                           <tr>
                               <th scope="row">Brakes</th>
-                              <td>{this.getPartName(90)}</td>
-                              <td>{this.getPartPrice(90)}</td>
+                              <td id = "90a"></td>
+                              <script>{
+                                getPartName(90, this.state.partsList, (name)=>{
+                                  document.getElementById("90a").innerHTML = name;
+                                })
+                              }</script>
+                              <td id="90b"></td>
+                              <script>{
+                                getPartPrice(90, this.state.partsList, (price)=>{
+                                  document.getElementById("90b").innerHTML = price;
+                                })
+                              }</script>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -200,8 +201,18 @@ export default class SelectBikeParts extends React.Component {
                           </tr>
                           <tr>
                             <th scope="row">Fork</th>
-                            <td>{this.getPartName(84)}</td>
-                            <td>{this.getPartPrice(84)}</td>
+                            <td id = "84a"></td>
+                            <script>{
+                              getPartName(84, this.state.partsList, (name)=>{
+                                document.getElementById("84a").innerHTML = name;
+                              })
+                            }</script>
+                            <td id="84b"></td>
+                            <script>{
+                              getPartPrice(84, this.state.partsList, (price)=>{
+                                document.getElementById("84b").innerHTML = price;
+                              })
+                            }</script>
                             <td>
                               <li className="dropdown pull-right">
                                 <a
@@ -220,8 +231,18 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Front Wheel</th>
-                            <td>{this.getPartName(83)}</td>
-                            <td>{this.getPartPrice(83)}</td>
+                            <td id = "83a"></td>
+                            <script>{
+                              getPartName(83, this.state.partsList, (name)=>{
+                                document.getElementById("83a").innerHTML = name;
+                              })
+                            }</script>
+                            <td id="83b"></td>
+                            <script>{
+                              getPartPrice(83, this.state.partsList, (price)=>{
+                                document.getElementById("83b").innerHTML = price;
+                              })
+                            }</script>
                             <td>
                               <li className="dropdown pull-right">
                                 <a
@@ -240,8 +261,18 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Rear Wheel</th>
-                            <td>{this.getPartName(95)}</td>
-                            <td>{this.getPartPrice(95)}</td>
+                            <td id = "95a"></td>
+                            <script>{
+                              getPartName(95, this.state.partsList, (name)=>{
+                                document.getElementById("95a").innerHTML = name;
+                              })
+                            }</script>
+                            <td id="95b"></td>
+                            <script>{
+                              getPartPrice(95, this.state.partsList, (price)=>{
+                                document.getElementById("95b").innerHTML = price;
+                              })
+                            }</script>
                             <td>
                               <li className="dropdown pull-right">
                                 <a
@@ -260,8 +291,18 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Shock</th>
-                            <td>{this.getPartName(85)}</td>
-                            <td>{this.getPartPrice(85)}</td>
+                            <td id = "85a"></td>
+                            <script>{
+                              getPartName(85, this.state.partsList, (name)=>{
+                                document.getElementById("85a").innerHTML = name;
+                              })
+                            }</script>
+                            <td id="85b"></td>
+                            <script>{
+                              getPartPrice(85, this.state.partsList, (price)=>{
+                                document.getElementById("85b").innerHTML = price;
+                              })
+                            }</script>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -280,8 +321,18 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Handlebar</th>
-                            <td>{this.getPartName(86)}</td>
-                            <td>{this.getPartPrice(86)}</td>
+                            <td id = "86a"></td>
+                            <script>{
+                              getPartName(86, this.state.partsList, (name)=>{
+                                document.getElementById("86a").innerHTML = name;
+                              })
+                            }</script>
+                            <td id="86b"></td>
+                            <script>{
+                              getPartPrice(86, this.state.partsList, (price)=>{
+                                document.getElementById("86b").innerHTML = price;
+                              })
+                            }</script>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -300,8 +351,18 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Saddle</th>
-                            <td>{this.getPartName(87)}</td>
-                            <td>{this.getPartPrice(87)}</td>
+                            <td id = "87a"></td>
+                            <script>{
+                              getPartName(87, this.state.partsList, (name)=>{
+                                document.getElementById("87a").innerHTML = name;
+                              })
+                            }</script>
+                            <td id="87b"></td>
+                            <script>{
+                              getPartPrice(87, this.state.partsList, (price)=>{
+                                document.getElementById("87b").innerHTML = price;
+                              })
+                            }</script>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -320,8 +381,18 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Seatpost</th>
-                            <td>{this.getPartName(88)}</td>
-                            <td>{this.getPartPrice(88)}</td>
+                            <td id = "88a"></td>
+                            <script>{
+                              getPartName(88, this.state.partsList, (name)=>{
+                                document.getElementById("88a").innerHTML = name;
+                              })
+                            }</script>
+                            <td id="88b"></td>
+                            <script>{
+                              getPartPrice(88, this.state.partsList, (price)=>{
+                                document.getElementById("88b").innerHTML = price;
+                              })
+                            }</script>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -340,8 +411,18 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Chain</th>
-                            <td>{this.getPartName(93)}</td>
-                            <td>{this.getPartPrice(93)}</td>
+                            <td id = "93a"></td>
+                            <script>{
+                              getPartName(93, this.state.partsList, (name)=>{
+                                document.getElementById("93a").innerHTML = name;
+                              })
+                            }</script>
+                            <td id="93b"></td>
+                            <script>{
+                              getPartPrice(93, this.state.partsList, (price)=>{
+                                document.getElementById("93b").innerHTML = price;
+                              })
+                            }</script>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -360,8 +441,18 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Shifter</th>
-                            <td>{this.getPartName(94)}</td>
-                            <td>{this.getPartPrice(94)}</td>
+                            <td id = "94a"></td>
+                            <script>{
+                              getPartName(94, this.state.partsList, (name)=>{
+                                document.getElementById("94a").innerHTML = name;
+                              })
+                            }</script>
+                            <td id="94b"></td>
+                            <script>{
+                              getPartPrice(94, this.state.partsList, (price)=>{
+                                document.getElementById("94b").innerHTML = price;
+                              })
+                            }</script>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -380,8 +471,18 @@ export default class SelectBikeParts extends React.Component {
                         </tr>
                         <tr>
                             <th scope="row">Frame</th>
-                            <td>{this.getPartName(89)}</td>
-                            <td>{this.getPartPrice(89)}</td>
+                            <td id = "89a"></td>
+                            <script>{
+                              getPartName(89, this.state.partsList, (name)=>{
+                                document.getElementById("89a").innerHTML = name;
+                              })
+                            }</script>
+                            <td id="89b"></td>
+                            <script>{
+                              getPartPrice(89, this.state.partsList, (price)=>{
+                                document.getElementById("89b").innerHTML = price;
+                              })
+                            }</script>
                               <td>
                                 <li className="dropdown pull-right">
                                   <a
@@ -408,7 +509,7 @@ export default class SelectBikeParts extends React.Component {
 
                     </tbody>
                 </table>
-                <button type="button" onClick={(e)=>this.props.onClick(e, 1, this.calculateTotalPrice())} className="btn btn-default">Review</button>
+                <button type="button" onClick={(e)=>this.props.onClick(e, 1, this.state.build.contents.price)} className="btn btn-default">Review</button>
             </div>
         </div>
       );

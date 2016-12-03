@@ -24,7 +24,7 @@ var initialData = {
             "status": "Incomplete",
             "total_price": "64.99",
             "build_name": "My Build",
-            "parts": []
+            "parts": [31, 32, 33]
           }
       },
       "2":{
@@ -45,16 +45,6 @@ var initialData = {
             "total_price": "78.99",
             "build_name": "Wiley Coyote",
             "parts": [30]
-          }
-      },
-      "4":{
-          "_id": 4,
-          "contents": {
-            "bike_type": "Trail",
-            "status": "Incomplete",
-            "total_price": "78.99",
-            "build_name": "Wiley Coyote 2",
-            "parts": []
           }
       }
   },

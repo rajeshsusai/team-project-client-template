@@ -1,5 +1,4 @@
 import React from 'react';
-// import React-Router from 'react-router'
 import {getUserData} from '../server.js'
 export default class Account extends React.Component {
   constructor(props) {

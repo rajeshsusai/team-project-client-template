@@ -1,4 +1,5 @@
 import {readDocument, writeDocument, addDocument} from './database.js';
+import React from 'react';
 
 /**
  * Emulates how a REST call is *asynchronous* -- it calls your function back
@@ -14,135 +15,170 @@ import {readDocument, writeDocument, addDocument} from './database.js';
     emulateServerReturn(userData, cb);
   }
 
-   function getBuildSync(buildId) {
-    var build = readDocument('builds', buildId);
-    build.contents.parts = build.contents.parts.map((val) => {
-      var parts = readDocument('parts', val);
-      return parts;
-    });
-    return build;
-  }
-
   export function getBuildData(buildId, cb) {
-    //var userData = readDocument('users', user);
     var buildData = readDocument('builds', buildId);
-    //buildData = buildData.map(getBuildSync);
     emulateServerReturn(buildData, cb);
-  }
-
-  export function writeBuild(buildId, partId){
-    var build = readDocument("builds", buildId);
-    build.contents.parts.push(partId);
-    writeDocument("builds", build);
-  }
-
-  export function removePartFromBuild(buildId, partId){
-    var build = readDocument("builds", buildId);
-    var index = build.contents.parts.indexOf(partId);
-    if(index > -1){
-      build.contents.parts.splice(index, 1);
-    }
-    writeDocument("builds", build);
   }
 
   export function selectBikeType(user, bikeType, cb) {
     var newBuild;
     if(bikeType === 13) {
       newBuild ={
-        "type": "Winter",
         "contents": {
-          "author": user,
-          "buildName": [],
+          "bike_type": "Winter",
           "status": 0,
+          "total_price": [],
+          "build_name": [],
           "parts": []
         }
       };
     }
     else if(bikeType === 12) {
       newBuild ={
-        "type": "Trail",
         "contents": {
-        "author": user,
-        "buildName": [],
-        "status": 0,
-        "part": []
-      }
-    };
+          "bike_type": "Trail",
+          "status": 0,
+          "total_price": [],
+          "build_name": [],
+          "parts": []
+        }
+      };
   }
   else if(bikeType === 10) {
     newBuild ={
-      "type": "Mountain",
       "contents": {
-        "author": user,
-        "buildName": [],
+        "bike_type": "Mountain",
         "status": 0,
-        "part": []
+        "total_price": [],
+        "build_name": [],
+        "parts": []
       }
     };
   }
   else if(bikeType === 11) {
     newBuild ={
-      "type": "Road",
       "contents": {
-      "author": user,
-      "buildName": [],
-      "status": 0,
-      "part": []
-     }
-   };
+        "bike_type": "Road",
+        "status": 0,
+        "total_price": [],
+        "build_name": [],
+        "parts": []
+      }
+    };
  }
- // Add the status update to the database.
- // Returns the status update w/ an ID assigned.
- newBuild = addDocument('builds', newBuild);
- // Add the status update reference to the front of the
- // current user's feed.
+ newBuild = addDocument('builds', newBuild);//returns whole collection?
  var userData = readDocument('users', user);
- var buildsData = readDocument('builds', userData.buildList);
- buildsData.contents.unshift(newBuild._id);
- // Update the feed object.
- writeDocument('builds', buildsData);
- // Return the newly-posted object.
+ userData.buildList.push(newBuild._id);
+ writeDocument('users', userData);
  emulateServerReturn(newBuild, cb);
 }
 
 export function addPart(buildId, partId, cb) {
   var buildData = readDocument('builds', buildId);
+  var newPart = readDocument('parts', partId);
+  // for (var key in buildData.contents.parts){
+  //   if (key.contents.part_type===newPart.contents.part_type){
+
+  //     // buildData.contents.parts.splice(index, howMany)
+  //   }
+  // }
+  for(var i = 0; i < buildData.contents.parts.length; i++) {
+    var existingPart = readDocument('parts', buildData.contents.parts[i]);
+    if(newPart.contents.part_type === existingPart.contents.part_type) {
+      buildData.contents.parts.splice(i, 1);
+    }
+  }
   buildData.contents.parts.push(partId);
+  var price = 0.0;
+  for(var i = 0; i < buildData.contents.parts.length; i++){
+    var part = readDocument('parts', buildData.contents.parts[i]);
+    price = price + part.contents.price;
+  }
+  buildData.contents.price = price;
   writeDocument('builds', buildData);
   emulateServerReturn(buildData, cb);
 }
 
-export function changeFirstName(userId, newFirstName, cb) {
-  var info = readDocument('users', userId);
-  info.first_name = newFirstName;
-  writeDocument('users', info);
-  emulateServerReturn(userId, cb);
-}
-
-export function changeLastName(userId, newLastName, cb) {
-  var info = readDocument('users', userId);
-  info.last_name = newLastName;
-  writeDocument('users', info);
-  emulateServerReturn(userId, cb);
-}
-
-export function changeEmail(userId, newEmail, cb) {
-  var info = readDocument('users', userId);
-  info.email = newEmail;
-  writeDocument('users', info);
-  emulateServerReturn(userId, cb);
-}
-
-export function changeUserName(userId, newUserName, cb) {
+export function changeAccountInfo(userId, newUserName, newFirstName, newLastName, newEmail, newPassword, cb) {
   var info = readDocument('users', userId);
   info.user_name = newUserName;
-  writeDocument('users', info);
-  emulateServerReturn(userId, cb);
-}
-
-export function changePassword(userId, newPassword, cb) {
-  var info = readDocument('users', userId);
+  info.first_name = newFirstName;
+  info.last_name = newLastName;
+  info.email = newEmail;
   info.password = newPassword;
   writeDocument('users', info);
   emulateServerReturn(userId, cb);
+}
+
+export function getCurrentStatus(buildId, cb) {
+  var buildData = readDocument('builds', buildId);
+  if(buildData.contents.bike_type === "Road") {
+    if(buildData.contents.parts.length === 13) {
+      buildData.contents.status = "Complete";
+    }
+    else {
+      buildData.contents.status = "Incomplete";
+    }
+  }
+  else {
+    if(buildData.contents.parts.length === 15) {
+      buildData.contents.status = "Complete";
+    }
+    else {
+      buildData.contents.status = "Incomplete";
+    }
+  }
+  writeDocument('builds', buildData);
+  emulateServerReturn(buildData, cb);
+}
+
+export function writeBuildName(buildId, buildName, buildPrice, cb) {
+  var buildData = readDocument('builds', buildId);
+  buildData.contents.build_name = buildName;
+  buildData.contents.total_price=buildPrice;
+  writeDocument('builds', buildData);
+  emulateServerReturn(buildData, cb);
+}
+
+export function getPartName(partId, partsList, cb){
+  var name = "Empty";
+  for(var i = 0; i < Object.keys(partsList).length; i++){
+    var part = readDocument("parts", partsList[i]);
+    if(part.contents.part_type === partId){
+      name = part.contents.name;
+      break;
+    }
+  }
+  emulateServerReturn(name,cb);
+}
+
+export function getPartPrice(partId, partsList, cb){
+  var price = "N/A";
+  for(var i = 0; i < Object.keys(partsList).length; i++){
+    var part = readDocument("parts", partsList[i]);
+    if(part.contents.part_type === partId){
+      price = part.contents.price;
+      break;
+    }
+  }
+  emulateServerReturn(price,cb);
+}
+
+export function getParts(cb){
+  var parts = [];
+  for (var i = 30; i <= 44; i++){
+    var part = readDocument('parts', i);
+    parts.push(part);
+  }
+  emulateServerReturn(parts, cb);
+}
+
+export function getBuilds(userId, cb){
+  var user = readDocument('users', userId);
+  var builds =[];
+  for(var i = 0; i < user.buildList.length; i++){
+    var build = readDocument('builds', user.buildList[i]);
+    builds.push(build);
+  }
+  emulateServerReturn(builds,cb);
 }

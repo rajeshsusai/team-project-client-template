@@ -3,9 +3,9 @@ import SelectBikeType from './SelectBikeType';
 import SelectBikeParts from './SelectBikeParts';
 import { selectBikeType } from '../server';
 import { getBuildData } from '../server';
+import { writeBuildName } from '../server';
 import ReviewBuild from './ReviewBuild'
-//import NavBar from './navbar'
-//import Footer from './footer'
+
 /*
 The wrapper for the build process starting from SelectBikeType
 */
@@ -15,55 +15,37 @@ export default class Build extends React.Component {
     this.state = {
       /*Passing to contents.parts[0].build_name in select bike parts
       Structure should support bike part table format in proper order.*/
-      contents: {
-        "parts":{
-        "0":{
-          "_id": 1,
-          "contents": {
-            "bike_type": "Winter",
-            "status": "Incomplete",
-            "total_price": "64.99",
-            "build_name": "Bugs Bunny",
-            "parts": [30]
-          }
-        }
-      }
-      },
       current_state: props.state,
       buildId: props.buildId,
-      user: props.user,
-      buildList:props.buildList
+      user: 1
+      // buildList:props.buildList
     /* 0 : SelectBikeType
       1 : SelectBikeParts
       2 : ReviewBuild(SelectBikeParts extended)
     */
-    }
   }
-
+}
 
   handleBikeBtnClickEvent(clickEvent, bikeType) {
     clickEvent.preventDefault();
     if (clickEvent.button === 0) {
-      var callbackFunction = () => {
+      selectBikeType(1, bikeType, (debug)=>{
         this.setState({
-          current_state: 1
-          /*dynamic buildId, TODO update buildState, store in this.state
-          so it can be handed to reviewBuild*/
+          current_state: 1,
+          buildId: debug._id,//fscking buildIdGenerator was unnecessary in the end.
+          user: this.props.user
         });
-      }
-      callbackFunction();
-      // selectBikeType(1, bikeType, callbackFunction)
-      this.refresh();
+        this.refresh();
+      })
     }
-
   }
 
-  reviewClick(e, buildList, total_price) {
+  reviewClick(e, total_price) {
     e.preventDefault();
     if (e.button === 0) {
       this.setState({
         current_state:2,
-        build_List:buildList,
+        // build_List:buildList,
         total_price: total_price
       })
     }
@@ -79,7 +61,13 @@ export default class Build extends React.Component {
 
     if(e.button === 0)
 		{
-        //TODO from tony: get unique BuildID from server, write build using server function
+      writeBuildName(this.state.buildId, this.state.build_name, this.state.total_price, finalBuild => {
+        this.setState({
+          current_state: 2,
+          buildId: finalBuild._id
+        });
+      });
+      this.refresh();
         alert("Your build has been saved as " + this.state.build_name + "!" +
       "\nThank you for using BikePartPicker! To make another build, please navigate back to the home page by clicking \"BikePartPicker\" on the top navbar.")
     }
@@ -95,12 +83,9 @@ export default class Build extends React.Component {
     any persistent state needs to be synced
   */
   refresh() {
-    // getBuildData(this.state.user, (buildData) => {
-    //   this.setState(buildData)
-    // });
-      this.setState({
-
-      });
+     getBuildData(this.state.buildId, (buildData) => {
+       this.setState(buildData)
+     });
   }
 
   componentDidMount() {
@@ -115,7 +100,7 @@ export default class Build extends React.Component {
         return (<SelectBikeParts
           key={1}
           state={this.state}
-          onClick={ (e, buildList, total_price) => this.reviewClick(e, buildList, total_price) }
+          onClick={ (e, buildList, total_price) => this.reviewClick(e, total_price) }
           buildId = {this.state.buildId}/>);
       case 2:
         return (
@@ -123,7 +108,7 @@ export default class Build extends React.Component {
             <SelectBikeParts
             key={2}
             state={this.state}
-            onClick={ (e, buildList, total_price) => this.reviewClick(e, buildList, total_price) }
+            onClick={ (e, buildList, total_price) => this.reviewClick(e, total_price) }
             buildId = {this.state.buildId} />
             <ReviewBuild
             key={3}
