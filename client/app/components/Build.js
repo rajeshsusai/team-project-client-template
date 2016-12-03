@@ -28,7 +28,7 @@ export default class Build extends React.Component {
       }
       },
       current_state: props.state,
-      buildId: props.buildId,
+      buildId: props.buildId, //SavedBuilds should set this buildId if sender is a savedBuild, otherwise will do new build
       user: props.user,
       buildList:props.buildList
     /* 0 : SelectBikeType
