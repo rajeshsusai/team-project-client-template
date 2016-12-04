@@ -7,6 +7,8 @@ var token = "eyJpZCI6MX0=";
 * Properly configure+send an XMLHttpRequest with error handling,
 * authorization token, and other needed properties.
 */
+
+var token = 'eyJpZCI6MX0=';
 function sendXHR(verb, resource, body, cb) {
   var xhr = new XMLHttpRequest();
   xhr.open(verb, resource);
@@ -205,28 +207,16 @@ export function writeBuildName(buildId, buildName, buildPrice, cb) {
   emulateServerReturn(buildData, cb);
 }
 
-export function getPartName(partId, partsList, cb){
-  var name = "Empty";
-  for(var i = 0; i < Object.keys(partsList).length; i++){
-    var part = readDocument("parts", partsList[i]);
-    if(part.contents.part_type === partId){
-      name = part.contents.name;
-      break;
-    }
-  }
-  emulateServerReturn(name,cb);
+export function getPartName(partTypeId, buildId, userId, cb){
+  sendXHR('GET', 'builds/' + buildId + '/partType/' + partTypeId +'/users/' + userId, undefined, (xhr)=>{
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
-export function getPartPrice(partId, partsList, cb){
-  var price = "N/A";
-  for(var i = 0; i < Object.keys(partsList).length; i++){
-    var part = readDocument("parts", partsList[i]);
-    if(part.contents.part_type === partId){
-      price = part.contents.price;
-      break;
-    }
-  }
-  emulateServerReturn(price,cb);
+export function getPartPrice(partTypeId, buildId, userId, cb){
+  sendXHR('GET', 'partType/' + partTypeId + '/builds/' + buildId + '/users/' + userId, undefined, (xhr)=>{
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 export function getParts(cb){
