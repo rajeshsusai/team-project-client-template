@@ -57,7 +57,7 @@ function updateAccount(userId, fName, lName, email, uName, newPassword){
   return info;
 }
 
- function changeFirstName(userId, newFirstName) {
+function changeFirstName(userId, newFirstName) {
   var info = readDocument('users', userId);
   info.first_name = newFirstName;
   writeDocument('users', info);

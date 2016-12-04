@@ -12,6 +12,7 @@ import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 class App extends React.Component {
   render() {
     return (<div>
+            <ErrorBanner/>
               <NavBar user={1} page = {this.props.location.pathname}/>
               { this.props.children }
               <Footer />

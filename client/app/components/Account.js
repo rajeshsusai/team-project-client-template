@@ -1,5 +1,5 @@
 import React from 'react';
-import {getUserData} from '../server.js';
+import {changeFirstName,getUserData} from '../server.js';
 
 
 // import React-Router from 'react-router'
@@ -24,7 +24,7 @@ export default class Account extends React.Component {
   refresh(){
     getUserData(this.props.user, (userInfo) =>{
       this.setState({
-        userId: userInfo.userId,
+        user_id: userInfo._id,
         first_name: userInfo.first_name,
         last_name: userInfo.last_name,
         password: userInfo.password,
@@ -41,25 +41,13 @@ export default class Account extends React.Component {
 //
   handleChangefName(event){
     event.preventDefault();
-    var name = document.getElementById("first name").value;
-    document.getElementById("demo").innerHTML = name;
-      // this.changeFirstName(event.target.userId, event.target.first_name);
+    if(event.button === 0){
+      var name = document.getElementById("first name").value;
+      changeFirstName(this.state.user_id, name);
       this.setState({first_name: name});
-      alert(name);
-      // this.refresh();
+    }
+      this.refresh();
   }
-
-//   handleKeyUp(e) {
-//   e.preventDefault();
-//   if (e.key === "Enter") {
-//     var firstname = this.state.first_name.trim();
-//     if (firstname !== "") {
-//       // Post comment
-//       this.props.changeFirstName(this.state.userId,this.state.first_name);
-//       // this.setState({ value: "" });
-//     }
-//   }
-// }
 
   handleChangelName(event){
     event.preventDefault();
@@ -67,24 +55,29 @@ export default class Account extends React.Component {
     var lname = document.getElementById("last name").value;
     alert(this.state.last_name);
     this.setState({last_name: lname});
-  }
+    }
   }
   handleChangeEmail(event){
     event.preventDefault();
-    // alert("Changing Email");
-    this.setState({email: event.target.email});
-    // alert("Hello");
+    if(event.button === 0 ){
+    var email = document.getElementById("email").value;
+    this.setState({email: email});
   }
+}
   handleChangeUserName(event){
     event.preventDefault();
-    // alert("Chaning User Name")
-    this.setState({user_name: event.target.user_name})
+    if(event.button === 0 ){
+      var user_name = document.getElementById("user name").value;
+    this.setState({user_name: user_name})
   }
+}
   handleChangePassword(event){
     event.preventDefault();
-    // alert("Changing Password");
-    this.setState({password: event.target.password});
+    if(event.button === 0 ){
+        var password = document.getElementById("password").value;
+    this.setState({password: password});
   }
+}
 
   handleClickEvent(clickEvent){
     clickEvent.preventDefault();
