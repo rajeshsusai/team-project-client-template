@@ -17,7 +17,7 @@ export default class Build extends React.Component {
       Structure should support bike part table format in proper order.*/
       current_state: props.state,
       buildId: props.buildId,
-      user: 1
+      user: props.user
       // buildList:props.buildList
     /* 0 : SelectBikeType
       1 : SelectBikeParts
