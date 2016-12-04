@@ -288,7 +288,8 @@ var initialData = {
     }
   }
 };
-var data;
+
+var data = JSONClone(initialData);
 // If 'true', the in-memory object representing the database has changed,
 // and we should flush it to disk.
 var updated = false;
@@ -302,7 +303,7 @@ try {
   // Read more about configuration comments at the following URL:
   // http://eslint.org/docs/user-guide/configuring#configuring-rules
   /* eslint "node/no-missing-require": "off" */
-  data = require('./database.json');
+  data = JSONClone(initialData);
 } catch (e) {
   // ./database.json is missing. Use the seed data defined above
   data = JSONClone(initialData);

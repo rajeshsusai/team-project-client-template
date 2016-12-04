@@ -1,6 +1,8 @@
 import {readDocument, writeDocument, addDocument} from './database.js';
 import React from 'react';
 
+var token = "eyJpZCI6MX0=";
+
 /**
 * Properly configure+send an XMLHttpRequest with error handling,
 * authorization token, and other needed properties.
@@ -12,7 +14,7 @@ function sendXHR(verb, resource, body, cb) {
   xhr.setRequestHeader('Authorization', 'Bearer ' + token);
   // Otherwise, ESLint would complain about it! (See what happens in Atom if
   // you remove the comment...)
-  /* global BikeError */
+  /* global AppleError */
   // Response received from server. It could be a failure, though!
   xhr.addEventListener('load', function() {
     var statusCode = xhr.status;
@@ -26,7 +28,7 @@ function sendXHR(verb, resource, body, cb) {
       // The server may have included some response text with details concerning
       // the error.
       var responseText = xhr.responseText;
-      BikeError('Could not ' + verb + " " + resource + ": Received " +
+      AppleError('Could not ' + verb + " " + resource + ": Received " +
       statusCode + " " + statusText + ": " + responseText);
     }
   });
@@ -35,12 +37,12 @@ function sendXHR(verb, resource, body, cb) {
   xhr.timeout = 10000;
   // Network failure: Could not connect to server.
   xhr.addEventListener('error', function() {
-    BikeError('Could not ' + verb + " " + resource +
+    AppleError('Could not ' + verb + " " + resource +
     ": Could not connect to the server.");
   });
   // Network failure: request took too long to complete.
   xhr.addEventListener('timeout', function() {
-    BikeError('Could not ' + verb + " " + resource +
+    AppleError('Could not ' + verb + " " + resource +
     ": Request timed out.");
   });
   switch (typeof(body)) {
@@ -154,8 +156,8 @@ export function addPart(buildId, partId, cb) {
   }
   buildData.contents.parts.push(partId);
   var price = 0.0;
-  for(var i = 0; i < buildData.contents.parts.length; i++){
-    var part = readDocument('parts', buildData.contents.parts[i]);
+  for(var a = 0; a < buildData.contents.parts.length; a++){
+    var part = readDocument('parts', buildData.contents.parts[a]);
     price = price + part.contents.price;
   }
   buildData.contents.price = price;
@@ -229,26 +231,15 @@ export function getPartPrice(partId, partsList, cb){
 }
 
 export function getParts(cb){
-  sendXHR('GET', '/parts', undefined, (xhr)=>{
+  sendXHR('GET', '/parts_default', undefined, (xhr) => {
+    // Call the callback with the data.
     cb(JSON.parse(xhr.responseText));
-  })
-  // var parts = [];
-  // for (var i = 30; i <= 44; i++){
-  //   var part = readDocument('parts', i);
-  //   parts.push(part);
-  // }
-  // emulateServerReturn(parts, cb);
+  });
 }
 
 export function getBuilds(userId, cb){
-  sendXHR('GET', '/users/'+userId+'/buildList', undefined, (xhr)=> {
-    cb(JSON.parse(xhr.responseText));
-  })
-  // var user = readDocument('users', userId);
-  // var builds =[];
-  // for(var i = 0; i < user.buildList.length; i++){
-  //   var build = readDocument('builds', user.buildList[i]);
-  //   builds.push(build);
-  // }
-  // emulateServerReturn(builds,cb);
+  sendXHR('GET', '/builds/' + userId, undefined, (xhr) => {
+  // Call the callback with the data.
+  cb(JSON.parse(xhr.responseText));
+  });
 }

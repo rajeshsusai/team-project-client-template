@@ -45,32 +45,48 @@ function getUserIdFromToken(authorizationLine) {
   }
 }
 
-//BEGIN REGION HTTP ROUTES PUT THEM ALL HERE
-
-
-app.get('/parts', function(req, res){
-  var parts=[];
-  for (var i=30; i<=44; i++){
-    var part=readDocument('parts', i);
+function getParts(){
+  var parts = [];
+  for (var i = 30; i <= 44; i++){
+    var part = readDocument('parts', i);
     parts.push(part);
   }
-  res.send(parts);
-})
-// export function getBuilds(userId, cb){
-app.get('/users/:userid/buildList', function(req, res){
-  var userid=req.params.userid;
-  var fromUser=getUserIdFromToken(req.get('Authorization'));
-  var useridNumber=parseInt(userid, 10);
-  if (fromUser===useridNumber){
-    var builds=[];
-    var user=readDocument('users', userid);
-    for (var i = 0; i<user.buildList.length; i++){
-      var build=readDocument('builds', user.buildList[i]);
-      builds.push(build);
-    }
-    res.send(builds);
+  return parts;
+}
+
+function getBuilds(userId){
+  var user = readDocument('users', userId);
+  var builds =[];
+  for(var i = 0; i < user.buildList.length; i++){
+    var build = readDocument('builds', user.buildList[i]);
+    builds.push(build);
   }
-  else{
+  return builds;
+}
+
+//BEGIN REGION HTTP ROUTES PUT THEM ALL HERE
+
+/**
+* Get the whole parts list
+*/
+app.get('/parts_default', function(req, res) {
+    res.send(getParts());
+});
+
+/**
+* Get the build list data for a particular user.
+*/
+app.get('/builds/:userid', function(req, res) {
+  var userid = req.params.userid;
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  // userid is a string. We need it to be a number.
+  // Parameters are always strings.
+  var useridNumber = parseInt(userid, 10);
+  if (fromUser === useridNumber) {
+    // Send response.
+    res.send(getBuilds(userid));
+  } else {
+    // 401: Unauthorized request.
     res.status(401).end();
   }
 });
