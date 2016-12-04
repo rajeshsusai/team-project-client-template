@@ -6,12 +6,14 @@ import Account from './components/Account';
 import SavedBuilds from './components/SavedBuilds'
 import NavBar from './components/navbar'
 import Footer from './components/footer'
+import {readDocument} from './database';
 import ErrorBanner from './components/ErrorBanner'
 import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 
 class App extends React.Component {
   render() {
     return (<div>
+            <ErrorBanner/>
               <NavBar user={1} page = {this.props.location.pathname}/>
               { this.props.children }
               <Footer />
@@ -21,7 +23,7 @@ class App extends React.Component {
 
 class SavedBuildsWrapper extends React.Component {
   render(){
-    //gotta remove this function later!
+    var user = readDocument("users", 1);
     return(<div>
               <NavBar user={1} page = {this.props.location.pathname}/>
               <SavedBuilds user={1}/>
@@ -36,6 +38,25 @@ class SavedBuildsWrapper extends React.Component {
             </div>)
   }
 }
+
+class AccountWrapper extends React.Component{
+  render() {
+    return (<div>
+      <NavBar user={1} page={this.props.location.pathname} />
+      <Account user={1} />
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+            <ErrorBanner />
+            </div>
+          </div>
+        </div>
+      <Footer />
+      </div>
+    );
+  }
+}
+
 class BuildWrapper extends React.Component{
   constructor(props){
     super(props);
@@ -82,22 +103,25 @@ ReactDOM.render((
   <Router history={ browserHistory }>
     <Route
            path="/"
-           component={ App } >
+           component={ App }>
       { /* Show the Feed at / */ }
       <IndexRoute component={ Home } />
-      <Route
-          path="account/:id"
-          component={ Account } />
+
       </Route>
     <Route
              path="build/:id"
              component={ BuildWrapper } />
+
    <Route
             path="build/new"
             component={ BuildWrapper } />
     <Route
            path="savedbuilds/:id"
            component={ SavedBuildsWrapper } />
+
+    <Route
+           path="account/:id"
+           component={ AccountWrapper } />
   </Router>
   ),
   document.getElementById('bikePage'));

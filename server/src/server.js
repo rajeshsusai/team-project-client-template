@@ -1,3 +1,4 @@
+
 // Imports the express Node module.
 var express = require('express');
 var readDocument = require('./database.js').readDocument
@@ -6,6 +7,7 @@ var writeDocument = require('./database.js').writeDocument;
 var bodyParser = require('body-parser')
 var addDocument = require('./database.js').addDocument;
 var database = require('./database.js');
+var BuildSchema=require('./schemas/BuildSchema.json');
 
 // Creates an Express server.
 var app = express();
@@ -44,6 +46,41 @@ function getUserIdFromToken(authorizationLine) {
     return -1;
   }
 }
+//Updating the account information
+function updateAccount(userId, fName, lName, email, uName, newPassword){
+  var info = readDocument('users',userId);
+  info.first_name = fName;
+  info.last_name = lName;
+  info.email = email;
+  info.user_name = uName;
+  info.password = newPassword;
+  writeDocument('users',info);
+  return info;
+}
+
+//updateAccount
+app.put('/user/update/:userid', function(req,res){
+  var fromUser = parseInt(getUserIdFromToken(req.get('Authorization')));
+  var body = req.body;
+  var id = parseInt(req.params.userid);
+  if(fromUser === id){
+    var account = updateAccount(id, body.fName,body.lName, body.email, body.uName, body.newPassword);
+    res.send(account);
+  }else{
+    res.status(401).end();
+  }
+});
+
+function changeAccountInfo(userId, newUserName, newFirstName, newLastName, newEmail, newPassword) {
+  var info = readDocument('users', userId);
+  info.user_name = newUserName;
+  info.first_name = newFirstName;
+  info.last_name = newLastName;
+  info.email = newEmail;
+  info.password = newPassword;
+  return info;
+  // emulateServerReturn(userId, cb);
+}
 
 function getParts(){
   var parts = [];
@@ -64,6 +101,33 @@ function getBuilds(userId){
   return builds;
 }
 
+//BEGIN REGION HTTP ROUTES PUT THEM ALL HERE
+/*
+Posts a new build and associates with user.
+*/
+app.post('/builds/:userid/',
+  validate({
+    body: BuildSchema
+  }), function(req, res){
+  var body=req.body;
+  var userid=req.params.userid;
+  var fromUser=getUserIdFromToken(req.get('Authorization'));
+  var useridNumber=parseInt(userid, 10);
+  if (fromUser===useridNumber){
+    var newBuild=addDocument('builds', body);
+    var userData=readDocument('users', userid);
+    userData.buildList.push(newBuild._id);
+    writeDocument('users', userData);
+    res.send(newBuild);
+  }
+  else{
+    // 401 error
+    res.status(401).end();
+  }
+})
+/**
+* Get the whole parts list
+*/
 function getPartName(buildId, partTypeId){
   var name = "Empty";
   var build = readDocument('builds', buildId);
@@ -90,26 +154,6 @@ function getPartPrice(partTypeId, buildId){
   return price;
 }
 
-function addPart(buildId, partId) {
-  var buildData = readDocument('builds', buildId);
-  var newPart = readDocument('parts', partId);
-  for(var i = 0; i < buildData.contents.parts.length; i++) {
-    var existingPart = readDocument('parts', buildData.contents.parts[i]);
-    if(newPart.contents.part_type === existingPart.contents.part_type) {
-      buildData.contents.parts.splice(i, 1);
-    }
-  }
-  buildData.contents.parts.push(partId);
-  var price = 0.0;
-  for(var i = 0; i < buildData.contents.parts.length; i++){
-    var part = readDocument('parts', buildData.contents.parts[i]);
-    price = price + part.contents.price;
-  }
-  buildData.contents.price = price;
-  writeDocument('builds', buildData);
-  return buildData;
-}
-
 app.put('/builds/:buildId/parts/:partId', function(req, res){
   var buildId = parseInt(req.params.buildId, 10);
   var partId = parseInt(req.params.partId, 10);
@@ -123,7 +167,7 @@ app.put('/builds/:buildId/parts/:partId', function(req, res){
   }
   buildData.contents.parts.push(partId);
   var price = 0.0;
-  for(var i = 0; i < buildData.contents.parts.length; i++){
+  for(var a = 0; a < buildData.contents.parts.length; a++){
     var part = readDocument('parts', buildData.contents.parts[i]);
     price = price + part.contents.price;
   }
@@ -173,6 +217,48 @@ app.get('/builds/:userid', function(req, res) {
     res.status(401).end();
   }
 });
+
+function getUserData(user) {
+  var userData = readDocument('users', user);
+  return userData;
+}
+
+app.get('/users/:userid', function(req, res) {
+    var userid = req.params.userid;
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+    var useridNumber = parseInt(userid, 10);
+    if(fromUser === useridNumber) {
+      res.send(getUserData(userid));
+    }
+    else {
+      res.status(401).end();
+    }
+  });
+
+  function getBuildData(buildId) {
+    var buildData = readDocument('builds', buildId);
+    return buildData;
+  }
+
+  app.get('/builds/avoid/:buildid', function(req, res) {
+    var buildid = req.params.buildid;
+    var buildidNumber = parseInt(buildid, 10);
+    res.send(getBuildData(buildidNumber));  });
+
+  function writeBuildName(buildId, buildName, buildPrice) {
+    var buildData = readDocument('builds', buildId);
+    buildData.contents.build_name = buildName;
+    buildData.contents.total_price=buildPrice;
+    writeDocument('builds', buildData);
+    return buildData;
+  }
+
+  app.put('/builds/:buildId/build_name/:build_name', function(req, res){
+    var build_name = req.params.build_name;
+    var buildId = parseInt(req.params.buildId, 10);
+    res.send(writeBuildName(buildId, build_name, req.body.price));
+  });
+
 
 // Reset database.
 app.post('/resetdb', function(req, res) {
