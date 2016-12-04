@@ -1,6 +1,8 @@
 import {readDocument, writeDocument, addDocument} from './database.js';
 import React from 'react';
 
+var token = "eyJpZCI6MX0=";
+
 /**
 * Properly configure+send an XMLHttpRequest with error handling,
 * authorization token, and other needed properties.
@@ -11,7 +13,7 @@ function sendXHR(verb, resource, body, cb) {
   xhr.setRequestHeader('Authorization', 'Bearer ' + token);
   // Otherwise, ESLint would complain about it! (See what happens in Atom if
   // you remove the comment...)
-  /* global FacebookError */
+  /* global AppleError */
   // Response received from server. It could be a failure, though!
   xhr.addEventListener('load', function() {
     var statusCode = xhr.status;
@@ -25,7 +27,7 @@ function sendXHR(verb, resource, body, cb) {
       // The server may have included some response text with details concerning
       // the error.
       var responseText = xhr.responseText;
-      FacebookError('Could not ' + verb + " " + resource + ": Received " +
+      AppleError('Could not ' + verb + " " + resource + ": Received " +
       statusCode + " " + statusText + ": " + responseText);
     }
   });
@@ -34,12 +36,12 @@ function sendXHR(verb, resource, body, cb) {
   xhr.timeout = 10000;
   // Network failure: Could not connect to server.
   xhr.addEventListener('error', function() {
-    FacebookError('Could not ' + verb + " " + resource +
+    AppleError('Could not ' + verb + " " + resource +
     ": Could not connect to the server.");
   });
   // Network failure: request took too long to complete.
   xhr.addEventListener('timeout', function() {
-    FacebookError('Could not ' + verb + " " + resource +
+    AppleError('Could not ' + verb + " " + resource +
     ": Request timed out.");
   });
   switch (typeof(body)) {
@@ -228,20 +230,15 @@ export function getPartPrice(partId, partsList, cb){
 }
 
 export function getParts(cb){
-  var parts = [];
-  for (var i = 30; i <= 44; i++){
-    var part = readDocument('parts', i);
-    parts.push(part);
-  }
-  emulateServerReturn(parts, cb);
+  sendXHR('GET', '/parts_default', undefined, (xhr) => {
+    // Call the callback with the data.
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 export function getBuilds(userId, cb){
-  var user = readDocument('users', userId);
-  var builds =[];
-  for(var i = 0; i < user.buildList.length; i++){
-    var build = readDocument('builds', user.buildList[i]);
-    builds.push(build);
-  }
-  emulateServerReturn(builds,cb);
+  sendXHR('GET', '/builds/' + userId, undefined, (xhr) => {
+  // Call the callback with the data.
+  cb(JSON.parse(xhr.responseText));
+  });
 }
