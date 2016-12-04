@@ -82,7 +82,7 @@ function sendXHR(verb, resource, body, cb) {
   }
 
   export function getBuildData(buildId, cb) {
-    sendXHR('GET', '/builds/'+buildId, undefined, (xhr) => {
+    sendXHR('GET', '/builds/avoid/'+buildId, undefined, (xhr) => {
       cb(JSON.parse(JSON.stringify(xhr.responseText)));
     });
   }

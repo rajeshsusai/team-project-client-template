@@ -204,7 +204,7 @@ app.get('/users/:userid', function(req, res) {
     return buildData;
   }
 
-  app.get('/builds/:buildid', function(req, res) {
+  app.get('/builds/avoid/:buildid', function(req, res) {
     var buildid = req.params.buildid;
     var buildidNumber = parseInt(buildid, 10);
     res.send(getBuildData(buildidNumber));  });
