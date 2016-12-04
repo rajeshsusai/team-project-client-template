@@ -1,12 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD
-import {changeFirstName,getUserData} from '../server.js';
+import {updateAccount,getUserData} from '../server.js';
 
-
-// import React-Router from 'react-router'
-=======
-import {getUserData} from '../server.js'
->>>>>>> 56bdbeb00da144282facfd3923aef18b4ce6f2a6
 export default class Account extends React.Component {
   constructor(props) {
     super(props);
@@ -43,44 +37,64 @@ export default class Account extends React.Component {
   }
 
 //
-  handleChangefName(event){
-    event.preventDefault();
-    if(event.button === 0){
-      var name = document.getElementById("first name").value;
-      changeFirstName(this.state.user_id, name);
-      this.setState({first_name: name});
-    }
-      this.refresh();
-  }
+//   handleChangefName(event){
+//     event.preventDefault();
+//     if(event.button === 0){
+//       var name = document.getElementById("first name").value;
+//       changeFirstName(this.state.user_id, name);
+//       this.setState({first_name: name});
+//     }
+//       this.refresh();
+//   }
+//
+//   handleChangelName(event){
+//     event.preventDefault();
+//     if(event.button === 0 ){
+//     var lname = document.getElementById("last name").value;
+//     alert(this.state.last_name);
+//     this.setState({last_name: lname});
+//     }
+//   }
+//   handleChangeEmail(event){
+//     event.preventDefault();
+//     if(event.button === 0 ){
+//     var email = document.getElementById("email").value;
+//     this.setState({email: email});
+//   }
+// }
+//   handleChangeUserName(event){
+//     event.preventDefault();
+//     if(event.button === 0 ){
+//       var user_name = document.getElementById("user name").value;
+//     this.setState({user_name: user_name})
+//   }
+// }
+//   handleChangePassword(event){
+//     event.preventDefault();
+//     if(event.button === 0 ){
+//         var password = document.getElementById("password").value;
+//     this.setState({password: password});
+//   }
+// }
 
-  handleChangelName(event){
-    event.preventDefault();
-    if(event.button === 0 ){
+handleUpdate(event){
+  event.preventDefault();
+  if(event.button === 0 ){
+    var name = document.getElementById("first name").value;
     var lname = document.getElementById("last name").value;
-    alert(this.state.last_name);
-    this.setState({last_name: lname});
-    }
-  }
-  handleChangeEmail(event){
-    event.preventDefault();
-    if(event.button === 0 ){
-    var email = document.getElementById("email").value;
-    this.setState({email: email});
-  }
+    var newemail = document.getElementById("email").value;
+    var username = document.getElementById("username").value;
+    var newpassword = document.getElementById("password").value;
+    updateAccount(this.state.user_id, name,lname,newemail,username,newpassword)
+  this.setState({
+    first_name: name,
+    last_name: lname,
+    email: newemail,
+    user_name: username,
+    password: newpassword
+  });
+  alert("Account has been updated.")
 }
-  handleChangeUserName(event){
-    event.preventDefault();
-    if(event.button === 0 ){
-      var user_name = document.getElementById("user name").value;
-    this.setState({user_name: user_name})
-  }
-}
-  handleChangePassword(event){
-    event.preventDefault();
-    if(event.button === 0 ){
-        var password = document.getElementById("password").value;
-    this.setState({password: password});
-  }
 }
 
   handleClickEvent(clickEvent){
@@ -137,39 +151,29 @@ export default class Account extends React.Component {
               <br></br>
             <label className="control-label " htmlFor="first name" >First Name</label>
               <input type="text" className="form-control" id="first name" value = {this.state.first_name}/>
-              <button type ="button"
-                onClick ={(e) => this.handleChangefName(e)}
-
-                >Update First name</button>
               <br>
-
               </br>
               <div className="form-group">
                 <label className="control-label " htmlFor="last name" >Last Name</label>
                   <input type="text" className="form-control" id="last name" value = {this.state.last_name}/>
-                  <button type  ="button"
-                    onClick ={(e) => this.handleChangelName(e)}>Update Last name</button>
-
                 </div>
                 </div>
               <div className="form-group">
                 <label className="control-label " htmlFor="email">Email</label>
                   <input type="email" className="form-control" id="email" value= {this.state.email} />
-                  <button type = "button"
-                     onClick ={(e) => this.handleChangeEmail(e)}>Update Email</button>
                   </div>
 
                   <div className="form-group">
                     <label className="control-label " htmlFor="username" > Username</label>
-                      <input type="text" className="form-control" id="username" value = {this.state.user_name}/>
-                      <button type = "button" onClick ={(e) => this.handleChangeUserName(e)}>Update User Name</button>
+                      <input type="email" className="form-control" id="username" value= {this.state.user_name} />
                       </div>
 
                         <div className="form-group">
                         <label className="control-label " htmlFor="password" > Password</label>
                           <input type="text" className="form-control" id="password" value = {this.state.password}/>
-                            <button type="button" onClick ={(e) => this.handleChangePassword(e)}>Update Password</button>
                         </div>
+                        <button type ="button"
+                          onClick ={(e) => this.handleUpdate(e)} >Update</button>
             </div>
           </div>
         </div>
