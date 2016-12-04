@@ -45,10 +45,51 @@ function getUserIdFromToken(authorizationLine) {
   }
 }
 
+function getParts(){
+  var parts = [];
+  for (var i = 30; i <= 44; i++){
+    var part = readDocument('parts', i);
+    parts.push(part);
+  }
+  return parts;
+}
+
+function getBuilds(userId){
+  var user = readDocument('users', userId);
+  var builds =[];
+  for(var i = 0; i < user.buildList.length; i++){
+    var build = readDocument('builds', user.buildList[i]);
+    builds.push(build);
+  }
+  return builds;
+}
+
 //BEGIN REGION HTTP ROUTES PUT THEM ALL HERE
 
+/**
+* Get the whole parts list
+*/
+app.get('/parts_default', function(req, res) {
+    res.send(getParts());
+});
 
-
+/**
+* Get the build list data for a particular user.
+*/
+app.get('/builds/:userid', function(req, res) {
+  var userid = req.params.userid;
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  // userid is a string. We need it to be a number.
+  // Parameters are always strings.
+  var useridNumber = parseInt(userid, 10);
+  if (fromUser === useridNumber) {
+    // Send response.
+    res.send(getBuilds(userid));
+  } else {
+    // 401: Unauthorized request.
+    res.status(401).end();
+  }
+});
 
 
 //END REGION HTTP ROUTES
@@ -78,20 +119,31 @@ function getUserIdFromToken(authorizationLine) {
   }
 
   app.get('/users/:userid', function(req, res) {
-    var userid = req.params.userid;
+    var userId = req.params.userid;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
-    if(fromUser === userid) {
-      res.send(getUserData(userid));
+    if(fromUser === userId) {
+      res.send(getUserData(userId));
     }
     else {
       res.status(401).end();
     }
   });
 
-  function getBuildData(buildId, cb) {
+  function getBuildData(buildId) {
     var buildData = readDocument('builds', buildId);
-    emulateServerReturn(buildData, cb);
+    return buildData;
   }
+
+  app.get('/builds/:buildid', function(req, res) {
+    var buildId = req.params.buildid;
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+    if(fromUser === buildId) {
+      res.send(getBuildData(buildId));
+    }
+    else {
+      res.status(401).end();
+    }
+  });
 
   function selectBikeType(user, bikeType, cb) {
     var newBuild;
