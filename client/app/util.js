@@ -27,3 +27,10 @@ export const BikeType = Object.freeze({
     WINTER: { pp: "WINTER BIKE", isp: "winter" },
     CITY: { pp: "CITY BIKE", isp: "city" }
 });
+export function hideElement(shouldHide) {
+  if (shouldHide) {
+    return 'hidden';
+  } else {
+    return '';
+  }
+}
