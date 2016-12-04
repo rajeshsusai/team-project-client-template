@@ -78,13 +78,15 @@ function sendXHR(verb, resource, body, cb) {
     }, 4);
   }
   export function getUserData(user, cb) {
-    var userData = readDocument('users', user);
-    emulateServerReturn(userData, cb);
+    sendXHR('GET', '/users/'+user, undefined, (xhr) => {
+      cb(JSON.parse(xhr.responseText));
+    });
   }
 
   export function getBuildData(buildId, cb) {
-    var buildData = readDocument('builds', buildId);
-    emulateServerReturn(buildData, cb);
+    sendXHR('GET', '/builds/'+buildId, undefined, (xhr) => {
+      cb(JSON.parse(xhr.responseText));
+    });
   }
 
   export function selectBikeType(user, bikeType, cb) {

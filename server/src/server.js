@@ -182,6 +182,39 @@ app.get('/builds/:userid', function(req, res) {
   }
 });
 
+function getUserData(user) {
+  var userData = readDocument('users', user);
+  return userData;
+}
+
+app.get('/users/:userid', function(req, res) {
+    var userid = req.params.userid;
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+    var useridNumber = parseInt(userid, 10);
+    if(fromUser === useridNumber) {
+      res.send(getUserData(userid));
+    }
+    else {
+      res.status(401).end();
+    }
+  });
+
+  function getBuildData(buildId) {
+    var buildData = readDocument('builds', buildId);
+    return buildData;
+  }
+
+  app.get('/builds/:buildid', function(req, res) {
+    var buildId = req.params.buildid;
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+    if(fromUser === buildId) {
+      res.send(getBuildData(buildId));
+    }
+    else {
+      res.status(401).end();
+    }
+  });
+
 // Reset database.
 app.post('/resetdb', function(req, res) {
   console.log("Resetting database...");
