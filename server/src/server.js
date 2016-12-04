@@ -67,6 +67,196 @@ function getUserIdFromToken(authorizationLine) {
     }
   });
 
+  function emulateServerReturn(data, cb) {
+    setTimeout(() => {
+      cb(data);
+    }, 4);
+  }
+  function getUserData(user) {
+    var userData = readDocument('users', user);
+    return userData;
+  }
+
+  app.get('/users/:userid', function(req, res) {
+    var userid = req.params.userid;
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+    if(fromUser === userid) {
+      res.send(getUserData(userid));
+    }
+    else {
+      res.status(401).end();
+    }
+  });
+
+  function getBuildData(buildId, cb) {
+    var buildData = readDocument('builds', buildId);
+    emulateServerReturn(buildData, cb);
+  }
+
+  function selectBikeType(user, bikeType, cb) {
+    var newBuild;
+    if(bikeType === 13) {
+      newBuild ={
+        "contents": {
+          "bike_type": "Winter",
+          "status": 0,
+          "total_price": [],
+          "build_name": [],
+          "parts": []
+        }
+      };
+    }
+    else if(bikeType === 12) {
+      newBuild ={
+        "contents": {
+          "bike_type": "Trail",
+          "status": 0,
+          "total_price": [],
+          "build_name": [],
+          "parts": []
+        }
+      };
+  }
+  else if(bikeType === 10) {
+    newBuild ={
+      "contents": {
+        "bike_type": "Mountain",
+        "status": 0,
+        "total_price": [],
+        "build_name": [],
+        "parts": []
+      }
+    };
+  }
+  else if(bikeType === 11) {
+    newBuild ={
+      "contents": {
+        "bike_type": "Road",
+        "status": 0,
+        "total_price": [],
+        "build_name": [],
+        "parts": []
+      }
+    };
+ }
+ newBuild = addDocument('builds', newBuild);//returns whole collection?
+ var userData = readDocument('users', user);
+ userData.buildList.push(newBuild._id);
+ writeDocument('users', userData);
+ emulateServerReturn(newBuild, cb);
+}
+
+function addPart(buildId, partId, cb) {
+  var buildData = readDocument('builds', buildId);
+  var newPart = readDocument('parts', partId);
+  // for (var key in buildData.contents.parts){
+  //   if (key.contents.part_type===newPart.contents.part_type){
+
+  //     // buildData.contents.parts.splice(index, howMany)
+  //   }
+  // }
+  for(var i = 0; i < buildData.contents.parts.length; i++) {
+    var existingPart = readDocument('parts', buildData.contents.parts[i]);
+    if(newPart.contents.part_type === existingPart.contents.part_type) {
+      buildData.contents.parts.splice(i, 1);
+    }
+  }
+  buildData.contents.parts.push(partId);
+  var price = 0.0;
+  for(var i = 0; i < buildData.contents.parts.length; i++){
+    var part = readDocument('parts', buildData.contents.parts[i]);
+    price = price + part.contents.price;
+  }
+  buildData.contents.price = price;
+  writeDocument('builds', buildData);
+  emulateServerReturn(buildData, cb);
+}
+
+function changeAccountInfo(userId, newUserName, newFirstName, newLastName, newEmail, newPassword, cb) {
+  var info = readDocument('users', userId);
+  info.user_name = newUserName;
+  info.first_name = newFirstName;
+  info.last_name = newLastName;
+  info.email = newEmail;
+  info.password = newPassword;
+  writeDocument('users', info);
+  emulateServerReturn(userId, cb);
+}
+
+function getCurrentStatus(buildId, cb) {
+  var buildData = readDocument('builds', buildId);
+  if(buildData.contents.bike_type === "Road") {
+    if(buildData.contents.parts.length === 13) {
+      buildData.contents.status = "Complete";
+    }
+    else {
+      buildData.contents.status = "Incomplete";
+    }
+  }
+  else {
+    if(buildData.contents.parts.length === 15) {
+      buildData.contents.status = "Complete";
+    }
+    else {
+      buildData.contents.status = "Incomplete";
+    }
+  }
+  writeDocument('builds', buildData);
+  emulateServerReturn(buildData, cb);
+}
+
+function writeBuildName(buildId, buildName, buildPrice, cb) {
+  var buildData = readDocument('builds', buildId);
+  buildData.contents.build_name = buildName;
+  buildData.contents.total_price=buildPrice;
+  writeDocument('builds', buildData);
+  emulateServerReturn(buildData, cb);
+}
+
+function getPartName(partId, partsList, cb){
+  var name = "Empty";
+  for(var i = 0; i < Object.keys(partsList).length; i++){
+    var part = readDocument("parts", partsList[i]);
+    if(part.contents.part_type === partId){
+      name = part.contents.name;
+      break;
+    }
+  }
+  emulateServerReturn(name,cb);
+}
+
+function getPartPrice(partId, partsList, cb){
+  var price = "N/A";
+  for(var i = 0; i < Object.keys(partsList).length; i++){
+    var part = readDocument("parts", partsList[i]);
+    if(part.contents.part_type === partId){
+      price = part.contents.price;
+      break;
+    }
+  }
+  emulateServerReturn(price,cb);
+}
+
+function getParts(cb){
+  var parts = [];
+  for (var i = 30; i <= 44; i++){
+    var part = readDocument('parts', i);
+    parts.push(part);
+  }
+  emulateServerReturn(parts, cb);
+}
+
+function getBuilds(userId, cb){
+  var user = readDocument('users', userId);
+  var builds =[];
+  for(var i = 0; i < user.buildList.length; i++){
+    var build = readDocument('builds', user.buildList[i]);
+    builds.push(build);
+  }
+  emulateServerReturn(builds,cb);
+}
+
+
   // Starts the server on port 3000!
   app.listen(3000, function () {
     console.log('Example app listening on port 3000!');

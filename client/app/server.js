@@ -1,6 +1,6 @@
 import {readDocument, writeDocument, addDocument} from './database.js';
 import React from 'react';
-
+var token = 'eyJpZCI6MX0=';
 /**
 * Properly configure+send an XMLHttpRequest with error handling,
 * authorization token, and other needed properties.
@@ -11,7 +11,7 @@ function sendXHR(verb, resource, body, cb) {
   xhr.setRequestHeader('Authorization', 'Bearer ' + token);
   // Otherwise, ESLint would complain about it! (See what happens in Atom if
   // you remove the comment...)
-  /* global FacebookError */
+  /* global BikeError */
   // Response received from server. It could be a failure, though!
   xhr.addEventListener('load', function() {
     var statusCode = xhr.status;
@@ -25,7 +25,7 @@ function sendXHR(verb, resource, body, cb) {
       // The server may have included some response text with details concerning
       // the error.
       var responseText = xhr.responseText;
-      FacebookError('Could not ' + verb + " " + resource + ": Received " +
+      BikeError('Could not ' + verb + " " + resource + ": Received " +
       statusCode + " " + statusText + ": " + responseText);
     }
   });
@@ -34,12 +34,12 @@ function sendXHR(verb, resource, body, cb) {
   xhr.timeout = 10000;
   // Network failure: Could not connect to server.
   xhr.addEventListener('error', function() {
-    FacebookError('Could not ' + verb + " " + resource +
+    BikeError('Could not ' + verb + " " + resource +
     ": Could not connect to the server.");
   });
   // Network failure: request took too long to complete.
   xhr.addEventListener('timeout', function() {
-    FacebookError('Could not ' + verb + " " + resource +
+    BikeError('Could not ' + verb + " " + resource +
     ": Request timed out.");
   });
   switch (typeof(body)) {
@@ -74,8 +74,9 @@ function sendXHR(verb, resource, body, cb) {
     }, 4);
   }
   export function getUserData(user, cb) {
-    var userData = readDocument('users', user);
-    emulateServerReturn(userData, cb);
+    sendXHR('GET', '/users/'+user, undefined, (xhr) => {
+      cb(JSON.parse(xhr.responseText));
+    });
   }
 
   export function getBuildData(buildId, cb) {
