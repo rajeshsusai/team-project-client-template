@@ -30,6 +30,11 @@ export default class SelectBikeParts extends React.Component {
         partsList: buildData.contents.parts
     });
   });
+  getParts((part)=>{
+    this.setState({
+    parts: part
+  });
+});
 }
 
   componentDidMount() {
