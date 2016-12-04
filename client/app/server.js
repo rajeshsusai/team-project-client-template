@@ -2,17 +2,23 @@ import {readDocument, writeDocument, addDocument} from './database.js';
 import React from 'react';
 
 var token = "eyJpZCI6MX0=";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4e88bb8aabff9235634aeaeb9b0937a28e526f7f
 /**
 * Properly configure+send an XMLHttpRequest with error handling,
 * authorization token, and other needed properties.
 */
+
+var token = 'eyJpZCI6MX0=';
 function sendXHR(verb, resource, body, cb) {
   var xhr = new XMLHttpRequest();
   xhr.open(verb, resource);
   xhr.setRequestHeader('Authorization', 'Bearer ' + token);
   // Otherwise, ESLint would complain about it! (See what happens in Atom if
   // you remove the comment...)
-  /* global FacebookError */
+  /* global AppleError */
   // Response received from server. It could be a failure, though!
   xhr.addEventListener('load', function() {
     var statusCode = xhr.status;
@@ -26,7 +32,7 @@ function sendXHR(verb, resource, body, cb) {
       // The server may have included some response text with details concerning
       // the error.
       var responseText = xhr.responseText;
-      FacebookError('Could not ' + verb + " " + resource + ": Received " +
+      AppleError('Could not ' + verb + " " + resource + ": Received " +
       statusCode + " " + statusText + ": " + responseText);
     }
   });
@@ -35,12 +41,12 @@ function sendXHR(verb, resource, body, cb) {
   xhr.timeout = 10000;
   // Network failure: Could not connect to server.
   xhr.addEventListener('error', function() {
-    FacebookError('Could not ' + verb + " " + resource +
+    AppleError('Could not ' + verb + " " + resource +
     ": Could not connect to the server.");
   });
   // Network failure: request took too long to complete.
   xhr.addEventListener('timeout', function() {
-    FacebookError('Could not ' + verb + " " + resource +
+    AppleError('Could not ' + verb + " " + resource +
     ": Request timed out.");
   });
   switch (typeof(body)) {
@@ -142,39 +148,20 @@ function sendXHR(verb, resource, body, cb) {
 }
 
 export function addPart(buildId, partId, cb) {
-  var buildData = readDocument('builds', buildId);
-  var newPart = readDocument('parts', partId);
-  // for (var key in buildData.contents.parts){
-  //   if (key.contents.part_type===newPart.contents.part_type){
-
-  //     // buildData.contents.parts.splice(index, howMany)
-  //   }
-  // }
-  for(var i = 0; i < buildData.contents.parts.length; i++) {
-    var existingPart = readDocument('parts', buildData.contents.parts[i]);
-    if(newPart.contents.part_type === existingPart.contents.part_type) {
-      buildData.contents.parts.splice(i, 1);
-    }
-  }
-  buildData.contents.parts.push(partId);
-  var price = 0.0;
-  for(var i = 0; i < buildData.contents.parts.length; i++){
-    var part = readDocument('parts', buildData.contents.parts[i]);
-    price = price + part.contents.price;
-  }
-  buildData.contents.price = price;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
+  sendXHR('PUT', '/builds/' + buildId + '/parts/' + partId, undefined, (xhr) =>{
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
-export function changeAccountInfo(userId, newUserName, newFirstName, newLastName, newEmail, newPassword, cb) {
-  sendXHR('PUT', 'users' + userId,{
-    user_name: newUserName,
+
+export function updateAccount(userId, newFirstName, newLastName, newEmail, newUserName, newPassword, cb){
+  sendXHR('PUT', '/user/' + userId,{
     first_name: newFirstName,
     last_name: newLastName,
     email: newEmail,
-    password: newPassword
-  }, (xhr) => {
+    user_name: newUserName,
+    password:newPassword
+  }, (xhr) =>{
     cb(JSON.parse(xhr.responseText));
   });
   // var info = readDocument('users', userId);
@@ -210,52 +197,52 @@ export function getCurrentStatus(buildId, cb) {
 }
 
 export function writeBuildName(buildId, buildName, buildPrice, cb) {
-  var buildData = readDocument('builds', buildId);
-  buildData.contents.build_name = buildName;
-  buildData.contents.total_price=buildPrice;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
+  sendXHR('PUT', 'builds/' + buildId,{
+    build_name: buildName,
+    build_price: buildPrice
+  }), (xhr =>{
+    cb(JSON.parse(JSON.stringify(xhr.responseText)));
+  });
+  // var buildData = readDocument('builds', buildId);
+  // buildData.contents.build_name = buildName;
+  // buildData.contents.total_price=buildPrice;
+  // writeDocument('builds', buildData);
+  // emulateServerReturn(buildData, cb);
 }
 
-export function getPartName(partId, partsList, cb){
-  var name = "Empty";
-  for(var i = 0; i < Object.keys(partsList).length; i++){
-    var part = readDocument("parts", partsList[i]);
-    if(part.contents.part_type === partId){
-      name = part.contents.name;
-      break;
-    }
-  }
-  emulateServerReturn(name,cb);
+export function getPartName(partTypeId, buildId, userId, cb){
+  sendXHR('GET', 'builds/' + buildId + '/partType/' + partTypeId +'/users/' + userId, undefined, (xhr)=>{
+    cb(JSON.parse(JSON.stringify(xhr.responseText)));
+  });
 }
 
-export function getPartPrice(partId, partsList, cb){
-  var price = "N/A";
-  for(var i = 0; i < Object.keys(partsList).length; i++){
-    var part = readDocument("parts", partsList[i]);
-    if(part.contents.part_type === partId){
-      price = part.contents.price;
-      break;
-    }
-  }
-  emulateServerReturn(price,cb);
+export function getPartPrice(partTypeId, buildId, userId, cb){
+  sendXHR('GET', 'partType/' + partTypeId + '/builds/' + buildId + '/users/' + userId, undefined, (xhr)=>{
+    cb(JSON.parse(JSON.stringify(xhr.responseText)));
+  });
 }
 
 export function getParts(cb){
-  var parts = [];
-  for (var i = 30; i <= 44; i++){
-    var part = readDocument('parts', i);
-    parts.push(part);
-  }
-  emulateServerReturn(parts, cb);
+  sendXHR('GET', '/parts_default', undefined, (xhr) => {
+    // Call the callback with the data.
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 export function getBuilds(userId, cb){
-  var user = readDocument('users', userId);
-  var builds =[];
-  for(var i = 0; i < user.buildList.length; i++){
-    var build = readDocument('builds', user.buildList[i]);
-    builds.push(build);
-  }
-  emulateServerReturn(builds,cb);
+  sendXHR('GET', '/builds/' + userId, undefined, (xhr) => {
+  // Call the callback with the data.
+  cb(JSON.parse(xhr.responseText));
+  });
 }
+
+// export function updateAccount(userId, fName, lName, email, uName, newPassword){
+//   var info = readDocument('users',userId);
+//   info.first_name = fName;
+//   info.last_name = lName;
+//   info.email = email;
+//   info.user_name = uName;
+//   info.password = newPassword;
+//   writeDocument('users',info);
+//   return info;
+// }

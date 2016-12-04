@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Modify with your startup's name!
-var startupName = null;
+var startupName = "Team Apple";
 
 var initialData = {
   "users": {
@@ -356,19 +356,23 @@ var initialData = {
  }
 
  /**
-  * Reset database button.
-  */
+ * Reset database button.
+ */
  class ResetDatabase extends React.Component {
    render() {
      return (
        <button className="btn btn-default" type="button" onClick={() => {
-         resetDatabase();
-         window.alert("Database reset! Refreshing the page now...");
-         document.location.reload(false);
-       }}>Reset Mock DB</button>
-     );
+           var xhr = new XMLHttpRequest();
+           xhr.open('POST', '/resetdb');
+           xhr.addEventListener('load', function() {
+             window.alert("Database reset! Refreshing the page now...");
+             document.location.reload(false);
+           });
+           xhr.send();
+         }}>Reset Mock DB</button>
+       );
+     }
    }
- }
 
  ReactDOM.render(
    <ResetDatabase />,
