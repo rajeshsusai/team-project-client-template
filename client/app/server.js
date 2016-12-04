@@ -209,13 +209,13 @@ export function writeBuildName(buildId, buildName, buildPrice, cb) {
 
 export function getPartName(partTypeId, buildId, userId, cb){
   sendXHR('GET', 'builds/' + buildId + '/partType/' + partTypeId +'/users/' + userId, undefined, (xhr)=>{
-    cb(JSON.parse(xhr.responseText));
+    cb(JSON.parse(JSON.stringify(xhr.responseText)));
   });
 }
 
 export function getPartPrice(partTypeId, buildId, userId, cb){
   sendXHR('GET', 'partType/' + partTypeId + '/builds/' + buildId + '/users/' + userId, undefined, (xhr)=>{
-    cb(JSON.parse(xhr.responseText));
+    cb(JSON.parse(JSON.stringify(xhr.responseText)));
   });
 }
 

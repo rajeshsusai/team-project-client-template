@@ -83,7 +83,7 @@ function getPartPrice(partTypeId, buildId){
   for(var i = 0; i < Object.keys(build.contents.parts).length; i++){
     var part = readDocument("parts", build.contents.parts[i]);
     if(part.contents.part_type === partTypeId){
-      price = part.contents.price;
+      price = part.contents.price.toString();
       break;
     }
   }
@@ -95,33 +95,23 @@ app.get('/parts_default', function(req, res) {
 });
 
 app.get('/builds/:buildId/partType/:partTypeId/users/:userId', function(req, res){
-//  var fromUser = getUserIdFromToken(req.get('Authorization'));
   var build = req.params.buildId;
   var partType = req.params.partTypeId;
   var user = req.params.userId;
   var userId = parseInt(user, 10);
   var buildId = parseInt(build, 10);
   var partTypeId = parseInt(partType, 10);
-//  if(userId === fromUser){
-    res.send(getPartName(buildId, partTypeId));
-//  } else {
-//    res.status(401).end();
-//  }
+  res.send(getPartName(buildId, partTypeId));
 });
 
 app.get('/partType/:partTypeId/builds/:buildId/users/:userId', function(req, res){
   var build = req.params.buildId;
-//  var fromUser = getUserIdFromToken(req.get('Authorization'));
   var partType = req.params.partTypeId;
   var user = req.params.userId;
   var userId = parseInt(user, 10);
   var buildId = parseInt(build, 10);
   var partTypeId = parseInt(partType, 10);
-//  if(userId === fromUser){
-    res.send(getPartPrice(partTypeId, buildId));
-//  } else {
-  //  res.status(401).end();
-  //}
+  res.send(getPartPrice(partTypeId, buildId));
 });
 
 /**

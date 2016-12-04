@@ -12,7 +12,7 @@ export default class SelectBikeParts extends React.Component {
     };
     getBuildData(props.buildId, (buildD)=>{this.state={
       buildId:props.buildId,
-      build:buildId,
+      build:buildD,
       partsList: buildD.contents.parts,
       user:1
     }});
