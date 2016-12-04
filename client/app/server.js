@@ -75,11 +75,15 @@ function sendXHR(verb, resource, body, cb) {
     }, 4);
   }
   export function getUserData(user, cb) {
-    var userData = readDocument('users', user);
-    emulateServerReturn(userData, cb);
+    sendXHR('GET','/user/' + user, function(req,res){
+      cb(JSON.parse(xhr.responseText));
+    })
+    // var userData = readDocument('users', user);
+    // emulateServerReturn(userData, cb);
   }
 
   export function getBuildData(buildId, cb) {
+    // sendXHR('GET', '/')
     var buildData = readDocument('builds', buildId);
     emulateServerReturn(buildData, cb);
   }
@@ -164,14 +168,23 @@ export function addPart(buildId, partId, cb) {
 }
 
 export function changeAccountInfo(userId, newUserName, newFirstName, newLastName, newEmail, newPassword, cb) {
-  var info = readDocument('users', userId);
-  info.user_name = newUserName;
-  info.first_name = newFirstName;
-  info.last_name = newLastName;
-  info.email = newEmail;
-  info.password = newPassword;
-  writeDocument('users', info);
-  emulateServerReturn(userId, cb);
+  sendXHR('PUT', 'users' + userId,{
+    user_name: newUserName,
+    first_name: newFirstName,
+    last_name: newLastName,
+    email: newEmail,
+    password: newPassword
+  }, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+  // var info = readDocument('users', userId);
+  // info.user_name = newUserName;
+  // info.first_name = newFirstName;
+  // info.last_name = newLastName;
+  // info.email = newEmail;
+  // info.password = newPassword;
+  // writeDocument('users', info);
+  // emulateServerReturn(userId, cb);
 }
 
 export function getCurrentStatus(buildId, cb) {

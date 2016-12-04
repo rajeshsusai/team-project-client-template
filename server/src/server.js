@@ -47,8 +47,18 @@ function getUserIdFromToken(authorizationLine) {
 
 //BEGIN REGION HTTP ROUTES PUT THEM ALL HERE
 
+function changeAccountInfo(userId, newUserName, newFirstName, newLastName, newEmail, newPassword) {
+  var info = readDocument('users', userId);
+  info.user_name = newUserName;
+  info.first_name = newFirstName;
+  info.last_name = newLastName;
+  info.email = newEmail;
+  info.password = newPassword;
+  return info;
+  // emulateServerReturn(userId, cb);
+}
 
-
+app.put('user/:userid')
 
 
 //END REGION HTTP ROUTES
