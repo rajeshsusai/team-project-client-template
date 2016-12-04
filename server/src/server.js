@@ -298,26 +298,6 @@ function getPartPrice(partId, partsList, cb){
   emulateServerReturn(price,cb);
 }
 
-function getParts(cb){
-  var parts = [];
-  for (var i = 30; i <= 44; i++){
-    var part = readDocument('parts', i);
-    parts.push(part);
-  }
-  emulateServerReturn(parts, cb);
-}
-
-function getBuilds(userId, cb){
-  var user = readDocument('users', userId);
-  var builds =[];
-  for(var i = 0; i < user.buildList.length; i++){
-    var build = readDocument('builds', user.buildList[i]);
-    builds.push(build);
-  }
-  emulateServerReturn(builds,cb);
-}
-
-
   // Starts the server on port 3000!
   app.listen(3000, function () {
     console.log('Example app listening on port 3000!');
