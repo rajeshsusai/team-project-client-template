@@ -1,7 +1,6 @@
 import {readDocument, writeDocument, addDocument} from './database.js';
 import React from 'react';
 
-var token = "eyJpZCI6MX0=";
 
 /**
 * Properly configure+send an XMLHttpRequest with error handling,

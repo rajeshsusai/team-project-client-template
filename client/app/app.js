@@ -43,6 +43,13 @@ class AccountWrapper extends React.Component{
     return (<div>
       <NavBar user={1} page={this.props.location.pathname} />
       <Account user={1} />
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+            <ErrorBanner />
+            </div>
+          </div>
+        </div>
       <Footer />
       </div>
     );
