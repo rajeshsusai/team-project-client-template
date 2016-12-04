@@ -1,3 +1,4 @@
+
 // Imports the express Node module.
 var express = require('express');
 var readDocument = require('./database.js').readDocument
@@ -44,6 +45,41 @@ function getUserIdFromToken(authorizationLine) {
     // Return an invalid ID.
     return -1;
   }
+}
+//Updating the account information
+function updateAccount(userId, fName, lName, email, uName, newPassword){
+  var info = readDocument('users',userId);
+  info.first_name = fName;
+  info.last_name = lName;
+  info.email = email;
+  info.user_name = uName;
+  info.password = newPassword;
+  writeDocument('users',info);
+  return info;
+}
+
+//updateAccount
+app.put('/user/:users', function(req,res){
+  var fromUser = getUserIdFromToken('Autorization');
+  var body = req.body;
+  var id = req.params.userId;
+  if(fromUser === id){
+    var account = updateAccount(id, body.fName,body.lName, body.email, body.uName, body.newPassword);
+    res.send(account);
+  }else{
+    res.status(401).end();
+  }
+});
+
+function changeAccountInfo(userId, newUserName, newFirstName, newLastName, newEmail, newPassword) {
+  var info = readDocument('users', userId);
+  info.user_name = newUserName;
+  info.first_name = newFirstName;
+  info.last_name = newLastName;
+  info.email = newEmail;
+  info.password = newPassword;
+  return info;
+  // emulateServerReturn(userId, cb);
 }
 
 function getParts(){
@@ -131,7 +167,7 @@ app.put('/builds/:buildId/parts/:partId', function(req, res){
   }
   buildData.contents.parts.push(partId);
   var price = 0.0;
-  for(var i = 0; i < buildData.contents.parts.length; i++){
+  for(var a = 0; a < buildData.contents.parts.length; a++){
     var part = readDocument('parts', buildData.contents.parts[i]);
     price = price + part.contents.price;
   }
