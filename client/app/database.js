@@ -24,7 +24,7 @@ var initialData = {
             "status": "Incomplete",
             "total_price": "64.99",
             "build_name": "My Build",
-            "parts": []
+            "parts": [31, 32, 33]
           }
       },
       "2":{
@@ -45,16 +45,6 @@ var initialData = {
             "total_price": "78.99",
             "build_name": "Wiley Coyote",
             "parts": [30]
-          }
-      },
-      "4":{
-          "_id": 4,
-          "contents": {
-            "bike_type": "Trail",
-            "status": "Incomplete",
-            "total_price": "78.99",
-            "build_name": "Wiley Coyote 2",
-            "parts": []
           }
       }
   },
@@ -366,24 +356,19 @@ var initialData = {
  }
 
  /**
- * Reset database button.
- */
- export class ResetDatabase extends React.Component {
+  * Reset database button.
+  */
+ class ResetDatabase extends React.Component {
    render() {
-   return (
-     <button className="btn btn-default" type="button" onClick={() => {
-     var xhr = new XMLHttpRequest();
-     xhr.open('POST', '/resetdb');
-     xhr.addEventListener('load', function() {
-     window.alert("Database reset! Refreshing the page now...");
-     document.location.reload(false);
-     });
-     xhr.send();
-     }}>Reset Mock DB</button>
-   );
+     return (
+       <button className="btn btn-default" type="button" onClick={() => {
+         resetDatabase();
+         window.alert("Database reset! Refreshing the page now...");
+         document.location.reload(false);
+       }}>Reset Mock DB</button>
+     );
    }
  }
-
 
  ReactDOM.render(
    <ResetDatabase />,

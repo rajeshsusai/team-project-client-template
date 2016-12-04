@@ -1,8 +1,12 @@
 import React from 'react';
+<<<<<<< HEAD
 import {changeFirstName,getUserData} from '../server.js';
 
 
 // import React-Router from 'react-router'
+=======
+import {getUserData} from '../server.js'
+>>>>>>> 56bdbeb00da144282facfd3923aef18b4ce6f2a6
 export default class Account extends React.Component {
   constructor(props) {
     super(props);

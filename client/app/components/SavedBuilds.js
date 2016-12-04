@@ -1,17 +1,21 @@
 import React from 'react';
 import Router from 'react-router';
-import {readDocument} from '../database';
-import {getUserData} from '../server';
+import {getUserData, getBuilds} from '../server';
 export default class SavedBuilds extends React.Component {
 
   constructor(props, context) {
     super(props, context);
     this.handleClick = this.handleClick.bind(this);
-    var builds;
     this.state = {
+      builds: [],
       contents: []
       // current_state: 0
     };
+    getBuilds(this.props.user, (build)=>{
+      this.setState({
+        builds: build
+      });
+    });
   }
 
   refresh() {
@@ -28,9 +32,8 @@ export default class SavedBuilds extends React.Component {
   populateTable(){
 
     var rows = [];
-  //  var builds = readDocument("builds", this.props.builds);
-    for(let i = 0; i < Object.keys(this.props.builds).length; i++){
-      var build = readDocument("builds", this.props.builds[i]);
+    for(let i = 0; i < Object.keys(this.state.builds).length; i++){
+      var build = this.state.builds[i];
       rows.push(<tr key={i} onClick ={(e) => {
         this.handleClick(e, i + 1)}}>
           <td>{build.contents.build_name}</td>
