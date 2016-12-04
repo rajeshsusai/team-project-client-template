@@ -48,7 +48,32 @@ function getUserIdFromToken(authorizationLine) {
 //BEGIN REGION HTTP ROUTES PUT THEM ALL HERE
 
 
-
+app.get('/parts', function(req, res){
+  var parts=[];
+  for (var i=30; i<=44; i++){
+    var part=readDocument('parts', i);
+    parts.push(part);
+  }
+  res.send(parts);
+})
+// export function getBuilds(userId, cb){
+app.get('/users/:userid/buildList', function(req, res){
+  var userid=req.params.userid;
+  var fromUser=getUserIdFromToken(req.get('Authorization'));
+  var useridNumber=parseInt(userid, 10);
+  if (fromUser===useridNumber){
+    var builds=[];
+    var user=readDocument('users', userid);
+    for (var i = 0; i<user.buildList.length; i++){
+      var build=readDocument('builds', user.buildList[i]);
+      builds.push(build);
+    }
+    res.send(builds);
+  }
+  else{
+    res.status(401).end();
+  }
+});
 
 
 //END REGION HTTP ROUTES
