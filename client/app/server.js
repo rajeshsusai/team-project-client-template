@@ -153,7 +153,6 @@ export function updateAccount(userId, newFirstName, newLastName, newEmail, newUs
     email: newEmail,
     user_name: newUserName,
     password:newPassword
-
   }, (xhr) =>{
     cb(JSON.parse(xhr.responseText));
   });
@@ -190,11 +189,17 @@ export function getCurrentStatus(buildId, cb) {
 }
 
 export function writeBuildName(buildId, buildName, buildPrice, cb) {
-  var buildData = readDocument('builds', buildId);
-  buildData.contents.build_name = buildName;
-  buildData.contents.total_price=buildPrice;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
+  sendXHR('PUT', 'builds/' + buildId,{
+    build_name: buildName,
+    build_price: buildPrice
+  }), (xhr =>{
+    cb(JSON.parse(JSON.stringify(xhr.responseText)));
+  });
+  // var buildData = readDocument('builds', buildId);
+  // buildData.contents.build_name = buildName;
+  // buildData.contents.total_price=buildPrice;
+  // writeDocument('builds', buildData);
+  // emulateServerReturn(buildData, cb);
 }
 
 export function getPartName(partTypeId, buildId, userId, cb){

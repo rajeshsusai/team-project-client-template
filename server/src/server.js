@@ -57,13 +57,13 @@ function updateAccount(userId, fName, lName, email, uName, newPassword){
   return info;
 }
 
-
+//updateAccount
 app.put('/user/:users', function(req,res){
   var fromUser = getUserIdFromToken('Autorization');
   var body = req.body;
-  if(fromUser === body.userId){
-    var account = updateAccount(req.params.userId, body.fName,body.lName, body.email, body.uName, body.newPassword);
-    res.status(201);
+  var id = req.params.userId;
+  if(fromUser === id){
+    var account = updateAccount(id, body.fName,body.lName, body.email, body.uName, body.newPassword);
     res.send(account);
   }else{
     res.status(401).end();
@@ -135,6 +135,7 @@ function addPart(buildId, partId) {
   writeDocument('builds', buildData);
   return buildData;
 }
+
 
 app.put('/builds/:buildId/parts/:partId', function(req, res){
   var buildId = parseInt(req.params.buildId, 10);
