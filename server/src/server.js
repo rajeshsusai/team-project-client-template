@@ -90,6 +90,48 @@ function getPartPrice(partTypeId, buildId){
   return price;
 }
 
+function addPart(buildId, partId) {
+  var buildData = readDocument('builds', buildId);
+  var newPart = readDocument('parts', partId);
+  for(var i = 0; i < buildData.contents.parts.length; i++) {
+    var existingPart = readDocument('parts', buildData.contents.parts[i]);
+    if(newPart.contents.part_type === existingPart.contents.part_type) {
+      buildData.contents.parts.splice(i, 1);
+    }
+  }
+  buildData.contents.parts.push(partId);
+  var price = 0.0;
+  for(var i = 0; i < buildData.contents.parts.length; i++){
+    var part = readDocument('parts', buildData.contents.parts[i]);
+    price = price + part.contents.price;
+  }
+  buildData.contents.price = price;
+  writeDocument('builds', buildData);
+  return buildData;
+}
+
+app.put('/builds/:buildId/parts/:partId', function(req, res){
+  var buildId = parseInt(req.params.buildId, 10);
+  var partId = parseInt(req.params.partId, 10);
+  var buildData = readDocument('builds', buildId);
+  var newPart = readDocument('parts', partId);
+  for(var i = 0; i < buildData.contents.parts.length; i++) {
+    var existingPart = readDocument('parts', buildData.contents.parts[i]);
+    if(newPart.contents.part_type === existingPart.contents.part_type) {
+      buildData.contents.parts.splice(i, 1);
+    }
+  }
+  buildData.contents.parts.push(partId);
+  var price = 0.0;
+  for(var i = 0; i < buildData.contents.parts.length; i++){
+    var part = readDocument('parts', buildData.contents.parts[i]);
+    price = price + part.contents.price;
+  }
+  buildData.contents.price = price;
+  writeDocument('builds', buildData);
+  res.send(buildData);
+});
+
 app.get('/parts_default', function(req, res) {
     res.send(getParts());
 });

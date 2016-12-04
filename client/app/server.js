@@ -141,29 +141,9 @@ function sendXHR(verb, resource, body, cb) {
 }
 
 export function addPart(buildId, partId, cb) {
-  var buildData = readDocument('builds', buildId);
-  var newPart = readDocument('parts', partId);
-  // for (var key in buildData.contents.parts){
-  //   if (key.contents.part_type===newPart.contents.part_type){
-
-  //     // buildData.contents.parts.splice(index, howMany)
-  //   }
-  // }
-  for(var i = 0; i < buildData.contents.parts.length; i++) {
-    var existingPart = readDocument('parts', buildData.contents.parts[i]);
-    if(newPart.contents.part_type === existingPart.contents.part_type) {
-      buildData.contents.parts.splice(i, 1);
-    }
-  }
-  buildData.contents.parts.push(partId);
-  var price = 0.0;
-  for(var i = 0; i < buildData.contents.parts.length; i++){
-    var part = readDocument('parts', buildData.contents.parts[i]);
-    price = price + part.contents.price;
-  }
-  buildData.contents.price = price;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
+  sendXHR('PUT', '/builds/' + buildId + '/parts/' + partId, undefined, (xhr) =>{
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 export function changeAccountInfo(userId, newUserName, newFirstName, newLastName, newEmail, newPassword, cb) {
