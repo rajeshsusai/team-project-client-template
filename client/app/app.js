@@ -28,6 +28,17 @@ class SavedBuildsWrapper extends React.Component {
             </div>)
   }
 }
+
+class AccountWrapper extends React.Component {
+  render(){
+    //gotta remove this function later!
+    return(<div>
+              <NavBar user={1} page = {this.props.location.pathname}/>
+              <Account user={1}/>
+              <Footer />
+            </div>)
+  }
+}
 class BuildWrapper extends React.Component{
   constructor(props){
     super(props);
@@ -63,13 +74,13 @@ ReactDOM.render((
            component={ App } >
       { /* Show the Feed at / */ }
       <IndexRoute component={ Home } />
-      <Route
-          path="account/:id"
-          component={ Account } />
       </Route>
     <Route
              path="build/:id"
              component={ BuildWrapper } />
+    <Route
+            path="account/:id"
+            component={ AccountWrapper } />
    <Route
             path="build/new"
             component={ BuildWrapper } />
