@@ -12,9 +12,7 @@ export default class SavedBuilds extends React.Component {
       // current_state: 0
     };
     getBuilds(this.props.user, (build)=>{
-      this.setState({
-        builds: build
-      });
+      this.setState({builds: build});
     });
   }
 
