@@ -6,6 +6,7 @@ import Account from './components/Account';
 import SavedBuilds from './components/SavedBuilds'
 import NavBar from './components/navbar'
 import Footer from './components/footer'
+import ErrorBanner from './components/ErrorBanner'
 import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 
 class App extends React.Component {
@@ -25,6 +26,13 @@ class SavedBuildsWrapper extends React.Component {
     return(<div>
               <NavBar user={1} page = {this.props.location.pathname}/>
               <SavedBuilds user={1}/>
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-12">
+                  <ErrorBanner />
+                  </div>
+                </div>
+              </div>
               <Footer />
             </div>)
   }
@@ -54,6 +62,13 @@ class BuildWrapper extends React.Component{
         <div>
         <NavBar user={1} page={this.props.location.pathname} />
         <Build user={1} state={0}/>
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12">
+              <ErrorBanner />
+              </div>
+            </div>
+          </div>
         <Footer />
         </div>
       );
@@ -63,6 +78,13 @@ class BuildWrapper extends React.Component{
         <div>
         <NavBar user={1} page={this.props.location.pathname} />
         <Build user={1} state={1} buildId={this.props.params.id} />
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12">
+              <ErrorBanner />
+              </div>
+            </div>
+          </div>
         <Footer />
         </div>
       );
