@@ -146,7 +146,7 @@ export function addPart(buildId, partId, cb) {
 
 
 export function updateAccount(userId, newFirstName, newLastName, newEmail, newUserName, newPassword, cb){
-  sendXHR('PUT', '/user/' + userId,{
+  sendXHR('PUT', '/user/update/' + userId,{
     first_name: newFirstName,
     last_name: newLastName,
     email: newEmail,

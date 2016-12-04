@@ -59,10 +59,10 @@ function updateAccount(userId, fName, lName, email, uName, newPassword){
 }
 
 //updateAccount
-app.put('/user/:users', function(req,res){
-  var fromUser = getUserIdFromToken('Autorization');
+app.put('/user/update/:userid', function(req,res){
+  var fromUser = parseInt(getUserIdFromToken(req.get('Authorization')));
   var body = req.body;
-  var id = req.params.userId;
+  var id = parseInt(req.params.userid);
   if(fromUser === id){
     var account = updateAccount(id, body.fName,body.lName, body.email, body.uName, body.newPassword);
     res.send(account);
