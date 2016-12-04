@@ -83,7 +83,7 @@ function sendXHR(verb, resource, body, cb) {
 
   export function getBuildData(buildId, cb) {
     sendXHR('GET', '/builds/'+buildId, undefined, (xhr) => {
-      cb(JSON.parse(xhr.responseText));
+      cb(JSON.parse(JSON.stringify(xhr.responseText)));
     });
   }
 
@@ -136,11 +136,6 @@ function sendXHR(verb, resource, body, cb) {
  sendXHR('POST', '/builds/'+user+'/', newBuild, (xhr)=>{
   cb(JSON.parse(xhr.responseText));
  })
- // newBuild = addDocument('builds', newBuild);//returns whole collection?
- // var userData = readDocument('users', user);
- // userData.buildList.push(newBuild._id);
- // writeDocument('users', userData);
- // emulateServerReturn(newBuild, cb);
 }
 
 export function addPart(buildId, partId, cb) {
@@ -161,11 +156,9 @@ export function changeAccountInfo(userId, newUserName, newFirstName, newLastName
 }
 
 export function writeBuildName(buildId, buildName, buildPrice, cb) {
-  var buildData = readDocument('builds', buildId);
-  buildData.contents.build_name = buildName;
-  buildData.contents.total_price=buildPrice;
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
+  sendXHR('PUT', '/builds/' + buildId + '/build_name/' + buildName, {price: buildPrice}, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 export function getPartName(partTypeId, buildId, userId, cb){

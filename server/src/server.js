@@ -205,15 +205,31 @@ app.get('/users/:userid', function(req, res) {
   }
 
   app.get('/builds/:buildid', function(req, res) {
-    var buildId = req.params.buildid;
+    var buildid = req.params.buildid;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
-    if(fromUser === buildId) {
-      res.send(getBuildData(buildId));
+    var buildidNumber = parseInt(buildid, 10);
+    if(fromUser === buildidNumber) {
+      res.send(getBuildData(buildid));
     }
     else {
       res.status(401).end();
     }
   });
+
+  function writeBuildName(buildId, buildName, buildPrice) {
+    var buildData = readDocument('builds', buildId);
+    buildData.contents.build_name = buildName;
+    buildData.contents.total_price=buildPrice;
+    writeDocument('builds', buildData);
+    return buildData;
+  }
+
+  app.put('/builds/:buildId/:build_name', function(req, res){
+    var build_name = req.params.build_name;
+    var buildId = parseInt(req.params.buildId, 10);
+    res.send(writeBuildName(buildId, build_name, req.body.price));
+  });
+
 
 // Reset database.
 app.post('/resetdb', function(req, res) {
