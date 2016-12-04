@@ -7,7 +7,6 @@ var token = "eyJpZCI6MX0=";
 * Properly configure+send an XMLHttpRequest with error handling,
 * authorization token, and other needed properties.
 */
-var token="eyJpZCI6MX0=";
 function sendXHR(verb, resource, body, cb) {
   var xhr = new XMLHttpRequest();
   xhr.open(verb, resource);
@@ -132,11 +131,14 @@ function sendXHR(verb, resource, body, cb) {
       }
     };
  }
- newBuild = addDocument('builds', newBuild);//returns whole collection?
- var userData = readDocument('users', user);
- userData.buildList.push(newBuild._id);
- writeDocument('users', userData);
- emulateServerReturn(newBuild, cb);
+ sendXHR('POST', '/builds/'+user+'/', newBuild, (xhr)=>{
+  cb(JSON.parse(xhr.responseText));
+ })
+ // newBuild = addDocument('builds', newBuild);//returns whole collection?
+ // var userData = readDocument('users', user);
+ // userData.buildList.push(newBuild._id);
+ // writeDocument('users', userData);
+ // emulateServerReturn(newBuild, cb);
 }
 
 export function addPart(buildId, partId, cb) {
@@ -156,8 +158,8 @@ export function addPart(buildId, partId, cb) {
   }
   buildData.contents.parts.push(partId);
   var price = 0.0;
-  for(var a = 0; a < buildData.contents.parts.length; a++){
-    var part = readDocument('parts', buildData.contents.parts[a]);
+  for(var i = 0; i < buildData.contents.parts.length; i++){
+    var part = readDocument('parts', buildData.contents.parts[i]);
     price = price + part.contents.price;
   }
   buildData.contents.price = price;

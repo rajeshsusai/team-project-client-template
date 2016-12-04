@@ -6,6 +6,7 @@ var writeDocument = require('./database.js').writeDocument;
 var bodyParser = require('body-parser')
 var addDocument = require('./database.js').addDocument;
 var database = require('./database.js');
+var BuildSchema=require('./schemas/BuildSchema.json');
 
 // Creates an Express server.
 var app = express();
@@ -65,7 +66,29 @@ function getBuilds(userId){
 }
 
 //BEGIN REGION HTTP ROUTES PUT THEM ALL HERE
-
+/*
+Posts a new build and associates with user.
+*/
+app.post('/builds/:userid/',
+  validate({
+    body: BuildSchema
+  }), function(req, res){
+  var body=req.body;
+  var userid=req.params.userid;
+  var fromUser=getUserIdFromToken(req.get('Authorization'));
+  var useridNumber=parseInt(userid, 10);
+  if (fromUser===useridNumber){
+    var newBuild=addDocument('builds', body);
+    var userData=readDocument('users', userid);
+    userData.buildList.push(newBuild._id);
+    writeDocument('users', userData);
+    res.send(newBuild);
+  }
+  else{
+    // 401 error
+    res.status(401).end();
+  }
+})
 /**
 * Get the whole parts list
 */
@@ -89,6 +112,15 @@ app.get('/builds/:userid', function(req, res) {
     // 401: Unauthorized request.
     res.status(401).end();
   }
+});
+
+// Reset database.
+app.post('/resetdb', function(req, res) {
+  console.log("Resetting database...");
+  // This is a debug route, so don't do any validation.
+  database.resetDatabase();
+  // res.send() sends an empty response with status code 200
+  res.send();
 });
 
 
