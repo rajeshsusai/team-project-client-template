@@ -1,8 +1,6 @@
 import {readDocument, writeDocument, addDocument} from './database.js';
 import React from 'react';
 
-var token = "eyJpZCI6MX0=";
-
 /**
 * Properly configure+send an XMLHttpRequest with error handling,
 * authorization token, and other needed properties.
@@ -160,28 +158,6 @@ export function changeAccountInfo(userId, newUserName, newFirstName, newLastName
   info.password = newPassword;
   writeDocument('users', info);
   emulateServerReturn(userId, cb);
-}
-
-export function getCurrentStatus(buildId, cb) {
-  var buildData = readDocument('builds', buildId);
-  if(buildData.contents.bike_type === "Road") {
-    if(buildData.contents.parts.length === 13) {
-      buildData.contents.status = "Complete";
-    }
-    else {
-      buildData.contents.status = "Incomplete";
-    }
-  }
-  else {
-    if(buildData.contents.parts.length === 15) {
-      buildData.contents.status = "Complete";
-    }
-    else {
-      buildData.contents.status = "Incomplete";
-    }
-  }
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
 }
 
 export function writeBuildName(buildId, buildName, buildPrice, cb) {
