@@ -206,15 +206,8 @@ app.get('/users/:userid', function(req, res) {
 
   app.get('/builds/:buildid', function(req, res) {
     var buildid = req.params.buildid;
-    var fromUser = getUserIdFromToken(req.get('Authorization'));
     var buildidNumber = parseInt(buildid, 10);
-    if(fromUser === buildidNumber) {
-      res.send(getBuildData(buildid));
-    }
-    else {
-      res.status(401).end();
-    }
-  });
+    res.send(getBuildData(buildidNumber));  });
 
   function writeBuildName(buildId, buildName, buildPrice) {
     var buildData = readDocument('builds', buildId);
@@ -224,7 +217,7 @@ app.get('/users/:userid', function(req, res) {
     return buildData;
   }
 
-  app.put('/builds/:buildId/:build_name', function(req, res){
+  app.put('/builds/:buildId/build_name/:build_name', function(req, res){
     var build_name = req.params.build_name;
     var buildId = parseInt(req.params.buildId, 10);
     res.send(writeBuildName(buildId, build_name, req.body.price));

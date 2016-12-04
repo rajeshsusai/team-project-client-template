@@ -157,7 +157,7 @@ export function changeAccountInfo(userId, newUserName, newFirstName, newLastName
 
 export function writeBuildName(buildId, buildName, buildPrice, cb) {
   sendXHR('PUT', '/builds/' + buildId + '/build_name/' + buildName, {price: buildPrice}, (xhr) => {
-    cb(JSON.parse(xhr.responseText));
+    cb(JSON.parse(JSON.stringify(xhr.responseText)));
   });
 }
 
