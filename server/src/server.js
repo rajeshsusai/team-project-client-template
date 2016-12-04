@@ -57,24 +57,6 @@ function updateAccount(userId, fName, lName, email, uName, newPassword){
   return info;
 }
 
-function changeFirstName(userId, newFirstName) {
-  var info = readDocument('users', userId);
-  info.first_name = newFirstName;
-  writeDocument('users', info);
-  // emulateServerReturn(userId);
-  return info;
-}
-app.put('./user/:users', function(req,res){
-  var fromUser = getUserIdFromToken('Authrization');
-  var body = req.body;
-  if(fromUser === body.userId){
-    var fname = changeFirstName(req.params.userId,body.fname);
-    res.status(201);
-    res.send(fname);
-  }else{
-    res.status(401).end();
-  }
-})
 
 app.put('/user/:users', function(req,res){
   var fromUser = getUserIdFromToken('Autorization');

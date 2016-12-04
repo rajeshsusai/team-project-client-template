@@ -93,7 +93,8 @@ handleUpdate(event){
     user_name: username,
     password: newpassword
   });
-  alert("Account has been updated.")
+  alert("Account is being updated.")
+  this.refresh();
 }
 }
 

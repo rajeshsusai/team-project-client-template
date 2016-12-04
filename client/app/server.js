@@ -146,15 +146,25 @@ export function addPart(buildId, partId, cb) {
   });
 }
 
-export function changeAccountInfo(userId, newUserName, newFirstName, newLastName, newEmail, newPassword, cb) {
-  var info = readDocument('users', userId);
-  info.user_name = newUserName;
-  info.first_name = newFirstName;
-  info.last_name = newLastName;
-  info.email = newEmail;
-  info.password = newPassword;
-  writeDocument('users', info);
-  emulateServerReturn(userId, cb);
+export function updateAccount(userId, newFirstName, newLastName, newEmail, newUserName, newPassword, cb){
+  sendXHR('PUT', '/user/' + userId,{
+    first_name: newFirstName,
+    last_name: newLastName,
+    email: newEmail,
+    user_name: newUserName,
+    password:newPassword
+
+  }, (xhr) =>{
+    cb(JSON.parse(xhr.responseText));
+  });
+  // var info = readDocument('users', userId);
+  // info.user_name = newUserName;
+  // info.first_name = newFirstName;
+  // info.last_name = newLastName;
+  // info.email = newEmail;
+  // info.password = newPassword;
+  // writeDocument('users', info);
+  // emulateServerReturn(userId, cb);
 }
 
 export function getCurrentStatus(buildId, cb) {
@@ -213,13 +223,13 @@ export function getBuilds(userId, cb){
   });
 }
 
-export function updateAccount(userId, fName, lName, email, uName, newPassword){
-  var info = readDocument('users',userId);
-  info.first_name = fName;
-  info.last_name = lName;
-  info.email = email;
-  info.user_name = uName;
-  info.password = newPassword;
-  writeDocument('users',info);
-  return info;
-}
+// export function updateAccount(userId, fName, lName, email, uName, newPassword){
+//   var info = readDocument('users',userId);
+//   info.first_name = fName;
+//   info.last_name = lName;
+//   info.email = email;
+//   info.user_name = uName;
+//   info.password = newPassword;
+//   writeDocument('users',info);
+//   return info;
+// }
