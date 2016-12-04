@@ -42,7 +42,7 @@ export default class Account extends React.Component {
   handleChangefName(event){
     event.preventDefault();
     var name = document.getElementById("first name").value;
-      changeFirstName(this.state.user_id, name);
+      changeFirstName(this.state.first_name, name);
       this.setState({first_name: name});
       // this.refresh();
   }
@@ -61,28 +61,26 @@ export default class Account extends React.Component {
 
   handleChangelName(event){
     event.preventDefault();
-    var name = document.getElementById("last name").value;
-      changeFirstName(this.state.user_id, name);
-      this.setState({first_name: name});
+    var lnames = document.getElementById("last name").value;
+      // changeFirstName(this.state.user_id, name);
+      this.setState({last_name: lnames});
   }
   handleChangeEmail(event){
     event.preventDefault();
-    var name = document.getElementById("email").value;
-      changeFirstName(this.state.user_id, name);
-      this.setState({first_name: name});
+    var emails = document.getElementById("email").value;
+      // changeFirstName(this.state.user_id, name);
+      this.setState({email: emails});
     // alert("Hello");
   }
   handleChangeUserName(event){
     event.preventDefault();
-    var name = document.getElementById("user name").value;
-      changeFirstName(this.state.user_id, name);
-      this.setState({first_name: name});
+    var uname = document.getElementById("user name").value;
+      this.setState({user_name: uname});
   }
   handleChangePassword(event){
     event.preventDefault();
-    var name = document.getElementById("password").value;
-      changeFirstName(this.state.user_id, name);
-      this.setState({first_name: name});
+    var passwords = document.getElementById("password").value;
+      this.setState({password: passwords});
   }
 
   handleClickEvent(clickEvent, first_name){
