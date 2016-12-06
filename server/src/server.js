@@ -59,22 +59,22 @@ function updateAccount(userId, fName, lName, email, uName, newPassword){
 }
 
 //updateAccount
-<<<<<<< HEAD
-app.put('/user/:users', function(req,res){
-  var fromUser = getUserIdFromToken(req.get('Autorization'));
-  var userid = parseInt(req.params.user_id, 10);
-  var body = req.params;
-
-  if(fromUser === userid){
-    var account = updateAccount(userid, body.fName,body.lName, body.email, body.uName, body.newPassword);
-=======
+// <<<<<<< HEAD
+// app.put('/user/:users', function(req,res){
+//   var fromUser = getUserIdFromToken(req.get('Autorization'));
+//   var userid = parseInt(req.params.user_id, 10);
+//   var body = req.params;
+//
+//   if(fromUser === userid){
+//     var account = updateAccount(userid, body.fName,body.lName, body.email, body.uName, body.newPassword);
+// =======
 app.put('/user/update/:userid', function(req,res){
   var fromUser = parseInt(getUserIdFromToken(req.get('Authorization')));
   var body = req.body;
   var id = parseInt(req.params.userid);
   if(fromUser === id){
     var account = updateAccount(id, body.fName,body.lName, body.email, body.uName, body.newPassword);
->>>>>>> c3c67bbcf93b088fcb6667ece8272a426ad86c7d
+// >>>>>>> c3c67bbcf93b088fcb6667ece8272a426ad86c7d
     res.send(account);
   }else{
     res.status(401).end();

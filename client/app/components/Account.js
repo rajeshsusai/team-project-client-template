@@ -112,7 +112,7 @@ export default class Account extends React.Component {
                           <input type="text" className="form-control" id="password" placeholder = {this.state.password}/>
                         </div>
                         <button type ="button"
-            onClick ={(e) => this.handleUpdate(e)} >Update</button>
+            onChange ={(e) => this.handleUpdate(e)} onClick = {(e) => this.handleClickEvent(e)} >Update</button>
             </div>
           </div>
         </div>
