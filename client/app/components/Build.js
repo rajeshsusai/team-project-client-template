@@ -12,12 +12,16 @@ The wrapper for the build process starting from SelectBikeType
 export default class Build extends React.Component {
   constructor(props) {
     super(props);
+    var z=props.buildId;
+    if (props.buildId===undefined){
+      z=1;
+    }
     this.state = {
       /*Passing to contents.parts[0].build_name in select bike parts
       Structure should support bike part table format in proper order.*/
       current_state: props.state,
-      buildId: props.buildId,
-      user: props.user
+      buildId: z,
+      user: 1
       // buildList:props.buildList
     /* 0 : SelectBikeType
       1 : SelectBikeParts

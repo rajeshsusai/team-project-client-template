@@ -6,8 +6,6 @@ import React from 'react';
 * Properly configure+send an XMLHttpRequest with error handling,
 * authorization token, and other needed properties.
 */
-
-var token = 'eyJpZCI6MX0=';
 function sendXHR(verb, resource, body, cb) {
   var xhr = new XMLHttpRequest();
   xhr.open(verb, resource);
@@ -77,13 +75,15 @@ function sendXHR(verb, resource, body, cb) {
     }, 4);
   }
   export function getUserData(user, cb) {
-    var userData = readDocument('users', user);
-    emulateServerReturn(userData, cb);
+    sendXHR('GET', '/users/'+user, undefined, (xhr) => {
+      cb(JSON.parse(xhr.responseText));
+    });
   }
 
   export function getBuildData(buildId, cb) {
-    var buildData = readDocument('builds', buildId);
-    emulateServerReturn(buildData, cb);
+    sendXHR('GET', '/builds/avoid/'+buildId, undefined, (xhr) => {
+      cb(JSON.parse(JSON.stringify(xhr.responseText)));
+    });
   }
 
   export function selectBikeType(user, bikeType, cb) {
@@ -132,11 +132,9 @@ function sendXHR(verb, resource, body, cb) {
       }
     };
  }
- newBuild = addDocument('builds', newBuild);//returns whole collection?
- var userData = readDocument('users', user);
- userData.buildList.push(newBuild._id);
- writeDocument('users', userData);
- emulateServerReturn(newBuild, cb);
+ sendXHR('POST', '/builds/'+user+'/', newBuild, (xhr)=>{
+  cb(JSON.parse(xhr.responseText));
+ })
 }
 
 export function addPart(buildId, partId, cb) {
@@ -145,8 +143,9 @@ export function addPart(buildId, partId, cb) {
   });
 }
 
+
 export function updateAccount(userId, newFirstName, newLastName, newEmail, newUserName, newPassword, cb){
-  sendXHR('PUT', '/user/' + userId,{
+  sendXHR('PUT', '/user/update/' + userId,{
     first_name: newFirstName,
     last_name: newLastName,
     email: newEmail,
@@ -165,40 +164,10 @@ export function updateAccount(userId, newFirstName, newLastName, newEmail, newUs
   // emulateServerReturn(userId, cb);
 }
 
-export function getCurrentStatus(buildId, cb) {
-  var buildData = readDocument('builds', buildId);
-  if(buildData.contents.bike_type === "Road") {
-    if(buildData.contents.parts.length === 13) {
-      buildData.contents.status = "Complete";
-    }
-    else {
-      buildData.contents.status = "Incomplete";
-    }
-  }
-  else {
-    if(buildData.contents.parts.length === 15) {
-      buildData.contents.status = "Complete";
-    }
-    else {
-      buildData.contents.status = "Incomplete";
-    }
-  }
-  writeDocument('builds', buildData);
-  emulateServerReturn(buildData, cb);
-}
-
 export function writeBuildName(buildId, buildName, buildPrice, cb) {
-  sendXHR('PUT', 'builds/' + buildId,{
-    build_name: buildName,
-    build_price: buildPrice
-  }), (xhr =>{
+  sendXHR('PUT', '/builds/' + buildId + '/build_name/' + buildName, {price: buildPrice}, (xhr) => {
     cb(JSON.parse(JSON.stringify(xhr.responseText)));
   });
-  // var buildData = readDocument('builds', buildId);
-  // buildData.contents.build_name = buildName;
-  // buildData.contents.total_price=buildPrice;
-  // writeDocument('builds', buildData);
-  // emulateServerReturn(buildData, cb);
 }
 
 export function getPartName(partTypeId, buildId, userId, cb){

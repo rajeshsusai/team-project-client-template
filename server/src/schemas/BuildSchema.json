@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "contents": {
+      "type": "object",
+      "properties": {
+        "bike_type": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "total_price": {
+          "type": "array",
+          "items": {}
+        },
+        "build_name": {
+          "type": "array",
+          "items": {}
+        },
+        "parts": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "required": [
+        "bike_type",
+        "status",
+        "total_price",
+        "build_name",
+        "parts"
+      ]
+    }
+  },
+  "required": [
+    "contents"
+  ]
+}
