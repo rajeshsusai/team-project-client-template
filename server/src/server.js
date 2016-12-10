@@ -8,7 +8,6 @@ var validate = require('express-jsonschema').validate;
 var writeDocument = require('./database.js').writeDocument;
 var bodyParser = require('body-parser')
 var addDocument = require('./database.js').addDocument;
-var database = require('./database.js');
 var MongoDB = require('mongodb');
 var MongoClient = MongoDB.MongoClient;
 var ObjectID = MongoDB.ObjectID;
@@ -80,6 +79,7 @@ app.put('/user/update/:userid', function(req,res){
   }else{
     res.status(401).end();
   }
+});
 
   //updateAccount
   app.put('/user/:users', function(req,res){
