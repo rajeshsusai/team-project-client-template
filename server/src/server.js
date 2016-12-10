@@ -1,4 +1,6 @@
-
+var mongo_express = require('mongo-express/lib/middleware');
+// Import the default Mongo Express configuration
+var mongo_express_config = require('mongo-express/config.default.js');
 // Imports the express Node module.
 var express = require('express');
 var readDocument = require('./database.js').readDocument
@@ -20,6 +22,8 @@ app.use(bodyParser.json());
 // You run the server from `server`, so `../client/build` is `server/../client/build`.
 // '..' means "go up one directory", so this translates into `client/build`!
 app.use(express.static('../client/build'));
+
+app.use('/mongo_express', mongo_express(mongo_express_config));
 
 /**
 * Get the user ID from a token. Returns -1 (an invalid ID)
