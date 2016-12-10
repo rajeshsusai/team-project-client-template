@@ -56,16 +56,29 @@ MongoClient.connect(url, function(err, db) {
       return -1;
     }
   }
-  //Updating the account information
-  function updateAccount(userId, fName, lName, email, uName, newPassword){
-    var info = readDocument('users',userId);
-    info.first_name = fName;
-    info.last_name = lName;
-    info.email = email;
-    info.user_name = uName;
-    info.password = newPassword;
-    writeDocument('users',info);
-    return info;
+
+//Updating the account information
+function updateAccount(userId, fName, lName, email, uName, newPassword){
+  var info = readDocument('users',userId);
+  info.first_name = fName;
+  info.last_name = lName;
+  info.email = email;
+  info.user_name = uName;
+  info.password = newPassword;
+  writeDocument('users',info);
+  return info;
+}
+
+//updateAccount
+app.put('/user/update/:userid', function(req,res){
+  var fromUser = parseInt(getUserIdFromToken(req.get('Authorization')));
+  var body = req.body;
+  var id = parseInt(req.params.userid);
+  if(fromUser === id){
+    var account = updateAccount(id, body.fName,body.lName, body.email, body.uName, body.newPassword);
+    res.send(account);
+  }else{
+    res.status(401).end();
   }
 
   //updateAccount
