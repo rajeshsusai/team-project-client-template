@@ -1,4 +1,4 @@
-var token = "eyJpZCI6MX0=";
+var token = 'eyJpZCI6IjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSJ9';
 
 /**
 * Properly configure+send an XMLHttpRequest with error handling,
