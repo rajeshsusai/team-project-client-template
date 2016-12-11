@@ -241,31 +241,49 @@ app.put('/user/update/:userid', function(req,res){
     }
   });
 
-  function getUserData(user) {
-    var userData = readDocument('users', user);
-    return userData;
+  function getUserData(user, callback) {
+    db.collection('users').findOne({
+      _id: user
+    },
+    function(err, userData) {
+      if(err) {
+        return callback(err);
+      }
+      else if(userData === null) {
+        return callback(null, null);
+      }
+    });
   }
 
   app.get('/users/:userid', function(req, res) {
       var userid = req.params.userid;
       var fromUser = getUserIdFromToken(req.get('Authorization'));
-      var useridNumber = parseInt(userid, 10);
+      var useridNumber = new ObjectID(userid);
       if(fromUser === useridNumber) {
-        res.send(getUserData(userid));
+        res.send(getUserData(new ObjectID(userid)));
       }
       else {
         res.status(401).end();
       }
     });
 
-    function getBuildData(buildId) {
-      var buildData = readDocument('builds', buildId);
-      return buildData;
+    function getBuildData(buildId, callback) {
+      db.collection('builds').findOne({
+        _id: buildId
+      },
+      function(err, buildData) {
+        if(err) {
+          return callback(err);
+        }
+        else if(buildData === null) {
+          return callback(null, null);
+        }
+      });
     }
 
     app.get('/builds/avoid/:buildid', function(req, res) {
       var buildid = req.params.buildid;
-      var buildidNumber = parseInt(buildid, 10);
+      var buildidNumber = new ObjectID(buildid);
       res.send(getBuildData(buildidNumber));  });
 
     function writeBuildName(buildId, buildName, buildPrice) {
