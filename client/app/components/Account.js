@@ -37,20 +37,21 @@ export default class Account extends React.Component {
     }
 
     //
-    handleChangefName(event) {
-        event.preventDefault();
-        var name = document.getElementById("first name").value;
-        document.getElementById("demo").innerHTML = name;
-        // this.changeFirstName(event.target.userId, event.target.first_name);
-        this.setState({
-            first_name: name
-        });
-        alert(name);
-    // this.refresh();
-    }
+    // handleChangefName(event) {
+    //     event.preventDefault();
+    //     var name = document.getElementById("first name").value;
+    //     document.getElementById("demo").innerHTML = name;
+    //     // this.changeFirstName(event.target.userId, event.target.first_name);
+    //     this.setState({
+    //         first_name: name
+    //     });
+    //     alert(name);
+    // // this.refresh();
+    // }
 
     handleUpdate(event) {
         event.preventDefault();
+        alert("Hello");
         if (event.button === 0) {
             var name = document.getElementById("first name").value;
             var lname = document.getElementById("last name").value;
@@ -87,32 +88,27 @@ export default class Account extends React.Component {
           <div className="panel panel-default">
             <div className="form-group">
               <br></br>
-            <label className="control-label " htmlFor="first name" >First Name</label>
+            <label className="form-group " id="first name" >First Name</label>
               <input type="text" className="form-control" id="first name" placeholder = {this.state.first_name}/>
-
+              </div>
               <div className="form-group">
-                <label className="control-label " htmlFor="last name" >Last Name</label>
+                <label className="control-label " id="last name" >Last Name</label>
                   <input type="text" className="form-control" id="last name" placeholder = {this.state.last_name}/>
-
-                </div>
                 </div>
               <div className="form-group">
-                <label className="control-label " htmlFor="email">Email</label>
+                <label className="control-label " id="email">Email</label>
                   <input type="email" className="form-control" id="email" placeholder= {this.state.email} />
                   </div>
-
                   <div className="form-group">
-                    <label className="control-label " htmlFor="username" > Username</label>
+                    <label className="control-label " id="username" > Username</label>
                       <input type="text" className="form-control" id="username" placeholder = {this.state.user_name}/>
-
                       </div>
-
                         <div className="form-group">
-                        <label className="control-label " htmlFor="password" > Password</label>
+                        <label className="control-label " id="password" > Password</label>
                           <input type="text" className="form-control" id="password" placeholder = {this.state.password}/>
                         </div>
                         <button type ="button"
-            onChange ={(e) => this.handleUpdate(e)} onClick = {(e) => this.handleClickEvent(e)} >Update</button>
+            onClick ={(e) => this.handleUpdate(e)} onClick = {(e) => this.handleClickEvent(e)} >Update</button>
             </div>
           </div>
         </div>
