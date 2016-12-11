@@ -175,27 +175,37 @@ MongoClient.connect(url, function(err, db) {
         db.collection('builds').insertOne(body, function(err, result) {
           if (err) {
             return sendDatabaseError(res, err);
-          }
-          body._id=result.insertedId;
-          db.collection('users').updateOne({_id: userid},
-          {//adding build to buildList of user
-            $push:{
-              buildList: [body._id]
-            }
-          },
-          function (err) {
-             if (err){
+          } //setting id of new build
+          body._id = result.insertedId;
+
+          db.collection('users').findOne({
+            _id: userid
+          }, function(err, userObject) {
+            if (err) {
               return sendDatabaseError(res, err);
-             }
-             res.send(body); 
-          }
-          )
+            }
+            db.collection('users').updateOne({
+              _id: userObject._id
+            },
+              { //adding build to buildList of user
+                $push: {
+                  buildList: [body._id]
+                }
+              }, function(err) {
+                if (err) {
+                  return sendDatabaseError(res, err);
+                }
+                res.send(body);
+              }
+            )
+          })
         })
       //   var newBuild=addDocument('builds', body);
       //   var userData=readDocument('users', userid);
       //   userData.buildList.push(newBuild._id);
       //   writeDocument('users', userData);
       //   res.send(newBuild);
+      //left in here for posterity/tracking what we need to do. TODO: delete old code (commented out)
       } else {
         // 401 error
         res.status(401).end();
@@ -294,30 +304,45 @@ MongoClient.connect(url, function(err, db) {
     }
   });
 
-  function getUserData(user) {
-    var userData = readDocument('users', user);
-    return userData;
+  function getUserData(user, callback) {
+    db.collection('users').findOne({
+      _id: user
+    }, function(err, userData) {
+      if (err) {
+        return callback(err);
+      } else if (userData === null) {
+        return callback(null, null);
+      }
+    });
   }
 
   app.get('/users/:userid', function(req, res) {
     var userid = req.params.userid;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
-    var useridNumber = parseInt(userid, 10);
+    var useridNumber = new ObjectID(userid);
     if (fromUser === useridNumber) {
-      res.send(getUserData(userid));
+      res.send(getUserData(new ObjectID(userid)));
     } else {
       res.status(401).end();
     }
   });
 
-  function getBuildData(buildId) {
-    var buildData = readDocument('builds', buildId);
-    return buildData;
+  function getBuildData(buildId, callback) {
+    db.collection('builds').findOne({
+      _id: buildId
+    }, function(err, buildData) {
+      if (err) {
+        return callback(err);
+      } else if (buildData === null) {
+        return callback(null, null);
+      }
+    });
   }
+
 
   app.get('/builds/avoid/:buildid', function(req, res) {
     var buildid = req.params.buildid;
-    var buildidNumber = parseInt(buildid, 10);
+    var buildidNumber = new ObjectID(buildid);
     res.send(getBuildData(buildidNumber));
   });
 
