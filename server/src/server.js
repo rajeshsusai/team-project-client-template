@@ -105,40 +105,52 @@ MongoClient.connect(url, function(err, db) {
 
   //updateAccount
   app.put('/user/update/:userid', function(req, res) {
-    var fromUser = parseInt(getUserIdFromToken(req.get('Authorization')));
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
     var body = req.body;
-    var id = parseInt(req.params.userid);
+    var id = req.params.userid;
     if (fromUser === id) {
-      var account = updateAccount(id, body.fName, body.lName, body.email, body.uName, body.newPassword);
-      res.send(account);
+      db.collections('user').updateOne({_id: id},
+    {
+      $set: {first_name:body.first_name, last_name:body.last_name ,
+        email: body.email, user_name:body.user_name, password: body.password }}, function(err,result){
+        if(err){
+          return sendDatabaseError(res,err);
+        }
+        getUserData(id, function(err, body){
+          if(err){
+            return sendDatabaseError(res,err);
+          }
+          res.send(body)
+        })
+      })
     } else {
       res.status(401).end();
     }
   });
 
   //updateAccount
-  app.put('/user/:users', function(req, res) {
-    var fromUser = getUserIdFromToken('Autorization');
-    var body = req.body;
-    var id = req.params.userId;
-    if (fromUser === id) {
-      var account = updateAccount(id, body.fName, body.lName, body.email, body.uName, body.newPassword);
-      res.send(account);
-    } else {
-      res.status(401).end();
-    }
-  });
+  // app.put('/user/:users', function(req, res) {
+  //   var fromUser = getUserIdFromToken('Autorization');
+  //   var body = req.body;
+  //   var id = req.params.userId;
+  //   if (fromUser === id) {
+  //     var account = updateAccount(id, body.fName, body.lName, body.email, body.uName, body.newPassword);
+  //     res.send(account);
+  //   } else {
+  //     res.status(401).end();
+  //   }
+  // });
 
-  function changeAccountInfo(userId, newUserName, newFirstName, newLastName, newEmail, newPassword) {
-    var info = readDocument('users', userId);
-    info.user_name = newUserName;
-    info.first_name = newFirstName;
-    info.last_name = newLastName;
-    info.email = newEmail;
-    info.password = newPassword;
-    return info;
-  // emulateServerReturn(userId, cb);
-  }
+  // function changeAccountInfo(userId, newUserName, newFirstName, newLastName, newEmail, newPassword) {
+  //   var info = readDocument('users', userId);
+  //   info.user_name = newUserName;
+  //   info.first_name = newFirstName;
+  //   info.last_name = newLastName;
+  //   info.email = newEmail;
+  //   info.password = newPassword;
+  //   return info;
+  // // emulateServerReturn(userId, cb);
+  // }
 
   function getParts() {
     var parts = [];
