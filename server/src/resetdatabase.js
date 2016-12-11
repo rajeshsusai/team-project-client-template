@@ -72,8 +72,8 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000011"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000082"),
         "url": "jensonusa.com",
-        "name": "29ner Tires",
-        "price": 24.99,
+        "name": "WTB Velociraptor Tires 26-inch",
+        "price": 39.99,
         "build": []
       }
     },
@@ -83,8 +83,8 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000011"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000083"),
         "url": "jensonusa.com",
-        "name": "29 cm Front Wheel",
-        "price": 24.99,
+        "name": "AlexRims DM-21 with Formula Disc Hub",
+        "price": 80.99,
         "build": []
       }
     },
@@ -94,8 +94,8 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000084"),
         "url": "jensonusa.com",
-        "name": "Bike Suspension Fork",
-        "price": 24.99,
+        "name": "Manitou Axel Comp Oil Dampened Fork",
+        "price": 149.99,
         "build": []
       }
     },
@@ -105,8 +105,8 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000085"),
         "url": "jensonusa.com",
-        "name": "Adjustable Shock",
-        "price": 24.99,
+        "name": "Manitou Metel Rear Suspension Shock",
+        "price": 99.99,
         "build": []
       }
     },
@@ -116,8 +116,8 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000011"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000086"),
         "url": "jensonusa.com",
-        "name": "Cruiser Handlebar",
-        "price": 24.99,
+        "name": "Ritchey Comp Alloy Handlebar",
+        "price": 29.99,
         "build": []
       }
     },
@@ -127,7 +127,7 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000011"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000087"),
         "url": "jensonusa.com",
-        "name": "Toupe Sport Saddle",
+        "name": "Fuji Velo MTB 146mm Saddle",
         "price": 24.99,
         "build": []
       }
@@ -138,7 +138,7 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000011"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000088"),
         "url": "jensonusa.com",
-        "name": "XSpeed Alloy Seatpost",
+        "name": "FSA Gravity Light Seatpost",
         "price": 24.99,
         "build": []
       }
@@ -149,8 +149,8 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000011"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000089"),
         "url": "jensonusa.com",
-        "name": "Sempre Road Frame",
-        "price": 24.99,
+        "name": "Raleigh RAM Frame",
+        "price": 499.99,
         "build": []
       }
     },
@@ -160,8 +160,8 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000011"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000090"),
         "url": "jensonusa.com",
-        "name": "Avid Disc Brakes",
-        "price": 24.99,
+        "name": "Shimano XTR-Race Hydraulic Brakes",
+        "price": 299.99,
         "build": []
       }
     },
@@ -171,8 +171,8 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000011"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000091"),
         "url": "jensonusa.com",
-        "name": "Athena 11s Rear Derailleur",
-        "price": 24.99,
+        "name": "Shimano Deore XT 9-Speed SGS Rear Derailleur",
+        "price": 64.99,
         "build": []
       }
     },
@@ -182,8 +182,8 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000011"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000092"),
         "url": "jensonusa.com",
-        "name": "Shimano 105 Front Derailleur",
-        "price": 24.99,
+        "name": "Shimano SLX 3x10 Front Derailleur",
+        "price": 30.99,
         "build": []
       }
     },
@@ -193,8 +193,8 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000011"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000093"),
         "url": "jensonusa.com",
-        "name": "415 Heavy Duty Chain",
-        "price": 24.99,
+        "name": "KMC X9.93 9-Speed Chain 117 Link",
+        "price": 17.49,
         "build": []
       }
     },
@@ -204,8 +204,8 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000011"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000094"),
         "url": "jensonusa.com",
-        "name": "Concord Grid Shifter",
-        "price": 24.99,
+        "name": "Shimano XTR Dual Control Brake and Shifter",
+        "price": 349.99,
         "build": []
       }
     },
@@ -215,8 +215,8 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000011"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000095"),
         "url": "jensonusa.com",
-        "name": "29 Rear Wheel",
-        "price": 24.99,
+        "name": "AlexRims DM21 Rear Wheel with Formula Disc Hub",
+        "price": 149.99,
         "build": []
       }
     },
@@ -226,8 +226,8 @@ var initialData = {
         "bike_type": [new ObjectID("000000000000000000000010"),new ObjectID("000000000000000000000011"),new ObjectID("000000000000000000000012"),new ObjectID("000000000000000000000013")],
         "part_type": new ObjectID("000000000000000000000095"),
         "url": "jensonusa.com",
-        "name": "30 Rear Wheel",
-        "price": 24.99,
+        "name": "Forté Terramax 26 Rear Wheel with Disc Hub",
+        "price": 89.99,
         "build": []
       }
     }

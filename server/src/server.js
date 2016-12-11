@@ -12,7 +12,7 @@ var MongoDB = require('mongodb');
 var MongoClient = MongoDB.MongoClient;
 var ObjectID = MongoDB.ObjectID;
 var url = 'mongodb://localhost:27017/bike-part-picker';
-var BuildSchema=require('./schemas/BuildSchema.json');
+var BuildSchema = require('./schemas/BuildSchema.json');
 var ResetDatabase = require('./resetdatabase');
 
 // Creates an Express server.
@@ -29,7 +29,42 @@ MongoClient.connect(url, function(err, db) {
   app.use(express.static('../client/build'));
 
   app.use('/mongo_express', mongo_express(mongo_express_config));
+  function sendDatabaseError(res, err) {
+    res.status(500).send("A database error occurred: " + err);
+  }
 
+
+  function resolveUserObjects(userList, callback) {
+    // Special case: userList is empty.
+    // It would be invalid to query the database with a logical OR
+    // query with an empty array.
+    if (userList.length === 0) {
+      callback(null, {});
+    } else {
+      // Build up a MongoDB "OR" query to resolve all of the user objects
+      // in the userList.
+      var query = {
+        $or: userList.map((id) => {
+          return {
+            _id: id
+          }
+        })
+      };
+      // Resolve 'like' counter
+      db.collection('users').find(query).toArray(function(err, users) {
+        if (err) {
+          return callback(err);
+        }
+        // Build a map from ID to user object.
+        // (so userMap["4"] will give the user with ID 4)
+        var userMap = {};
+        users.forEach((user) => {
+          userMap[user._id] = user;
+        });
+        callback(null, userMap);
+      });
+    }
+  }
   /**
   * Get the user ID from a token. Returns -1 (an invalid ID)
   * if it fails.
@@ -50,46 +85,46 @@ MongoClient.connect(url, function(err, db) {
         // Not a number. Return -1, an invalid ID.
         return -1;
       }
-    } catch (e) {
+    } catch ( e ) {
       // Return an invalid ID.
       return -1;
     }
   }
 
-//Updating the account information
-function updateAccount(userId, fName, lName, email, uName, newPassword){
-  var info = readDocument('users',userId);
-  info.first_name = fName;
-  info.last_name = lName;
-  info.email = email;
-  info.user_name = uName;
-  info.password = newPassword;
-  writeDocument('users',info);
-  return info;
-}
-
-//updateAccount
-app.put('/user/update/:userid', function(req,res){
-  var fromUser = parseInt(getUserIdFromToken(req.get('Authorization')));
-  var body = req.body;
-  var id = parseInt(req.params.userid);
-  if(fromUser === id){
-    var account = updateAccount(id, body.fName,body.lName, body.email, body.uName, body.newPassword);
-    res.send(account);
-  }else{
-    res.status(401).end();
+  //Updating the account information
+  function updateAccount(userId, fName, lName, email, uName, newPassword) {
+    var info = readDocument('users', userId);
+    info.first_name = fName;
+    info.last_name = lName;
+    info.email = email;
+    info.user_name = uName;
+    info.password = newPassword;
+    writeDocument('users', info);
+    return info;
   }
-});
 
   //updateAccount
-  app.put('/user/:users', function(req,res){
+  app.put('/user/update/:userid', function(req, res) {
+    var fromUser = parseInt(getUserIdFromToken(req.get('Authorization')));
+    var body = req.body;
+    var id = parseInt(req.params.userid);
+    if (fromUser === id) {
+      var account = updateAccount(id, body.fName, body.lName, body.email, body.uName, body.newPassword);
+      res.send(account);
+    } else {
+      res.status(401).end();
+    }
+  });
+
+  //updateAccount
+  app.put('/user/:users', function(req, res) {
     var fromUser = getUserIdFromToken('Autorization');
     var body = req.body;
     var id = req.params.userId;
-    if(fromUser === id){
-      var account = updateAccount(id, body.fName,body.lName, body.email, body.uName, body.newPassword);
+    if (fromUser === id) {
+      var account = updateAccount(id, body.fName, body.lName, body.email, body.uName, body.newPassword);
       res.send(account);
-    }else{
+    } else {
       res.status(401).end();
     }
   });
@@ -102,22 +137,22 @@ app.put('/user/update/:userid', function(req,res){
     info.email = newEmail;
     info.password = newPassword;
     return info;
-    // emulateServerReturn(userId, cb);
+  // emulateServerReturn(userId, cb);
   }
 
-  function getParts(){
+  function getParts() {
     var parts = [];
-    for (var i = 30; i <= 44; i++){
+    for (var i = 30; i <= 44; i++) {
       var part = readDocument('parts', i);
       parts.push(part);
     }
     return parts;
   }
 
-  function getBuilds(userId){
+  function getBuilds(userId) {
     var user = readDocument('users', userId);
-    var builds =[];
-    for(var i = 0; i < user.buildList.length; i++){
+    var builds = [];
+    for (var i = 0; i < user.buildList.length; i++) {
       var build = readDocument('builds', user.buildList[i]);
       builds.push(build);
     }
@@ -131,32 +166,50 @@ app.put('/user/update/:userid', function(req,res){
   app.post('/builds/:userid/',
     validate({
       body: BuildSchema
-    }), function(req, res){
-    var body=req.body;
-    var userid=req.params.userid;
-    var fromUser=getUserIdFromToken(req.get('Authorization'));
-    var useridNumber=parseInt(userid, 10);
-    if (fromUser===useridNumber){
-      var newBuild=addDocument('builds', body);
-      var userData=readDocument('users', userid);
-      userData.buildList.push(newBuild._id);
-      writeDocument('users', userData);
-      res.send(newBuild);
-    }
-    else{
-      // 401 error
-      res.status(401).end();
-    }
-  })
+    }), function(req, res) {
+      var body = req.body;
+      var userid = req.params.userid;
+      var fromUser = getUserIdFromToken(req.get('Authorization'));
+      var useridNumber = userid;
+      if (fromUser === useridNumber) {
+        db.collection('builds').insertOne(body, function(err, result) {
+          if (err) {
+            return sendDatabaseError(res, err);
+          }
+          body._id=result.insertedId;
+          db.collection('users').updateOne({_id: userid},
+          {//adding build to buildList of user
+            $push:{
+              buildList: [body._id]
+            }
+          },
+          function (err) {
+             if (err){
+              return sendDatabaseError(res, err);
+             }
+             res.send(body); 
+          }
+          )
+        })
+      //   var newBuild=addDocument('builds', body);
+      //   var userData=readDocument('users', userid);
+      //   userData.buildList.push(newBuild._id);
+      //   writeDocument('users', userData);
+      //   res.send(newBuild);
+      } else {
+        // 401 error
+        res.status(401).end();
+      }
+    })
   /**
   * Get the whole parts list
   */
-  function getPartName(buildId, partTypeId){
+  function getPartName(buildId, partTypeId) {
     var name = "Empty";
     var build = readDocument('builds', buildId);
-    for(var i = 0; i < Object.keys(build.contents.parts).length; i++){
+    for (var i = 0; i < Object.keys(build.contents.parts).length; i++) {
       var part = readDocument("parts", build.contents.parts[i]);
-      if(part.contents.part_type === partTypeId){
+      if (part.contents.part_type === partTypeId) {
         name = part.contents.name;
         break;
       }
@@ -164,12 +217,12 @@ app.put('/user/update/:userid', function(req,res){
     return name;
   }
 
-  function getPartPrice(partTypeId, buildId){
+  function getPartPrice(partTypeId, buildId) {
     var price = "N/A";
     var build = readDocument('builds', buildId);
-    for(var i = 0; i < Object.keys(build.contents.parts).length; i++){
+    for (var i = 0; i < Object.keys(build.contents.parts).length; i++) {
       var part = readDocument("parts", build.contents.parts[i]);
-      if(part.contents.part_type === partTypeId){
+      if (part.contents.part_type === partTypeId) {
         price = part.contents.price.toString();
         break;
       }
@@ -177,20 +230,20 @@ app.put('/user/update/:userid', function(req,res){
     return price;
   }
 
-  app.put('/builds/:buildId/parts/:partId', function(req, res){
+  app.put('/builds/:buildId/parts/:partId', function(req, res) {
     var buildId = parseInt(req.params.buildId, 10);
     var partId = parseInt(req.params.partId, 10);
     var buildData = readDocument('builds', buildId);
     var newPart = readDocument('parts', partId);
-    for(var i = 0; i < buildData.contents.parts.length; i++) {
+    for (var i = 0; i < buildData.contents.parts.length; i++) {
       var existingPart = readDocument('parts', buildData.contents.parts[i]);
-      if(newPart.contents.part_type === existingPart.contents.part_type) {
+      if (newPart.contents.part_type === existingPart.contents.part_type) {
         buildData.contents.parts.splice(i, 1);
       }
     }
     buildData.contents.parts.push(partId);
     var price = 0.0;
-    for(var a = 0; a < buildData.contents.parts.length; a++){
+    for (var a = 0; a < buildData.contents.parts.length; a++) {
       var part = readDocument('parts', buildData.contents.parts[i]);
       price = price + part.contents.price;
     }
@@ -200,10 +253,10 @@ app.put('/user/update/:userid', function(req,res){
   });
 
   app.get('/parts_default', function(req, res) {
-      res.send(getParts());
+    res.send(getParts());
   });
 
-  app.get('/builds/:buildId/partType/:partTypeId/users/:userId', function(req, res){
+  app.get('/builds/:buildId/partType/:partTypeId/users/:userId', function(req, res) {
     var build = req.params.buildId;
     var partType = req.params.partTypeId;
     var user = req.params.userId;
@@ -213,7 +266,7 @@ app.put('/user/update/:userid', function(req,res){
     res.send(getPartName(buildId, partTypeId));
   });
 
-  app.get('/partType/:partTypeId/builds/:buildId/users/:userId', function(req, res){
+  app.get('/partType/:partTypeId/builds/:buildId/users/:userId', function(req, res) {
     var build = req.params.buildId;
     var partType = req.params.partTypeId;
     var user = req.params.userId;
@@ -247,43 +300,43 @@ app.put('/user/update/:userid', function(req,res){
   }
 
   app.get('/users/:userid', function(req, res) {
-      var userid = req.params.userid;
-      var fromUser = getUserIdFromToken(req.get('Authorization'));
-      var useridNumber = parseInt(userid, 10);
-      if(fromUser === useridNumber) {
-        res.send(getUserData(userid));
-      }
-      else {
-        res.status(401).end();
-      }
-    });
-
-    function getBuildData(buildId) {
-      var buildData = readDocument('builds', buildId);
-      return buildData;
+    var userid = req.params.userid;
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+    var useridNumber = parseInt(userid, 10);
+    if (fromUser === useridNumber) {
+      res.send(getUserData(userid));
+    } else {
+      res.status(401).end();
     }
+  });
 
-    app.get('/builds/avoid/:buildid', function(req, res) {
-      var buildid = req.params.buildid;
-      var buildidNumber = parseInt(buildid, 10);
-      res.send(getBuildData(buildidNumber));  });
+  function getBuildData(buildId) {
+    var buildData = readDocument('builds', buildId);
+    return buildData;
+  }
 
-    function writeBuildName(buildId, buildName, buildPrice) {
-      var buildData = readDocument('builds', buildId);
-      buildData.contents.build_name = buildName;
-      buildData.contents.total_price=buildPrice;
-      writeDocument('builds', buildData);
-      return buildData;
-    }
+  app.get('/builds/avoid/:buildid', function(req, res) {
+    var buildid = req.params.buildid;
+    var buildidNumber = parseInt(buildid, 10);
+    res.send(getBuildData(buildidNumber));
+  });
 
-    app.put('/builds/:buildId/build_name/:build_name', function(req, res){
-      var build_name = req.params.build_name;
-      var buildId = parseInt(req.params.buildId, 10);
-      res.send(writeBuildName(buildId, build_name, req.body.price));
-    });
+  function writeBuildName(buildId, buildName, buildPrice) {
+    var buildData = readDocument('builds', buildId);
+    buildData.contents.build_name = buildName;
+    buildData.contents.total_price = buildPrice;
+    writeDocument('builds', buildData);
+    return buildData;
+  }
+
+  app.put('/builds/:buildId/build_name/:build_name', function(req, res) {
+    var build_name = req.params.build_name;
+    var buildId = parseInt(req.params.buildId, 10);
+    res.send(writeBuildName(buildId, build_name, req.body.price));
+  });
 
 
-    // Reset the database.
+  // Reset the database.
   app.post('/resetdb', function(req, res) {
     console.log("Resetting database...");
     ResetDatabase(db, function() {
@@ -298,18 +351,18 @@ app.put('/user/update/:userid', function(req,res){
     * Translate JSON Schema Validation failures into error 400s.
     Must go after all routes
     */
-    app.use(function(err, req, res, next) {
-      if (err.name === 'JsonSchemaValidation') {
-        // Set a bad request http response status
-        res.status(400).end();
-      } else {
-        // It's some other sort of error; pass it to next error middleware handler
-        next(err);
-      }
-    });
+  app.use(function(err, req, res, next) {
+    if (err.name === 'JsonSchemaValidation') {
+      // Set a bad request http response status
+      res.status(400).end();
+    } else {
+      // It's some other sort of error; pass it to next error middleware handler
+      next(err);
+    }
+  });
 
-    // Starts the server on port 3000!
-    app.listen(3000, function () {
-      console.log('Example app listening on port 3000!');
-    });
+  // Starts the server on port 3000!
+  app.listen(3000, function() {
+    console.log('Example app listening on port 3000!');
+  });
 });
