@@ -92,15 +92,31 @@ MongoClient.connect(url, function(err, db) {
   }
 
   //Updating the account information
-  function updateAccount(userId, fName, lName, email, uName, newPassword) {
-    var info = readDocument('users', userId);
-    info.first_name = fName;
-    info.last_name = lName;
-    info.email = email;
-    info.user_name = uName;
-    info.password = newPassword;
-    writeDocument('users', info);
-    return info;
+  function updateAccount(userId, fName, lName, email, uName, newPassword, callback) {
+    db.collection('users').findOne({
+      _id: userId
+    }, function(err,userData){
+      if(err){
+        return callback(err)
+      }
+    })
+    var userData = readDocument('users', userId);
+    userData.contents.first_name = fName;
+    userData.contents.last_name = lName;
+    userData.contents.email = email;
+    userData.contents.user_name = uName;
+    userData.contents.password = newPassword;
+    writeDocument('users', userData);
+    return userData;
+    //
+    // var info = readDocument('users', userId);
+    // info.first_name = fName;
+    // info.last_name = lName;
+    // info.email = email;
+    // info.user_name = uName;
+    // info.password = newPassword;
+    // writeDocument('users', info);
+    // return info;
   }
 
   //updateAccount
@@ -358,7 +374,14 @@ MongoClient.connect(url, function(err, db) {
     res.send(getBuildData(buildidNumber));
   });
 
-  function writeBuildName(buildId, buildName, buildPrice) {
+  function writeBuildName(buildId, buildName, buildPrice, callback) {
+    db.collection('builds').findOne({
+      _id: buildId
+    }, function(err,buildData){
+      if(err){
+        return callback(err)
+      }
+    })
     var buildData = readDocument('builds', buildId);
     buildData.contents.build_name = buildName;
     buildData.contents.total_price = buildPrice;
