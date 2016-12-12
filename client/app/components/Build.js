@@ -14,14 +14,14 @@ export default class Build extends React.Component {
     super(props);
     var z=props.buildId;
     if (props.buildId===undefined){
-      z=1;
+      z="000000000000000000000001";
     }
     this.state = {
       /*Passing to contents.parts[0].build_name in select bike parts
       Structure should support bike part table format in proper order.*/
       current_state: props.state,
       buildId: z,
-      user: 1
+      user: "000000000000000000000001"
       // buildList:props.buildList
     /* 0 : SelectBikeType
       1 : SelectBikeParts
@@ -33,9 +33,9 @@ export default class Build extends React.Component {
   handleBikeBtnClickEvent(clickEvent, bikeType) {
     clickEvent.preventDefault();
     if (clickEvent.button === 0) {
-      selectBikeType(1, bikeType, (debug)=>{
+      selectBikeType("000000000000000000000001", bikeType, (debug)=>{
         this.setState({
-          current_state: 1,
+          current_state: "000000000000000000000001",
           buildId: debug._id,//fscking buildIdGenerator was unnecessary in the end.
           user: this.props.user
         });

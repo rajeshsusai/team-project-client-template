@@ -1,7 +1,4 @@
-import {readDocument, writeDocument, addDocument} from './database.js';
-import React from 'react';
-
-var token = "eyJpZCI6MX0=";
+var token = 'eyJpZCI6IjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSJ9';
 
 /**
 * Properly configure+send an XMLHttpRequest with error handling,
@@ -66,15 +63,6 @@ function sendXHR(verb, resource, body, cb) {
   }
 }
 
-/**
- * Emulates how a REST call is *asynchronous* -- it calls your function back
- * some time in the future with data.
- */
-  function emulateServerReturn(data, cb) {
-    setTimeout(() => {
-      cb(data);
-    }, 4);
-  }
   export function getUserData(user, cb) {
     sendXHR('GET', '/users/'+user, undefined, (xhr) => {
       cb(JSON.parse(xhr.responseText));
@@ -89,7 +77,7 @@ function sendXHR(verb, resource, body, cb) {
 
   export function selectBikeType(user, bikeType, cb) {
     var newBuild;
-    if(bikeType === 13) {
+    if(bikeType === "000000000000000000000013") {
       newBuild ={
         "contents": {
           "bike_type": "Winter",
@@ -100,7 +88,7 @@ function sendXHR(verb, resource, body, cb) {
         }
       };
     }
-    else if(bikeType === 12) {
+    else if(bikeType === "000000000000000000000012") {
       newBuild ={
         "contents": {
           "bike_type": "Trail",
@@ -111,7 +99,7 @@ function sendXHR(verb, resource, body, cb) {
         }
       };
   }
-  else if(bikeType === 10) {
+  else if(bikeType === "000000000000000000000010") {
     newBuild ={
       "contents": {
         "bike_type": "Mountain",
@@ -122,7 +110,7 @@ function sendXHR(verb, resource, body, cb) {
       }
     };
   }
-  else if(bikeType === 11) {
+  else if(bikeType === "000000000000000000000011") {
     newBuild ={
       "contents": {
         "bike_type": "Road",

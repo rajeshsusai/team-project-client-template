@@ -6,7 +6,6 @@ import Account from './components/Account';
 import SavedBuilds from './components/SavedBuilds'
 import NavBar from './components/navbar'
 import Footer from './components/footer'
-import {readDocument} from './database';
 import ErrorBanner from './components/ErrorBanner'
 import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 
@@ -14,7 +13,7 @@ class App extends React.Component {
   render() {
     return (<div>
             <ErrorBanner/>
-              <NavBar user={1} page = {this.props.location.pathname}/>
+              <NavBar user={"000000000000000000000001"} page = {this.props.location.pathname}/>
               { this.props.children }
               <Footer />
             </div>)
@@ -23,10 +22,9 @@ class App extends React.Component {
 
 class SavedBuildsWrapper extends React.Component {
   render(){
-    var user = readDocument("users", 1);
     return(<div>
-              <NavBar user={1} page = {this.props.location.pathname}/>
-              <SavedBuilds user={1}/>
+              <NavBar user={"000000000000000000000001"} page = {this.props.location.pathname}/>
+              <SavedBuilds user={"000000000000000000000001"}/>
               <div className="container">
                 <div className="row">
                   <div className="col-md-12">
@@ -42,8 +40,8 @@ class SavedBuildsWrapper extends React.Component {
 class AccountWrapper extends React.Component{
   render() {
     return (<div>
-      <NavBar user={1} page={this.props.location.pathname} />
-      <Account user={1} />
+      <NavBar user={"000000000000000000000001"} page={this.props.location.pathname} />
+      <Account user={"000000000000000000000001"} />
         <div className="container">
           <div className="row">
             <div className="col-md-12">
@@ -68,8 +66,8 @@ class BuildWrapper extends React.Component{
     if (isNaN(this.props.params.id)){  //if id not number, its not coming from a saved build
       return(
         <div>
-        <NavBar user={1} page={this.props.location.pathname} />
-        <Build user={1} state={0}/>
+        <NavBar user={"000000000000000000000001"} page={this.props.location.pathname} />
+        <Build user={"000000000000000000000001"} state={0}/>
           <div className="container">
             <div className="row">
               <div className="col-md-12">
@@ -84,8 +82,8 @@ class BuildWrapper extends React.Component{
     else { //if we are passing an id, it must be a saved build
       return(
         <div>
-        <NavBar user={1} page={this.props.location.pathname} />
-        <Build user={1} state={1} buildId={this.props.params.id} />
+        <NavBar user={"000000000000000000000001"} page={this.props.location.pathname} />
+        <Build user={"000000000000000000000001"} state={1} buildId={this.props.params.id} />
           <div className="container">
             <div className="row">
               <div className="col-md-12">
