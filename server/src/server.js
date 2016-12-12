@@ -79,7 +79,7 @@ MongoClient.connect(url, function(err, db) {
       var tokenObj = JSON.parse(regularString);
       var id = tokenObj['id'];
       // Check that id is a number.
-      if (typeof id === 'number') {
+      if (typeof id === 'string') {
         return id;
       } else {
         // Not a number. Return -1, an invalid ID.
@@ -168,23 +168,34 @@ MongoClient.connect(url, function(err, db) {
   // // emulateServerReturn(userId, cb);
   // }
 
-  function getParts() {
-    var parts = [];
-    for (var i = 30; i <= 44; i++) {
-      var part = readDocument('parts', i);
-      parts.push(part);
-    }
-    return parts;
+  function getParts(cb, res) {
+    db.collection('parts').find({ _id: { $gte: new ObjectID("000000000000000000000030"), $lte: new ObjectID("000000000000000000000044") } }).toArray(function(err, items) {
+          if (err) {
+            return sendDatabaseError(res, err);
+          }
+
+          cb(items);
+      }
+    )
   }
 
-  function getBuilds(userId) {
-    var user = readDocument('users', userId);
-    var builds = [];
-    for (var i = 0; i < user.buildList.length; i++) {
-      var build = readDocument('builds', user.buildList[i]);
-      builds.push(build);
-    }
-    return builds;
+  function getBuilds(userId, cb, res) {
+
+    db.collection('users').findOne({ _id: userId}, function(err, userData) {
+      if (err) {
+        return sendDatabaseError(res, err);
+      }
+
+      var buildList = userData.buildList;
+
+      db.collection('builds').find({ '_id': { '$in': buildList }}).toArray(function(err, builds) {
+        if (err)
+          return sendDatabaseError(res, err);
+        cb(builds);
+      })
+
+
+    })
   }
 
   //BEGIN REGION HTTP ROUTES PUT THEM ALL HERE
@@ -290,9 +301,7 @@ MongoClient.connect(url, function(err, db) {
     res.send(buildData);
   });
 
-  app.get('/parts_default', function(req, res) {
-    res.send(getParts());
-  });
+
 
   app.get('/builds/:buildId/partType/:partTypeId/users/:userId', function(req, res) {
     var build = req.params.buildId;
@@ -320,16 +329,25 @@ MongoClient.connect(url, function(err, db) {
   app.get('/builds/:userid', function(req, res) {
     var userid = req.params.userid;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
-    // userid is a string. We need it to be a number.
+    // userid is a string.
     // Parameters are always strings.
-    var useridNumber = parseInt(userid, 10);
-    if (fromUser === useridNumber) {
+
+    if (fromUser === userid) {
       // Send response.
-      res.send(getBuilds(userid));
+      getBuilds(new ObjectID(userid), function(items) {
+        res.send(items);
+      }, res);
     } else {
       // 401: Unauthorized request.
       res.status(401).end();
     }
+  });
+
+
+  app.get('/parts_default', function(req, res) {
+    getParts(function(items) {
+      res.send(items);
+    }, res);
   });
 
   function getUserData(user, callback) {
