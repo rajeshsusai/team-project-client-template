@@ -125,7 +125,7 @@ MongoClient.connect(url, function(err, db) {
     var body = req.body;
     var id = req.params.userid;
     if (fromUser === id) {
-      db.collections('user').updateOne({_id: id},
+      db.collection('users').updateOne({_id: new ObjectID(id)},
     {
       $set: {first_name:body.first_name, last_name:body.last_name ,
         email: body.email, user_name:body.user_name, password: body.password }}, function(err,result){
