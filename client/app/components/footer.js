@@ -15,7 +15,6 @@ export default class Footer extends React.Component{
           </p>
           <p className="text-muted" style={{textAlign: 'center'}}>
               Note: Bike assembly not included
-              <li role="presentation" id="db-reset"></li>
           </p>
       </div>
     </footer>
