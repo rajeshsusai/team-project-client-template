@@ -210,6 +210,7 @@ MongoClient.connect(url, function(err, db) {
       var userid = req.params.userid;
       var fromUser = getUserIdFromToken(req.get('Authorization'));
       var useridNumber = userid;
+      var objectifiedUserId=new ObjectID(userid);
       if (fromUser === useridNumber) {
         db.collection('builds').insertOne(body, function(err, result) {
           if (err) {
@@ -218,7 +219,7 @@ MongoClient.connect(url, function(err, db) {
           body._id = result.insertedId;
 
           db.collection('users').findOne({
-            _id: userid
+            _id: objectifiedUserId
           }, function(err, userObject) {
             if (err) {
               return sendDatabaseError(res, err);
@@ -234,7 +235,15 @@ MongoClient.connect(url, function(err, db) {
                 if (err) {
                   return sendDatabaseError(res, err);
                 }
-                res.send(body);
+                db.collection('builds').findOne({
+                  _id: result.insertedId},
+                  function (err, newBuild) {
+                     if (err){
+                      return sendDatabaseError(res, err);
+                     }
+                     res.send(newBuild);
+                  })
+                // res.send(body);
               }
             )
           })
