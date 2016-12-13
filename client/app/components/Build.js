@@ -35,7 +35,7 @@ export default class Build extends React.Component {
     if (clickEvent.button === 0) {
       selectBikeType("000000000000000000000001", bikeType, (debug)=>{
         this.setState({
-          current_state: "000000000000000000000001",
+          current_state: 1,
           buildId: debug._id,//fscking buildIdGenerator was unnecessary in the end.
           user: this.props.user
         });
