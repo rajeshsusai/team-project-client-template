@@ -438,21 +438,18 @@ MongoClient.connect(url, function(err, db) {
   });
 
   function writeBuildName(buildId, buildName, buildPrice, callback) {
-    db.collection('builds').findOne(buildId, function(err,build){
-      if(err){
-        throw err;
-      }
-      db.collection('builds').insertOne({
-        _id: buildId,
-        build_name: buildName,
-        total_price: buildPrice
-      }, function(err){
+    var build = new ObjectID(buildId)
+      db.collection('builds').updateOne({_id: build},{
+        $set:{
+          build_name: buildName,
+          total_price: buildPrice
+        }
+      },function(err, buildData){
         if(err){
           throw err
         }
+        callback(buildData);
       });
-      callback(build);
-    });
     }
     // db.collection('builds').insertOne({
     //   _id: buildId,
