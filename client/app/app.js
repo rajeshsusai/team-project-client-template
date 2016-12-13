@@ -15,6 +15,15 @@ class App extends React.Component {
             <ErrorBanner/>
               <NavBar user={"000000000000000000000001"} page = {this.props.location.pathname}/>
               { this.props.children }
+              <button className="btn btn-default" type="button" onClick={() => {
+                  var xhr = new XMLHttpRequest();
+                  xhr.open('POST', '/resetdb');
+                  xhr.addEventListener('load', function() {
+                    window.alert("Database reset! Refreshing the page now...");
+                    document.location.reload(false);
+                  });
+                  xhr.send();
+                }}>Reset Mock DB</button>
               <Footer />
             </div>)
   }
@@ -29,6 +38,15 @@ class SavedBuildsWrapper extends React.Component {
                 <div className="row">
                   <div className="col-md-12">
                   <ErrorBanner />
+                    <button className="btn btn-default" type="button" onClick={() => {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/resetdb');
+                        xhr.addEventListener('load', function() {
+                          window.alert("Database reset! Refreshing the page now...");
+                          document.location.reload(false);
+                        });
+                        xhr.send();
+                      }}>Reset Mock DB</button>
                   </div>
                 </div>
               </div>
@@ -46,6 +64,15 @@ class AccountWrapper extends React.Component{
           <div className="row">
             <div className="col-md-12">
             <ErrorBanner />
+              <button className="btn btn-default" type="button" onClick={() => {
+                  var xhr = new XMLHttpRequest();
+                  xhr.open('POST', '/resetdb');
+                  xhr.addEventListener('load', function() {
+                    window.alert("Database reset! Refreshing the page now...");
+                    document.location.reload(false);
+                  });
+                  xhr.send();
+                }}>Reset Mock DB</button>
             </div>
           </div>
         </div>
@@ -72,6 +99,15 @@ class BuildWrapper extends React.Component{
             <div className="row">
               <div className="col-md-12">
               <ErrorBanner />
+                <button className="btn btn-default" type="button" onClick={() => {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/resetdb');
+                    xhr.addEventListener('load', function() {
+                      window.alert("Database reset! Refreshing the page now...");
+                      document.location.reload(false);
+                    });
+                    xhr.send();
+                  }}>Reset Mock DB</button>
               </div>
             </div>
           </div>
@@ -88,6 +124,15 @@ class BuildWrapper extends React.Component{
             <div className="row">
               <div className="col-md-12">
               <ErrorBanner />
+                <button className="btn btn-default" type="button" onClick={() => {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/resetdb');
+                    xhr.addEventListener('load', function() {
+                      window.alert("Database reset! Refreshing the page now...");
+                      document.location.reload(false);
+                    });
+                    xhr.send();
+                  }}>Reset Mock DB</button>
               </div>
             </div>
           </div>
