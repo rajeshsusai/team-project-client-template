@@ -209,75 +209,125 @@ MongoClient.connect(url, function(err, db) {
   /**
   * Get the whole parts list
   */
-  function getPartName(buildId, partTypeId) {
-    var name = "Empty";
-    var build = readDocument('builds', buildId);
-    for (var i = 0; i < Object.keys(build.contents.parts).length; i++) {
-      var part = readDocument("parts", build.contents.parts[i]);
-      if (part.contents.part_type === partTypeId) {
-        name = part.contents.name;
-        break;
-      }
-    }
-    return name;
-  }
 
-  function getPartPrice(partTypeId, buildId) {
-    var price = "N/A";
-    var build = readDocument('builds', buildId);
-    for (var i = 0; i < Object.keys(build.contents.parts).length; i++) {
-      var part = readDocument("parts", build.contents.parts[i]);
-      if (part.contents.part_type === partTypeId) {
-        price = part.contents.price.toString();
-        break;
-      }
-    }
-    return price;
-  }
+  // function getPartName(buildId, partTypeId, cb, res) {
+  //
+  //   db.collection('builds').findOne({_id: buildId}, function(err, buildData){
+  //     if(err){
+  //       return sendDatabaseError(res, err);
+  //     }
+  //
+  //     db.collection('parts').find({'_id': {'$in': buildData.contents.parts}, 'contents.partType': partTypeId}).toArray(function(err, part){
+  //       if(err){
+  //         return sendDatabaseError(res, err);
+  //       }
+  //       cb(part[0].contents.name);
+  //     })
+  //   })
+  // }
+  //
+  // function getPartPrice(partTypeId, buildId, cb, res) {
+  //
+  //   db.collection('builds').findOne({_id: buildId}, function(err, buildData){
+  //     if(err){
+  //       return sendDatabaseError(res, err);
+  //     }
+  //
+  //     db.collection('parts').find({'_id': {'$in': buildData.contents.parts}, 'contents.partType': partTypeId}).toArray(function(err, part){
+  //       if(err){
+  //         return sendDatabaseError(res, err);
+  //       }
+  //       cb(part[0].contents.price);
+  //     })
+  //   })
+  // }
 
   app.put('/builds/:buildId/parts/:partId', function(req, res) {
-    var buildId = parseInt(req.params.buildId, 10);
-    var partId = parseInt(req.params.partId, 10);
-    var buildData = readDocument('builds', buildId);
-    var newPart = readDocument('parts', partId);
-    for (var i = 0; i < buildData.contents.parts.length; i++) {
-      var existingPart = readDocument('parts', buildData.contents.parts[i]);
-      if (newPart.contents.part_type === existingPart.contents.part_type) {
-        buildData.contents.parts.splice(i, 1);
+    var partId = new ObjectID(req.params.partId);
+    var buildId = new ObjectID(req.params.buildId);
+    db.collection('parts').findOne({'_id': partId}, function(err, part){
+      if(err){
+        return sendDatabaseError(res, err);
       }
-    }
-    buildData.contents.parts.push(partId);
-    var price = 0.0;
-    for (var a = 0; a < buildData.contents.parts.length; a++) {
-      var part = readDocument('parts', buildData.contents.parts[i]);
-      price = price + part.contents.price;
-    }
-    buildData.contents.price = price;
-    writeDocument('builds', buildData);
-    res.send(buildData);
+      db.collection('builds').findOne({'_id': buildId}, function(err, build){
+        if(err){
+          return sendDatabaseError(res, err);
+        }
+        console.log(build);
+        var partList = build.contents.parts;
+        db.collection('parts').findOne({'$and':[{'_id': {'$in': partList}},{'contents.part_type': part.contents.part_type}]}, function(err, oldPart){
+          if(err){
+            return sendDatabaseError(res, err);
+          }
+          if(oldPart === null){
+            db.collection('builds').updateOne({'_id':buildId}, {'$push': {'contents.parts': part._id}}, function(err){
+              if(err){
+                return sendDatabaseError(res, err);
+              }
+              res.send(build);
+            })
+          } else {
+            db.collection('builds').updateOne({'_id':buildId}, {'$pull':{'contents.part': oldPart._id }, '$push': {'contents.parts': part._id}}, function(err){
+              if(err){
+                return sendDatabaseError(res, err);
+              }
+              res.send(build);
+            })
+          }
+        })
+      })
+    })
   });
 
-
-
   app.get('/builds/:buildId/partType/:partTypeId/users/:userId', function(req, res) {
-    var build = req.params.buildId;
-    var partType = req.params.partTypeId;
-    var user = req.params.userId;
-    var userId = parseInt(user, 10);
-    var buildId = parseInt(build, 10);
-    var partTypeId = parseInt(partType, 10);
-    res.send(getPartName(buildId, partTypeId));
+    var buildId = new ObjectID(req.params.buildId);
+    var partTypeId = new ObjectID(req.params.partTypeId);
+    var userId = req.params.userId;
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+    if(fromUser == userId){
+      db.collection('builds').findOne({'_id': buildId}, function(err, build){
+        if(err){
+          return sendDatabaseError(res, err);
+        }
+        var partList = build.contents.parts;
+        var cursor = db.collection('parts').findOne({'$and': [{'_id': {'$in': partList}}, {'contents.part_type': partTypeId}]}, function(err, part){
+          if(part === null){
+            res.send("Empty");
+          } else {
+            res.send(part.contents.name);
+          }
+        })
+      })
+    }else{
+      res.status(401).end();
+    }
   });
 
   app.get('/partType/:partTypeId/builds/:buildId/users/:userId', function(req, res) {
-    var build = req.params.buildId;
-    var partType = req.params.partTypeId;
-    var user = req.params.userId;
-    var userId = parseInt(user, 10);
-    var buildId = parseInt(build, 10);
-    var partTypeId = parseInt(partType, 10);
-    res.send(getPartPrice(partTypeId, buildId));
+    var buildId = new ObjectID(req.params.buildId);
+    var partTypeId = new ObjectID(req.params.partTypeId);
+    var userId = req.params.userId;
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+    if(fromUser == userId){
+      db.collection('builds').findOne({'_id': buildId}, function(err, build){
+        if(err){
+          return sendDatabaseError(res, err);
+        }
+        var partList = build.contents.parts;
+        var cursor = db.collection('parts').findOne({'$and': [{'_id': {'$in': partList}}, {'contents.part_type': partTypeId}]}, function(err, part){
+          if(part === null){
+            res.send("N/A");
+          } else {
+            var price = part.contents.price;
+            res.send(price.toString());
+          }
+        })
+      })
+    }else{
+      res.status(401).end();
+    }
   });
+
 
   /**
   * Get the build list data for a particular user.
