@@ -30,10 +30,14 @@ export default class SavedBuilds extends React.Component {
   populateTable(){
 
     var rows = [];
-    for(let i = 0; i < Object.keys(this.state.builds).length; i++){
-      var build = this.state.builds[i];
+    for(let i = 1; i <= Object.keys(this.state.builds).length; i++){
+      var build = this.state.builds[i-1];
+      var new_id = i.toString();
+      while(new_id.length != 24){
+        new_id = "0" + new_id;
+      }
       rows.push(<tr key={i} onClick ={(e) => {
-        this.handleClick(e, i + 1)}}>
+        this.handleClick(e, new_id)}}>
           <td>{build.contents.build_name}</td>
           <td>{build.contents.total_price}</td>
           <td>{build.contents.bike_type}</td>

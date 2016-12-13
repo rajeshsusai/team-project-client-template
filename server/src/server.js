@@ -359,15 +359,20 @@ MongoClient.connect(url, function(err, db) {
       } else if (userData === null) {
         return callback(null, null);
       }
+      callback(null, userData);
     });
   }
 
   app.get('/users/:userid', function(req, res) {
     var userid = req.params.userid;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
-    var useridNumber = new ObjectID(userid);
-    if (fromUser === useridNumber) {
-      res.send(getUserData(new ObjectID(userid)));
+    if (fromUser === userid) {
+      getUserData(new ObjectID(userid), function(err, userData) {
+        if(err) {
+          return sendDatabaseError(res, err);
+        }
+        res.send(userData);
+      });
     } else {
       res.status(401).end();
     }
@@ -382,6 +387,7 @@ MongoClient.connect(url, function(err, db) {
       } else if (buildData === null) {
         return callback(null, null);
       }
+      callback(null, buildData);
     });
   }
 
@@ -389,7 +395,12 @@ MongoClient.connect(url, function(err, db) {
   app.get('/builds/avoid/:buildid', function(req, res) {
     var buildid = req.params.buildid;
     var buildidNumber = new ObjectID(buildid);
-    res.send(getBuildData(buildidNumber));
+    getBuildData(buildidNumber, function(err, buildData) {
+      if(err) {
+        return sendDatabaseError(res, err);
+      }
+      res.send(buildData);
+    });
   });
 
   function writeBuildName(buildId, buildName, buildPrice, callback) {
