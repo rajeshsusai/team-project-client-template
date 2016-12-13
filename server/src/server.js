@@ -438,17 +438,17 @@ MongoClient.connect(url, function(err, db) {
   });
 
   function writeBuildName(buildId, buildName, buildPrice, callback) {
-    var build = new ObjectID(buildId)
+    var build = new ObjectID(buildId);
       db.collection('builds').updateOne({_id: build},{
         $set:{
-          build_name: buildName,
-          total_price: buildPrice
+          "contents.build_name": buildName,
+          "contents.total_price": buildPrice
         }
       },function(err, buildData){
         if(err){
-          throw err
+          callback(err);
         }
-        callback(buildData);
+        callback(null, buildData);
       });
     }
     // db.collection('builds').insertOne({
@@ -501,10 +501,10 @@ MongoClient.connect(url, function(err, db) {
 
   app.put('/builds/:buildId/build_name/:build_name', function(req, res) {
     var build_name = req.params.build_name;
-    var buildId = new ObjectID(req.params.buildId);
+    var buildId = req.params.buildId;
     writeBuildName(buildId, build_name, req.body.price, function(err, build){
       if(err){
-        return sendDatabaseError(err);
+        return sendDatabaseError(res, err);
       }
       res.send(build);
     });

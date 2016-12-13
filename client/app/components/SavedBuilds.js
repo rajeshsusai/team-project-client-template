@@ -32,7 +32,7 @@ export default class SavedBuilds extends React.Component {
     var rows = [];
     for(let i = 1; i <= this.state.builds.length; i++){
       build = this.state.builds[i-1];
-      
+
       // console.log(build._id.valueOf());
       rows.push(<tr key={i} onClick ={(e) => {
         this.handleClick(e, this.state.builds[i-1]._id.valueOf())}}>
@@ -48,7 +48,6 @@ export default class SavedBuilds extends React.Component {
   handleClick(clickEvent, id){
     clickEvent.preventDefault();
     if(clickEvent.button === 0){
-      console.log("going to build : " + id);
       this.context.history.pushState(null, 'Build/' + id);
     }
   }

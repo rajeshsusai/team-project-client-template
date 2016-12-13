@@ -88,7 +88,7 @@ export default class Build extends React.Component {
   */
   refresh() {
      getBuildData(this.state.buildId, (buildData) => {
-       this.setState(buildData)
+       this.setState({buildId: buildData._id.valueOf()})
      });
   }
 
