@@ -277,6 +277,7 @@ MongoClient.connect(url, function(err, db) {
       if(err){
         return sendDatabaseError(res, err);
       }
+      let pricetoAdd=part.contents.price;
       db.collection('builds').findOne({'_id': buildId}, function(err, build){
         if(err){
           return sendDatabaseError(res, err);
@@ -288,14 +289,22 @@ MongoClient.connect(url, function(err, db) {
             return sendDatabaseError(res, err);
           }
           if(oldPart === null){
-            db.collection('builds').updateOne({'_id':buildId}, {'$push': {'contents.parts': part._id}}, function(err){
+            db.collection('builds').updateOne({'_id':buildId}, {'$push': {'contents.parts': part._id},
+          '$set':
+              {'contents.total_price': build.contents.total_price+pricetoAdd }
+            }, 
+            function(err){
               if(err){
                 return sendDatabaseError(res, err);
               }
               res.send(build);
             })
           } else {
-            db.collection('builds').updateOne({'_id':buildId}, {'$pull':{'contents.part': oldPart._id }, '$push': {'contents.parts': part._id}}, function(err){
+            db.collection('builds').updateOne({'_id':buildId}, {'$pull':{'contents.part': oldPart._id }, '$push': {'contents.parts': part._id},
+          '$set':
+              {'contents.total_price': build.contents.total_price+pricetoAdd-oldPart.contents.price }
+            },
+             function(err){
               if(err){
                 return sendDatabaseError(res, err);
               }

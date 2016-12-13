@@ -12,7 +12,7 @@
           "type": "integer"
         },
         "total_price": {
-          "type": "array",
+          "type": "double",
           "items": {}
         },
         "build_name": {

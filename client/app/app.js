@@ -90,7 +90,7 @@ class BuildWrapper extends React.Component{
 
   render() {
 
-    if (isNaN(this.props.params.id)){  //if id not number, its not coming from a saved build
+    if (this.props.params.id.length!==24){  //if id not long enough, its not coming from a saved build
       return(
         <div>
         <NavBar user={"000000000000000000000001"} page={this.props.location.pathname} />

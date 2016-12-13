@@ -518,7 +518,7 @@ export default class SelectBikeParts extends React.Component {
 
                     </tbody>
                 </table>
-                <button type="button" onClick={(e)=>this.props.onClick(e, "000000000000000000000001", this.state.build.contents.price)} className="btn btn-default">Review</button>
+                <button type="button" onClick={(e)=>this.props.onClick(e, "000000000000000000000001", this.state.build.contents.total_price)} className="btn btn-default">Review</button>
             </div>
         </div>
       );
