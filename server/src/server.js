@@ -287,17 +287,18 @@ MongoClient.connect(url, function(err, db) {
   // }
 
   app.put('/builds/:buildId/parts/:partId', function(req, res) {
-    var buildId = req.params.buildId;
-    var partId = req.params.partId;
+    var partId = new ObjectID(req.params.partId);
     db.collection('parts').findOne({'_id': partId}, function(err, part){
       if(err){
         return sendDatabaseError(res, err);
       }
+      var buildId = new ObjectID(req.params.buildId);
       db.collection('build').findOne({'_id': buildId}, function(err, build){
         if(err){
           return sendDatabaseError(res, err);
         }
-        db.collection('parts').findOne({'_id': {'$in': build.contents.parts}, 'contents.partType': part.contents.partType}, function(err, oldPart){
+        var partList = build.contents.parts;
+        db.collection('parts').findOne({'_id': {'$in': [partList]}, 'contents.partType': part.contents.partType}, function(err, oldPart){
           if(err){
             return sendDatabaseError(res, err);
           }
@@ -315,21 +316,21 @@ MongoClient.connect(url, function(err, db) {
 
 
   app.get('/builds/:buildId/partType/:partTypeId/users/:userId', function(req, res) {
-    var build = req.params.buildId;
-    var partType = req.params.partTypeId;
+    var buildId = new ObjectID(req.params.buildId);
+    var partTypeId = new ObjectID(req.params.partTypeId);
     var userId = req.params.userId;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
     if(fromUser == userId){
-      db.collection('builds').findOne({'_id': buildId}, function(err, buildData){
+      db.collection('builds').findOne({'_id': buildId}, function(err, build){
         if(err){
           return sendDatabaseError(res, err);
         }
-
-        db.collection('parts').find({'_id': {'$in': buildData.contents.parts}, 'contents.partType': partTypeId}).toArray(function(err, part){
+        var partList = build.contents.parts;
+        db.collection('parts').find({'_id': {'$in': [partList]}, 'contents.partType': partTypeId}).toArray(function(err, part){
           if(err){
             return sendDatabaseError(res, err);
           }
-          res.send(part[0].contents.name);
+          res.send(part.contents);
         })
       })
     }else{
@@ -338,21 +339,21 @@ MongoClient.connect(url, function(err, db) {
   });
 
   app.get('/partType/:partTypeId/builds/:buildId/users/:userId', function(req, res) {
-    var build = req.params.buildId;
-    var partType = req.params.partTypeId;
+    var buildId = new ObjectID(req.params.buildId);
+    var partTypeId = new ObjectID(req.params.partTypeId);
     var userId = req.params.userId;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
     if(fromUser == userId){
-      db.collection('builds').findOne({'_id': buildId}, function(err, buildData){
+      db.collection('builds').findOne({'_id': buildId}, function(err, build){
         if(err){
           return sendDatabaseError(res, err);
         }
-
-        db.collection('parts').find({'_id': {'$in': buildData.contents.parts}, 'contents.partType': partTypeId}).toArray(function(err, part){
+        var partList = build.contents.parts;
+        db.collection('parts').find({'_id': {'$in': [partList]}, 'contents.partType': partTypeId}).toArray(function(err, part){
           if(err){
             return sendDatabaseError(res, err);
           }
-          res.send(part[0].contents.price);
+          res.send(part.contents);
         })
       })
     }else{
