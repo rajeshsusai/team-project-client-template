@@ -21,7 +21,7 @@ var initialData = {
           "contents": {
             "bike_type": "Winter",
             "status": "Incomplete",
-            "total_price": "64.99",
+            "total_price": 64.99,
             "build_name": "My Build",
             "parts": [new ObjectID("000000000000000000000031"), new ObjectID("000000000000000000000032"), new ObjectID("000000000000000000000033")]
           }
@@ -31,7 +31,7 @@ var initialData = {
           "contents": {
             "bike_type": "Road",
             "status": "Incomplete",
-            "total_price": "24.99",
+            "total_price": 24.99,
             "build_name": "Road Runner",
             "parts": [new ObjectID("000000000000000000000030")]
           }
@@ -41,7 +41,7 @@ var initialData = {
           "contents": {
             "bike_type": "Trail",
             "status": "Incomplete",
-            "total_price": "78.99",
+            "total_price": 78.99,
             "build_name": "Wiley Coyote",
             "parts": [new ObjectID("000000000000000000000030")]
           }

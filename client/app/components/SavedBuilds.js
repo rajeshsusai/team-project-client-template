@@ -28,16 +28,14 @@ export default class SavedBuilds extends React.Component {
   }
 
   populateTable(){
-
+    var build = this.state.builds[0];
     var rows = [];
-    for(let i = 1; i <= Object.keys(this.state.builds).length; i++){
-      var build = this.state.builds[i-1];
-      var new_id = i.toString();
-      while(new_id.length != 24){
-        new_id = "0" + new_id;
-      }
+    for(let i = 1; i <= this.state.builds.length; i++){
+      build = this.state.builds[i-1];
+
+      // console.log(build._id.valueOf());
       rows.push(<tr key={i} onClick ={(e) => {
-        this.handleClick(e, new_id)}}>
+        this.handleClick(e, this.state.builds[i-1]._id.valueOf())}}>
           <td>{build.contents.build_name}</td>
           <td>{build.contents.total_price}</td>
           <td>{build.contents.bike_type}</td>
@@ -50,7 +48,6 @@ export default class SavedBuilds extends React.Component {
   handleClick(clickEvent, id){
     clickEvent.preventDefault();
     if(clickEvent.button === 0){
-      console.log("going to build : " + id);
       this.context.history.pushState(null, 'Build/' + id);
     }
   }

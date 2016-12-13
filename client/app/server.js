@@ -82,7 +82,7 @@ function sendXHR(verb, resource, body, cb) {
         "contents": {
           "bike_type": "Winter",
           "status": 0,
-          "total_price": [],
+          "total_price": 0.0,
           "build_name": [],
           "parts": []
         }
@@ -93,7 +93,7 @@ function sendXHR(verb, resource, body, cb) {
         "contents": {
           "bike_type": "Trail",
           "status": 0,
-          "total_price": [],
+          "total_price": 0.0,
           "build_name": [],
           "parts": []
         }
@@ -104,7 +104,7 @@ function sendXHR(verb, resource, body, cb) {
       "contents": {
         "bike_type": "Mountain",
         "status": 0,
-        "total_price": [],
+        "total_price": 0.0,
         "build_name": [],
         "parts": []
       }
@@ -115,7 +115,7 @@ function sendXHR(verb, resource, body, cb) {
       "contents": {
         "bike_type": "Road",
         "status": 0,
-        "total_price": [],
+        "total_price": 0.0,
         "build_name": [],
         "parts": []
       }

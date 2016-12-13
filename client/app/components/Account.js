@@ -65,7 +65,8 @@ export default class Account extends React.Component {
                 user_name: username,
                 password: newpassword
             });
-            alert("Account is being updated.")
+            this.refresh();
+            alert("Account is being updated.");
             this.refresh();
         }
     }
@@ -73,12 +74,8 @@ export default class Account extends React.Component {
     handleClickEvent(clickEvent) {
         clickEvent.preventDefault();
         this.refresh();
-
     }
-
     render() {
-
-
         return (
             <div className="body-container">
         <div className="col-md-2">
