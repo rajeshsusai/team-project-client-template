@@ -204,7 +204,7 @@ MongoClient.connect(url, function(err, db) {
             },
               { //adding build to buildList of user
                 $push: {
-                  buildList: [body._id]
+                  buildList: body._id
                 }
               }, function(err) {
                 if (err) {
