@@ -288,32 +288,40 @@ MongoClient.connect(url, function(err, db) {
 
   app.put('/builds/:buildId/parts/:partId', function(req, res) {
     var partId = new ObjectID(req.params.partId);
+    var buildId = new ObjectID(req.params.buildId);
     db.collection('parts').findOne({'_id': partId}, function(err, part){
       if(err){
         return sendDatabaseError(res, err);
       }
-      var buildId = new ObjectID(req.params.buildId);
-      db.collection('build').findOne({'_id': buildId}, function(err, build){
+      db.collection('builds').findOne({'_id': buildId}, function(err, build){
         if(err){
           return sendDatabaseError(res, err);
         }
+        console.log(build);
         var partList = build.contents.parts;
-        db.collection('parts').findOne({'_id': {'$in': [partList]}, 'contents.partType': part.contents.partType}, function(err, oldPart){
+        db.collection('parts').findOne({'$and':[{'_id': {'$in': partList}},{'contents.part_type': part.contents.part_type}]}, function(err, oldPart){
           if(err){
             return sendDatabaseError(res, err);
           }
-          db.collection('builds').updateOne({'id':buildId}, {'$pull':{'contents.part': oldPart._id }, '$push': {'contents.parts': part._id}}, function(err){
-            if(err){
-              return sendDatabaseError(res, err);
-            }
-            res.send(build);
-          })
+          if(oldPart === null){
+            db.collection('builds').updateOne({'_id':buildId}, {'$push': {'contents.parts': part._id}}, function(err){
+              if(err){
+                return sendDatabaseError(res, err);
+              }
+              res.send(build);
+            })
+          } else {
+            db.collection('builds').updateOne({'_id':buildId}, {'$pull':{'contents.part': oldPart._id }, '$push': {'contents.parts': part._id}}, function(err){
+              if(err){
+                return sendDatabaseError(res, err);
+              }
+              res.send(build);
+            })
+          }
         })
       })
     })
   });
-
-
 
   app.get('/builds/:buildId/partType/:partTypeId/users/:userId', function(req, res) {
     var buildId = new ObjectID(req.params.buildId);
@@ -326,11 +334,12 @@ MongoClient.connect(url, function(err, db) {
           return sendDatabaseError(res, err);
         }
         var partList = build.contents.parts;
-        db.collection('parts').find({'_id': {'$in': [partList]}, 'contents.partType': partTypeId}).toArray(function(err, part){
-          if(err){
-            return sendDatabaseError(res, err);
+        var cursor = db.collection('parts').findOne({'$and': [{'_id': {'$in': partList}}, {'contents.part_type': partTypeId}]}, function(err, part){
+          if(part === null){
+            res.send("Empty");
+          } else {
+            res.send(part.contents.name);
           }
-          res.send(part.contents);
         })
       })
     }else{
@@ -349,17 +358,20 @@ MongoClient.connect(url, function(err, db) {
           return sendDatabaseError(res, err);
         }
         var partList = build.contents.parts;
-        db.collection('parts').find({'_id': {'$in': [partList]}, 'contents.partType': partTypeId}).toArray(function(err, part){
-          if(err){
-            return sendDatabaseError(res, err);
+        var cursor = db.collection('parts').findOne({'$and': [{'_id': {'$in': partList}}, {'contents.part_type': partTypeId}]}, function(err, part){
+          if(part === null){
+            res.send("N/A");
+          } else {
+            var price = part.contents.price;
+            res.send(price.toString());
           }
-          res.send(part.contents);
         })
       })
     }else{
       res.status(401).end();
     }
   });
+
 
   /**
   * Get the build list data for a particular user.
