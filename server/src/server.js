@@ -7,7 +7,6 @@ var readDocument = require('./database.js').readDocument
 var validate = require('express-jsonschema').validate;
 var writeDocument = require('./database.js').writeDocument;
 var bodyParser = require('body-parser')
-var addDocument = require('./database.js').addDocument;
 var MongoDB = require('mongodb');
 var MongoClient = MongoDB.MongoClient;
 var ObjectID = MongoDB.ObjectID;
@@ -91,34 +90,6 @@ MongoClient.connect(url, function(err, db) {
     }
   }
 
-  //Updating the account information
-  function updateAccount(userId, fName, lName, email, uName, newPassword, callback) {
-    db.collection('users').findOne({
-      _id: userId
-    }, function(err,userData){
-      if(err){
-        return callback(err)
-      }
-    })
-    var userData = readDocument('users', userId);
-    userData.contents.first_name = fName;
-    userData.contents.last_name = lName;
-    userData.contents.email = email;
-    userData.contents.user_name = uName;
-    userData.contents.password = newPassword;
-    writeDocument('users', userData);
-    return userData;
-    //
-    // var info = readDocument('users', userId);
-    // info.first_name = fName;
-    // info.last_name = lName;
-    // info.email = email;
-    // info.user_name = uName;
-    // info.password = newPassword;
-    // writeDocument('users', info);
-    // return info;
-  }
-
   //updateAccount
   app.put('/user/update/:userid', function(req, res) {
     var fromUser = getUserIdFromToken(req.get('Authorization'));
@@ -143,30 +114,6 @@ MongoClient.connect(url, function(err, db) {
       res.status(401).end();
     }
   });
-
-  //updateAccount
-  // app.put('/user/:users', function(req, res) {
-  //   var fromUser = getUserIdFromToken('Autorization');
-  //   var body = req.body;
-  //   var id = req.params.userId;
-  //   if (fromUser === id) {
-  //     var account = updateAccount(id, body.fName, body.lName, body.email, body.uName, body.newPassword);
-  //     res.send(account);
-  //   } else {
-  //     res.status(401).end();
-  //   }
-  // });
-
-  // function changeAccountInfo(userId, newUserName, newFirstName, newLastName, newEmail, newPassword) {
-  //   var info = readDocument('users', userId);
-  //   info.user_name = newUserName;
-  //   info.first_name = newFirstName;
-  //   info.last_name = newLastName;
-  //   info.email = newEmail;
-  //   info.password = newPassword;
-  //   return info;
-  // // emulateServerReturn(userId, cb);
-  // }
 
   function getParts(cb, res) {
     db.collection('parts').find({ _id: { $gte: new ObjectID("000000000000000000000030"), $lte: new ObjectID("000000000000000000000044") } }).toArray(function(err, items) {
