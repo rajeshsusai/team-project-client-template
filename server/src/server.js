@@ -99,15 +99,15 @@ MongoClient.connect(url, function(err, db) {
       if(err){
         return callback(err)
       }
+      userData.contents.first_name = fName;
+      userData.contents.last_name = lName;
+      userData.contents.email = email;
+      userData.contents.user_name = uName;
+      userData.contents.password = newPassword;
+      return userData;
     })
-    var userData = readDocument('users', userId);
-    userData.contents.first_name = fName;
-    userData.contents.last_name = lName;
-    userData.contents.email = email;
-    userData.contents.user_name = uName;
-    userData.contents.password = newPassword;
-    writeDocument('users', userData);
-    return userData;
+    // writeDocument('users', userData);
+    // return userData;
     //
     // var info = readDocument('users', userId);
     // info.first_name = fName;
@@ -128,7 +128,7 @@ MongoClient.connect(url, function(err, db) {
       db.collection('users').updateOne({_id: new ObjectID(id)},
     {
       $set: {first_name:body.first_name, last_name:body.last_name ,
-        email: body.email, user_name:body.user_name, password: body.password }}, function(err,result){
+        email: body.email, user_name:body.user_name, password: body.password }}, function(err){
         if(err){
           return sendDatabaseError(res,err);
         }
@@ -404,24 +404,79 @@ MongoClient.connect(url, function(err, db) {
   });
 
   function writeBuildName(buildId, buildName, buildPrice, callback) {
-    db.collection('builds').findOne({
-      _id: buildId
-    }, function(err,buildData){
+    db.collection('builds').findOne(buildId, function(err,build){
       if(err){
-        return callback(err)
+        throw err;
       }
-    })
-    var buildData = readDocument('builds', buildId);
-    buildData.contents.build_name = buildName;
-    buildData.contents.total_price = buildPrice;
-    writeDocument('builds', buildData);
-    return buildData;
-  }
+      db.collection('builds').insertOne({
+        _id: buildId,
+        build_name: buildName,
+        total_price: buildPrice
+      }, function(err){
+        if(err){
+          throw err
+        }
+      });
+      callback(build);
+    });
+    }
+    // db.collection('builds').insertOne({
+    //   _id: buildId,
+    //   build_name: buildName,
+    //   total_price: buildPrice
+    // }, function(err){
+    //   if(err){
+    //     throw err;
+    //   }
+    // });
+    // var query ={
+    //   "_id": buildId
+    // });
+    // db.insertOne({
+    //   _id: buildId,
+    //   build_name: buildName,
+    //   total_price: buildPrice
+    // }, function(err){
+    //   if(err){
+    //     return sendDatabaseError(res,err)
+    //   }
+    //   callback();
+    // })
+
+    // db.collection('builds').findOne({
+    //   _id: buildId
+    // }, function(err,buildData){
+    //   if(err){
+    //     return sendDatabaseError(res,err)
+    //   }
+    //   db.collection('build_name').insertOne({
+    //     $set:{
+    //       build_name: buildName,
+    //       total_price: buildPrice
+    //     }
+    //   }, function(err){
+    //     if(err){
+    //     return  sendDatabaseError(res,err);
+    //   }
+      // })
+      // buildData.contents.build_name = buildName;
+      // buildData.contents.total_price = buildPrice;
+      // return buildData;
+
+    // buildData.contents.build_name = buildName;
+    // buildData.contents.total_price = buildPrice;
+    // return buildData;
+
 
   app.put('/builds/:buildId/build_name/:build_name', function(req, res) {
     var build_name = req.params.build_name;
-    var buildId = parseInt(req.params.buildId, 10);
-    res.send(writeBuildName(buildId, build_name, req.body.price));
+    var buildId = new ObjectID(req.params.buildId);
+    writeBuildName(buildId, build_name, req.body.price, function(err, build){
+      if(err){
+        return sendDatabaseError(err);
+      }
+      res.send(build);
+    });
   });
 
 
